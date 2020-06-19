@@ -1,0 +1,7 @@
+@import "./functions/functions"; //дополнительные functions
+@import "./mixin/mixin"; //дополнительные mixins
+@import "./variables"; //настройки проэкта
+
+.btn {
+  border-radius: $radius;
+}
