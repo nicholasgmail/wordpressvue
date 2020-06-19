@@ -1,6 +1,6 @@
 <template>
     <div class="v-cart-item">
-        <img :src="require('../../assets/images/m-zaw-5-min.jpg')" alt="" width="50">
+        <img :src="cart_item_data.images[0].src" alt="" width="50">
         <div class="v-cart-item__info">
             <p>{{cart_item_data.slug}}</p>
             <p>{{cart_item_data.id}}</p>
