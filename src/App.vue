@@ -14,20 +14,12 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import vMainWrapper from './components/v-main-wrapper'
-=======
-import vMainWrapper from './components/v-main-wrapper';
->>>>>>> 279a8fd8a62f74c33ffae3735c3fda504e922f51
 
 export default {
   name: "App",
   components: {
-<<<<<<< HEAD
     vMainWrapper
-=======
-    vMainWrapper 
->>>>>>> 279a8fd8a62f74c33ffae3735c3fda504e922f51
   }
 };
 </script>
