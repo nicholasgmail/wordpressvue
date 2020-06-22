@@ -6,12 +6,7 @@
     <h1>Catalog</h1>
     <div class="v-catalog__list">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
-      <v-catalog-item
-        v-for="product in PRODUCTS"
-        :key="product.id"
-        v-bind:product_data="product"
-        @addToCart="addToCart"
-      ></v-catalog-item>
+      <v-catalog-item v-for="product in PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
     </div>
   </div>
 </template>
@@ -31,7 +26,7 @@ export default {
     ...mapGetters(["PRODUCTS", "CART"])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     }
@@ -39,10 +34,9 @@ export default {
   mounted() {
     this.GET_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
-        console.log("Data arrived!");
+        console.log(response);
       }
     });
-    
   }
 };
 </script>

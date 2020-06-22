@@ -1,4 +1,7 @@
 export default {
+    SET_MENU_TO_STATE: (state, menu) => {
+        state.menu = menu;
+    },
     SET_PRODUCTS_TO_STATE: (state, product) => {
         //передаем даные в продукт з мутации
         state.product = product;

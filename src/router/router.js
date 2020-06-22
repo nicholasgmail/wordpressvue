@@ -1,25 +1,28 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import vCatalog from '../components/catalog/v-catalog'
-import vCart from '../components/cart/v-cart'
+import Home from "@/views/home";
+import Shop from "@/views/shop";
 
 Vue.use(VueRouter);
 
-let router = new VueRouter({
-    routes:[
-        {
-            path: '/',
-            name: 'catalog',
-            component: vCatalog,
-        },
-        {
-            path: '/cart',
-            name: 'cart',
-            component: vCart,
-            props: true,
-        }
-    ]
+const routes = [
+  {
+    path: "/",
+    post_name: "home",
+    component: Home,
+  },
+  {
+    path: "/shop",
+    post_name: "shop",
+    component: Shop,
+  },
+];
+
+const router = new VueRouter({
+  mode: "history",
+  base: __dirname /* process.env.BASE_URL, */,
+  routes,
 });
 
 export default router;

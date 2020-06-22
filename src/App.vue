@@ -1,25 +1,26 @@
 <template>
   <div id="app">
-  <div>
-  <b-button>Button</b-button>
-  <b-button variant="danger">Button</b-button>
-  <b-button variant="success">Button</b-button>
-  <b-button variant="outline-primary">Button</b-button>
-</div>
-    <v-main-wrapper></v-main-wrapper>
-    <div class="container" style="padding-top: 16px;">
-      <router-view />
-    </div>
+    <header-menu></header-menu>
+    <!--  <router-link :to="{name:'home'}">home</router-link>|
+    <router-link :to="{name:'shop'}">shop</router-link>-->
+    <router-view />
   </div>
 </template>
 
 <script>
-/*    import vMainWrapper from './components/v-main-wrapper'; */
 
-export default {
+
+export default { 
   name: "App",
   components: {
-    /*  vMainWrapper */
+    /*  elMenu */
+    headerMenu: () => import("@/components/navbar/header-menu")
+  },
+  computed: {
+  },
+  methods:{
+  },
+  mounted(){
   }
 };
 </script>

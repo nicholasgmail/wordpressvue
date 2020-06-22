@@ -19,6 +19,8 @@
     "@babel/polyfill": "^7.7.0",
     "@vue/cli-plugin-babel": "~4.4.4",
     "@vue/cli-plugin-eslint": "~4.4.4",
+    "@vue/cli-plugin-router": "^4.4.4",
+    "@vue/cli-plugin-vuex": "^4.4.4",
     "@vue/cli-service": "~4.4.4",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "axios": "^0.19.2",
@@ -40,7 +42,7 @@
     "vue-template-compiler": "^2.6.11",
     "vuex-localstorage": "^1.0.0"
   },
-  "eslintConfig": {
+ "eslintConfig": {
     "root": true,
     "env": {
       "node": true

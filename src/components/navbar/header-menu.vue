@@ -1,74 +1,67 @@
+
 <template>
-  <div class="el-menu">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-    >
-      <el-menu-item index="1">Processing Center</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">Workspace</template>
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">item four</template>
-          <el-menu-item index="2-4-1">item one</el-menu-item>
-          <el-menu-item index="2-4-2">item two</el-menu-item>
-          <el-menu-item index="2-4-3">item three</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="3" disabled>Info</el-menu-item>
-      <el-menu-item index="4">
-        <a href="https://www.ele.me" target="_blank">Orders</a>
-      </el-menu-item>
-    </el-menu>
-    <div class="line"></div>
-    <el-menu
-      :default-active="activeIndex2"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-    >
-      <el-menu-item index="1">Processing Center</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">Workspace</template>
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">item four</template>
-          <el-menu-item index="2-4-1">item one</el-menu-item>
-          <el-menu-item index="2-4-2">item two</el-menu-item>
-          <el-menu-item index="2-4-3">item three</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="3" disabled>Info</el-menu-item>
-      <el-menu-item index="4">
-        <a href="https://www.ele.me" target="_blank">Orders</a>
-      </el-menu-item>
-    </el-menu>
-  </div>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav v-for="menu in MENU" :key="menu.id">
+        <b-nav-item v-if="menu.menu_item_parent == '0'" :to="menuURLPath(menu.url)">{{menu.title}}</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 <script>
-
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'el-menu',
+  name: "header-menu",
   components: {},
+  props: {},
   data() {
-    return {
-      activeIndex: "1",
-      activeIndex2: "1"
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters(["MENU"])
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    ...mapActions(["GET_MENU_FROM_API"]),
+    menuURLPath(url) {
+      /* eslint-disable */
+      var m = url.match(
+          /^(([^:\/?#]+:)?(?:\/\/((?:([^\/?#:]*):([^\/?#:]*)@)?([^\/?#:]*)(?::([^\/?#:]*))?)))?([^?#]*)(\?[^#]*)?(#.*)?$/
+        ),
+        r = {
+          hash: m[10] || "", // #asd
+          host: m[3] || "", // localhost:257
+          hostname: m[6] || "", // localhost
+          href: m[0] || "", // http://username:password@localhost:257/deploy/?asd=asd#asd
+          origin: m[1] || "", // http://username:password@localhost:257
+          pathname: m[8] || (m[1] ? "/" : ""), // /deploy/
+          port: m[7] || "", // 257
+          protocol: m[2] || "", // http:
+          search: m[9] || "", // ?asd=asd
+          username: m[4] || "", // username
+          password: m[5] || "" // password
+        };
+      /*   if (r.protocol.length == 2) {
+        r.protocol = "file:///" + r.protocol.toUpperCase();
+        r.origin = r.protocol + "//" + r.host;
     }
-  }
+    r.href = r.origin + r.pathname + r.search + r.hash;
+    return m && r; */
+      return r.pathname;
+    }
+  },
+  mounted() {
+    this.GET_MENU_FROM_API().then(response => {
+      if (response.data) {
+      }
+    });
+  },
+  watch: {}
 };
 </script>
+
+<style lang="scss">
+</style>
