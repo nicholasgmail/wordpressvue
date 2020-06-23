@@ -35,4 +35,24 @@ export default {
         return error;
       });
   },
+  GET_CATEGORIES_FROM_API({ commit }) {
+    const WooCommerce = new WooCommerceRestApi({
+      url: "https://rubizhnesocks.pl.ua/", // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+    });
+    return WooCommerce.get("products/categories?include=33,36,39")
+      .then((categories) => {
+        //вызываем мутацию для передачи даных
+        commit("SET_CATEGORIES_TO_STATE", categories.data);
+        console.log(categories.data);
+        return categories;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+
 };

@@ -1,7 +1,10 @@
 
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand href="#">
+      <!-- <svg-icon name="Envelope" width="1rem" height="3rem"/> -->
+      NavBar
+    </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -44,12 +47,6 @@ export default {
           username: m[4] || "", // username
           password: m[5] || "" // password
         };
-      /*   if (r.protocol.length == 2) {
-        r.protocol = "file:///" + r.protocol.toUpperCase();
-        r.origin = r.protocol + "//" + r.host;
-    }
-    r.href = r.origin + r.pathname + r.search + r.hash;
-    return m && r; */
       return r.pathname;
     }
   },

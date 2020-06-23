@@ -1,6 +1,7 @@
 .DS_Store
 Thumbs.db
 node_modules/
+./src/icons/components
 package-lock.json
 yarn.lock
 wordpressvue.7z

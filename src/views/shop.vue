@@ -9,7 +9,7 @@
 export default {
   name: "shop",
   components: {
-    VCatalog: ()=>import ('@/components/shop/v-catalog'),
+    VCatalog: ()=>import ('@/components/catalog/v-catalog'),
   },
   props: {},
   data() {
