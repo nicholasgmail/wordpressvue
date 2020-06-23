@@ -6,6 +6,9 @@ export default {
         //передаем даные в продукт з мутации
         state.product = product;
     },
+    SET_CATEGORIES_TO_STATE: (state, categories) => {
+        state.categories = categories;
+    },
     SET_CART: (state, product) => {
         if (state.cart.length) {
             let isProductExists = false;

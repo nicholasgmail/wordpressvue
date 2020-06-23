@@ -1,29 +1,45 @@
 <template>
   <div class="home">
-    <h1>Hello home</h1>
+
+    <slider></slider>
+
+    <categories :categories_data="CATEGORIES"></categories>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex"
 export default {
   name: "home",
-  components: {},
+  components: {
+    Categories: ()=>import ('@/components/home/categories'),
+    Slider: ()=>import ('@/components/home/slider')
+  },
   props: {},
    data() {
     return {
       title: "Hello home"
     };
   },
-  computed: {},
-  methods: {},
+  computed: {
+        ...mapGetters(["CATEGORIES"]),
+
+  },
+  methods: {
+        ...mapActions(["GET_CATEGORIES_FROM_API"]),
+
+  },
+  mounted() {
+    this.GET_CATEGORIES_FROM_API()
+  },
   watch: {}
 };
 </script>
 
 <style lang="scss">
-.v-home {
-  max-width: 900px;
-  margin: 0 auto;
-}
+  .home {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 </style>
 

@@ -42,7 +42,7 @@
     "vue-template-compiler": "^2.6.11",
     "vuex-localstorage": "^1.0.0"
   },
- "eslintConfig": {
+  "eslintConfig": {
     "root": true,
     "env": {
       "node": true
