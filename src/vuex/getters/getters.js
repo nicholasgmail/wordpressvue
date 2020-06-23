@@ -1,4 +1,3 @@
-import { Menu } from "element-ui";
 
 export default {
     PRODUCTS(state) {
