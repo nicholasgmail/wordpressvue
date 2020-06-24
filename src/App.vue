@@ -2,8 +2,6 @@
   <div id="app">
     
     <header-menu></header-menu>
-    <!--  <router-link :to="{name:'home'}">home</router-link>|
-    <router-link :to="{name:'shop'}">shop</router-link>-->
     <router-view />
   </div>
 </template>
@@ -12,9 +10,8 @@
 export default {
   name: "App",
   components: {
-    /*  elMenu */
     headerMenu: () => import("@/components/navbar/header-menu")
-   /*  eHeaderMenu: () => import("@/components/navbar/e-header-menu") */
+   
   },
   computed: {},
   methods: {},
