@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    
     <header-menu></header-menu>
     <!--  <router-link :to="{name:'home'}">home</router-link>|
     <router-link :to="{name:'shop'}">shop</router-link>-->
@@ -8,30 +9,23 @@
 </template>
 
 <script>
-
-
-export default { 
+export default {
   name: "App",
   components: {
     /*  elMenu */
     headerMenu: () => import("@/components/navbar/header-menu")
+   /*  eHeaderMenu: () => import("@/components/navbar/e-header-menu") */
   },
-  computed: {
-  },
-  methods:{
-  },
-  mounted(){
-  }
+  computed: {},
+  methods: {},
+  mounted() {}
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+ //заголовки
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+      font-family: $font-family-sans;
 }
+
 </style>

@@ -1,33 +1,31 @@
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap");
 
 //bootstrap
 $light: #f9f9f9;
 $secondary: #ebebeb;
-$gray-600: #8C8C8C;
-$yellow: #FDD572;
-$orang: #E1D29C;
-$red: #E97A5A;
-$red2: #B61320;
-$red3: #EB5757;
+$gray-600: #8c8c8c;
+$yellow: #fdd572;
+$orang: #e1d29c;
+$red: #e97a5a;
+$red2: #b61320;
+$red3: #eb5757;
 $blue: #334292;
-$green: #39AE2D;
-
+$green: #39ae2d;
 
 $enable-rounded: false;
 $enable-responsive-font-sizes: true;
 $border-radius: 30px;
 
+$font-family-sans: "Roboto Condensed", sans-serif;
 $font-family-sans-serif: "Roboto", sans-serif;
 
-
 //light gallery
-$backdrop-opacity: .5;
-
+$backdrop-opacity: 0.5;
 
 //формирование базы шрифта
 $size: 16px;
 $line_height: 21px;
-$family: $font-family-sans-serif;
-$weight:400;
-$va:18;
+$weight: 400;
+$va: 18;
 $h1-font-size: 2.25rem;
+
