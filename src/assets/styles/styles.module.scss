@@ -2,6 +2,8 @@
 @import "./mixin/mixin"; //дополнительные mixins
 @import "./variables"; //настройки проэкта
 
+@import "./global"; //глобальные стили
+
 .btn {
   border-radius: $radius;
 }

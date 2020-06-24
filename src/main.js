@@ -12,6 +12,7 @@ import router from "./router/router";
 
 import "@/icons/components";
 
+
 Vue.use(SvgIcon, {
   tagName: "svg-icon",
   defaultWidth: "1em",

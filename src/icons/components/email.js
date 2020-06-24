@@ -1,7 +1,7 @@
 /* eslint-disable */
 var icon = require('vue-svgicon')
 icon.register({
-  'Envelope': {
+  'email': {
     width: 16,
     height: 11,
     viewBox: '0 0 16 11',
