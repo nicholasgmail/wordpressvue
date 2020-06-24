@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home-vue">
 
     <slider></slider>
 
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .home {
+  .home-vue {
     max-width: 1366px;
     margin: 0 auto;
   }
