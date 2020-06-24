@@ -2,7 +2,10 @@
   <div id="app">
     
     <header-menu></header-menu>
-    <router-view />
+    
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
