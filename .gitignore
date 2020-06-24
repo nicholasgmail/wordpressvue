@@ -1,5 +1,6 @@
 .DS_Store
 Thumbs.db
+dist/
 node_modules/
 src/icons/components
 package-lock.json
