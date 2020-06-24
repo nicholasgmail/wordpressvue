@@ -10,7 +10,7 @@ export default {
       consumerSecret: SETTINGS.SECRET, // Your consumer secret
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
     });
-    return WooCommerce.get("products")
+    return WooCommerce.get("products?per_page=20")
       .then((product) => {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCTS_TO_STATE", product.data);

@@ -1,15 +1,15 @@
 <template>
-  <div class="categories py-3">
-      <h1 class="my-3">Категории товаров</h1>
+  <div class="categories container py-3">
+      <h1 class="my-3 text-center">Категории товаров</h1>
       <div class="row">
 
-        <div v-for="category in categories_data" 
+        <div v-for="category in CATEGORIES" 
             :key="category.id" 
-            class="col-4">
-          <div class="card">
+            class="col-12 col-md-4">
+          <div class="card border-0">
             <img :src="category.image.src" class="card-img-top img-fluid" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center">{{category.name}}</h5>
+            <div class="card-body pl-0">
+              <a href="#" class="h5 card-title text-left text-uppercase">{{category.name}}</a>
             </div>
           </div>
         </div>
@@ -19,23 +19,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex"
+
 export default {
     name: "categories",
     components: {  },
-    props: {
-        categories_data: {
-        type: Array,
-        default() {
-            return {};
-        }
-        }
-    },
+    props: {},
   data() {
     return {};
   },
-  computed: { },
-  methods:{},
-  mounted() { }
+  computed: {
+        ...mapGetters(["CATEGORIES"])
+
+  },
+  methods: {
+        ...mapActions(["GET_CATEGORIES_FROM_API"]),
+
+  },
+  mounted() {
+    this.GET_CATEGORIES_FROM_API()
+  },
 }
 </script>
 
@@ -45,6 +48,9 @@ export default {
       img {
         height: 278px;
       }
+    .card-title {
+      color: #f45a40;
+    }
     }
   }
 

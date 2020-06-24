@@ -3,7 +3,7 @@
     <router-link :to="{name: 'cart', params: {cart_data : CART}}">
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
-    <h1>Catalog</h1>
+    <h1 class="text-center">Catalog</h1>
     <div class="v-catalog__list">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item v-for="product in PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>

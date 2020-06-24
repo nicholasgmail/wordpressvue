@@ -3,17 +3,20 @@
 
     <slider></slider>
 
-    <categories :categories_data="CATEGORIES"></categories>
+    <categories></categories>
+
+    <popular-products></popular-products>
+    
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex"
 export default {
   name: "home",
   components: {
     Categories: ()=>import ('@/components/home/categories'),
-    Slider: ()=>import ('@/components/home/slider')
+    Slider: ()=>import ('@/components/home/slider'),
+    PopularProducts: ()=>import ('@/components/catalog/popular-products')
   },
   props: {},
    data() {
@@ -22,15 +25,12 @@ export default {
     };
   },
   computed: {
-        ...mapGetters(["CATEGORIES"]),
 
   },
   methods: {
-        ...mapActions(["GET_CATEGORIES_FROM_API"]),
 
   },
   mounted() {
-    this.GET_CATEGORIES_FROM_API()
   },
   watch: {}
 };
@@ -38,7 +38,7 @@ export default {
 
 <style lang="scss">
   .home {
-    max-width: 900px;
+    max-width: 1366px;
     margin: 0 auto;
   }
 </style>

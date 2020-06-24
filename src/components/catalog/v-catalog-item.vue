@@ -40,6 +40,7 @@
 <style lang="scss">
 
     .v-catalog-item {
+        text-align: center;
         flex-basis: 25%;
         box-shadow: 0 0 8px 0 #e0e0e0;
         padding: $padding * 2;
