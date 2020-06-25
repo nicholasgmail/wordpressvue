@@ -3,6 +3,10 @@
       <h1 class="my-3 text-center">Категории товаров</h1>
       <div class="row">
 
+        <div v-if="show" class="w-100 text-center my-3 text-primary"> 
+          <b-spinner  option="primary" label="Text Centered"> </b-spinner> 
+        </div>
+
         <div v-for="category in CATEGORIES" 
             :key="category.id" 
             class="col-12 col-md-4">
@@ -26,7 +30,9 @@ export default {
     components: {  },
     props: {},
   data() {
-    return {};
+    return {
+      show: true
+    };
   },
   computed: {
         ...mapGetters(["CATEGORIES"])
@@ -37,8 +43,12 @@ export default {
 
   },
   mounted() {
-    this.GET_CATEGORIES_FROM_API()
-  },
+    this.GET_CATEGORIES_FROM_API().then(response => {
+      if (response.data) {
+        this.show = false;
+      }
+    })
+  }
 }
 </script>
 
