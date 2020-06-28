@@ -16,7 +16,8 @@
       first-number
       last-number
     ></b-pagination-nav>
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
+    <p class="mt-3">Текущая страница: {{ currentPage }}</p>
+    <p class="mt-3">Всего страниц: {{ ROWS }}</p>
   </div>
 </template>
 
@@ -35,10 +36,10 @@ export default {
   data() {
     return {
       currentPage: null,
+      page: 1
     };
   },
-  created() {
-  },
+  created() {},
   computed: {
     ...mapGetters(["PRODUCTS", "CART", "ROWS"]),
     ...mapState(["rows"])
