@@ -18,10 +18,13 @@ Vue.use(Vuex);
 //вызываем метод гет и обращемся к api для получения даных
 let store = new Vuex.Store({
   state: {
+    customers: [],
     product: [],
     cart: [],
     menu: [],
-    categories: []
+    categories: [],
+    rows: null,
+    perpage: 8,
   },
   mutations,
   actions,

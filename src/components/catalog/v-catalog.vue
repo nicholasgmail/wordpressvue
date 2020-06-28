@@ -4,37 +4,62 @@
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
     <h1 class="text-center">Catalog</h1>
-    <div class="v-catalog__list">
+    <div class="v-catalog__list" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item v-for="product in PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
     </div>
+    <b-pagination-nav
+      @change="nextPage"
+      :link-gen="linkGen"
+      :number-of-pages="ROWS"
+      use-router
+      first-number
+      last-number
+    ></b-pagination-nav>
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
   </div>
 </template>
 
 <script>
 import VCatalogItem from "./v-catalog-item";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
+/* import SETTINGS from "@/settings";
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api"; */
+import paginationMixin from "@/mixins/pagination.mixins";
 
 export default {
   name: "v-catalog",
+  mixins: [paginationMixin],
   components: { VCatalogItem },
   props: {},
   data() {
-    return {};
+    return {
+      currentPage: null,
+    };
+  },
+  created() {
   },
   computed: {
-    ...mapGetters(["PRODUCTS", "CART"])
+    ...mapGetters(["PRODUCTS", "CART", "ROWS"]),
+    ...mapState(["rows"])
   },
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
+    },
+    nextPage() {
+      this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
+        if (response.data) {
+          this.currentPage = this.$route.query.page;
+        }
+      });
     }
   },
-  mounted() {
-    this.GET_PRODUCTS_FROM_API().then(response => {
+  async mounted() {
+    this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
-        console.log(response);
+        this.currentPage = 1;
       }
     });
   }

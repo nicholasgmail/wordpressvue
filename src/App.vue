@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    
-    <header-menu></header-menu>
-    
+    <header-top></header-top>
+    <navbar-menu></navbar-menu>    
     <keep-alive>
       <router-view />
     </keep-alive>
@@ -13,8 +12,8 @@
 export default {
   name: "App",
   components: {
-    headerMenu: () => import("@/components/navbar/header-menu")
-   
+    headerTop: () => import("@/components/header/header-top"),
+    navbarMenu: () => import("@/components/navbar/navbar-menu")
   },
   computed: {},
   methods: {},
@@ -23,9 +22,19 @@ export default {
 </script>
 
 <style lang="scss">
- //заголовки
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
-      font-family: $font-family-sans;
+//заголовки
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: $font-family-sans;
 }
-
 </style>
