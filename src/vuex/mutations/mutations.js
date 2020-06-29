@@ -5,6 +5,9 @@ export default {
   SET_CUSTOMERS_TO_STATE: (state, customers) => {
     state.customers = customers;
   },
+  SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
+    state.vModelValue = value;
+  },
   SET_PRODUCTS_TO_STATE: (state, product) => {
     //передаем даные в продукт з мутации
     state.product = product;

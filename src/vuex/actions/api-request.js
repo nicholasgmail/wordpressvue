@@ -11,6 +11,7 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
     });
     return WooCommerce.get("products", {
+      search: state.vModelValue,
       per_page: state.perpage,
       page: rows,
     })

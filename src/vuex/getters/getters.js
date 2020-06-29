@@ -1,4 +1,7 @@
 export default {
+  SEARCH_VALUE(state) {
+    return state.vModelValue;
+  },
   PRODUCTS(state) {
     return state.product;
   },
@@ -16,5 +19,5 @@ export default {
   },
   ROWS(state) {
     return state.rows;
-  }
+  },
 };

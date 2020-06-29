@@ -3,7 +3,7 @@
     <router-link :to="{name: 'cart', params: {cart_data : CART}}">
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
-    <h1 class="text-center">Catalog</h1>
+    <h1 class="text-center text-white">Catalog</h1>
     <div class="v-catalog__list" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item v-for="product in PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
@@ -41,7 +41,7 @@ export default {
   },
   created() {},
   computed: {
-    ...mapGetters(["PRODUCTS", "CART", "ROWS"]),
+    ...mapGetters(["SEARCH_VALUE", "PRODUCTS", "CART", "ROWS"]),
     ...mapState(["rows"])
   },
   methods: {
@@ -55,7 +55,7 @@ export default {
           this.currentPage = this.$route.query.page;
         }
       });
-    }
+    },
   },
   async mounted() {
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {

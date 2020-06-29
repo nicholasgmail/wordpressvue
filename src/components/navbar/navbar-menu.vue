@@ -9,6 +9,16 @@
         <b-navbar-nav v-for="menu in MENU" :key="menu.id">
           <b-nav-item v-if="menu.menu_item_parent == '0'" :to="menuURLPath(menu.url)">{{menu.title}}</b-nav-item>
         </b-navbar-nav>
+        
+        <b-navbar-nav class="ml-auto">
+          <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" v-model="vModelValue" placeholder="Search"></b-form-input>
+            <b-button size="sm" class="search_btn my-2 my-sm-0" @click="search(vModelValue)">
+              <svg-icon name="search"></svg-icon>
+            </b-button>
+          </b-nav-form>
+        </b-navbar-nav>
+
       </b-collapse>
     </b-navbar>
   </b-container>
@@ -21,13 +31,15 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      vModelValue: ''
+    };
   },
   computed: {
-    ...mapGetters(["MENU"])
+    ...mapGetters(["MENU", "SEARCH_VALUE"])
   },
   methods: {
-    ...mapActions(["GET_MENU_FROM_API"]),
+    ...mapActions(["GET_MENU_FROM_API", "GET_PRODUCTS_FROM_API", "GET_SEARCH_VALUE_TO_VUEX"]),
     menuURLPath(url) {
       /* eslint-disable */
       var m = url.match(
@@ -47,6 +59,13 @@ export default {
           password: m[5] || "" // password
         };
       return r.pathname;
+    },
+    search(value) {
+      this.GET_SEARCH_VALUE_TO_VUEX(value);
+      if (this.$route.path != "/shop/") {
+        this.$router.push('/shop');
+      }
+      this.GET_PRODUCTS_FROM_API();
     }
   },
   mounted() {
@@ -60,4 +79,12 @@ export default {
 </script>
 
 <style lang="scss">
+.search_btn {
+  :hover {
+      fill: white;
+  }
+  svg {
+    fill: #7E7F84;
+  }
+}
 </style>
