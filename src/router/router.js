@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Home from "@/views/home";
 import Shop from "@/views/shop";
+import NoPage from "@/views/no-page";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,16 @@ const routes = [
     post_name: "shop",
     component: Shop,
   },
+  {
+    path: "/404",
+    post_name: "404",
+    component: NoPage,
+  },
+  { 
+    path: '*', 
+    redirect: '/404'
+  }
+
 ];
 
 const router = new VueRouter({

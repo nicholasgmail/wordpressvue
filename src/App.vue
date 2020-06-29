@@ -13,7 +13,7 @@ export default {
   name: "App",
   components: {
     headerTop: () => import("@/components/header/header-top"),
-    navbarMenu: () => import("@/components/navbar/navbar-menu")
+    navbarMenu: () => import("@/components/navbar/navbar-menu"),
   },
   computed: {},
   methods: {},

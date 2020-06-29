@@ -1,5 +1,5 @@
 <template>
-  <div class="categories container py-3">
+  <div class="categories container-lg py-3">
       <h1 class="my-3 text-center">Категории товаров</h1>
       <div class="row">
 
