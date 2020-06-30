@@ -11,8 +11,8 @@
         </b-navbar-nav>
         
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" v-model="vModelValue" placeholder="Search"></b-form-input>
+          <b-nav-form v-on:submit.prevent="search(vModelValue)">
+            <b-form-input size="sm" class="mr-sm-2" v-model="vModelValue" @change="search(vModelValue)" placeholder="Search"></b-form-input>
             <b-button size="sm" class="search_btn my-2 my-sm-0" @click="search(vModelValue)">
               <svg-icon name="search"></svg-icon>
             </b-button>
@@ -29,7 +29,8 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "header-menu",
   components: {},
-  props: {},
+  props: {
+  },
   data() {
     return {
       vModelValue: ''
