@@ -5,6 +5,12 @@ export default {
   PRODUCTS(state) {
     return state.product;
   },
+  POP_PRODUCTS(state) {
+    return state.popProduct;
+  },
+  NEW_PRODUCTS(state) {
+    return state.newProduct;
+  },
   CATEGORIES(state) {
     return state.categories;
   },

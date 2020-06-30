@@ -1,13 +1,13 @@
 <template>
-  <div class="popular-products container py-3">
-      <h1 class="text-center">Популярные товары</h1>
+  <div class="new-products container py-3">
+      <h1 class="text-center">Новые товары</h1>
       <div class="row">
         
       <div v-if="show" class="w-100 text-center my-3 text-primary"> 
         <b-spinner  option="primary" label="Text Centered"> </b-spinner> 
       </div>
 
-        <v-catalog-item v-for="product in POP_PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
+        <v-catalog-item v-for="product in NEW_PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
       </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ import { BSpinner } from 'bootstrap-vue'
 import { mapActions, mapGetters } from "vuex"
 
 export default {
-    name: "popular-products",
+    name: "new-products",
     components: { 
       VCatalogItem: ()=>import ('@/components/catalog/v-catalog-item'),
       BSpinner 
@@ -30,17 +30,17 @@ export default {
     };
   },
   computed: { 
-    ...mapGetters(["POP_PRODUCTS", "CART"])
+    ...mapGetters(["NEW_PRODUCTS", "CART"])
   },
   methods:{
-    ...mapActions(["GET_POP_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_NEW_PRODUCTS_FROM_API"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     }
 
   },
   mounted() { 
-    this.GET_POP_PRODUCTS_FROM_API().then(response => {
+    this.GET_NEW_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
         this.show = false;
 /*               let vm = this;

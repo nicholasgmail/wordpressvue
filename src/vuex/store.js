@@ -25,7 +25,9 @@ let store = new Vuex.Store({
     categories: [],
     rows: null,
     perpage: 8,
-    vModelValue: ''
+    vModelValue: '',
+    popProduct: [],
+    newProduct: []
   },
   mutations,
   actions,

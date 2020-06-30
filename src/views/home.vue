@@ -6,6 +6,8 @@
     <categories></categories>
 
     <popular-products></popular-products>
+
+    <new-products></new-products>
     
   </div>
 </template>
@@ -16,7 +18,9 @@ export default {
   components: {
     Categories: ()=>import ('@/components/home/categories'),
     Slider: ()=>import ('@/components/home/slider'),
-    PopularProducts: ()=>import ('@/components/catalog/popular-products')
+    PopularProducts: ()=>import ('@/components/catalog/popular-products'),
+    NewProducts: ()=>import ('@/components/catalog/new-products')
+
   },
   props: {},
    data() {

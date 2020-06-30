@@ -12,6 +12,14 @@ export default {
     //передаем даные в продукт з мутации
     state.product = product;
   },
+  SET_POP_PRODUCTS_TO_STATE: (state, product) => {
+    //передаем даные в продукт з мутации
+    state.popProduct = product;
+  },
+  SET_NEW_PRODUCTS_TO_STATE: (state, product) => {
+    //передаем даные в продукт з мутации
+    state.newProduct = product;
+  },
   SET_CATEGORIES_TO_STATE: (state, categories) => {
     state.categories = categories;
   },

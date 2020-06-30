@@ -57,6 +57,59 @@ export default {
         return error;
       });
   },
+  GET_POP_PRODUCTS_FROM_API({ commit }) {
+    let $random = Math.floor(Math.random() * 2) + 1;
+    const WooCommerce = new WooCommerceRestApi({
+      url: SETTINGS.URL, // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+    });
+    return WooCommerce.get("products", {
+      featured: true,
+      per_page: 4,
+      page: $random,
+    })
+      .then((response) => {
+        //вызываем мутацию для передачи даных
+        commit("SET_POP_PRODUCTS_TO_STATE", response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+  GET_NEW_PRODUCTS_FROM_API({ commit }) {
+    var $date = new Date;
+        $date.setMonth(1);
+        //$date.setDate(-1);
+    var $date_back = $date.toISOString()
+        $date_back = $date_back.slice(0, -5);
+    console.log($date_back);
+
+    const WooCommerce = new WooCommerceRestApi({
+      url: SETTINGS.URL, // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+    });
+    return WooCommerce.get("products", {
+      before: $date_back,
+      per_page: 4,
+      page: 1,
+    })
+      .then((response) => {
+        //вызываем мутацию для передачи даных
+        commit("SET_NEW_PRODUCTS_TO_STATE", response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+
   GET_CATEGORIES_FROM_API({ commit }) {
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
