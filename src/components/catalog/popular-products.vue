@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       show: true,
-      popProducts: []
+      popProducts: [],
+      //vModelValue: ''
     };
   },
   computed: { 

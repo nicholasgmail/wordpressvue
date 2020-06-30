@@ -1,7 +1,7 @@
 <template>
     <div class="v-catalog-item">
         <img v-if="product_data.images[0].src" :src="product_data.images[0].src" alt="img" width="150">
-        <img v-else src="" alt="img" width="150">
+        <img v-else src="@/icons/no_image.jpg" alt="img" width="150">
         <p class="v-catalog-item__name" v-html="product_data.name"></p>
         <p class="v-catalog-item__price">{{product_data.price}}</p>
         <!--собитие клика вызывает метод sendDataToParent-->
