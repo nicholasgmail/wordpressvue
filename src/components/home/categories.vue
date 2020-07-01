@@ -9,11 +9,12 @@
 
         <div v-for="category in CATEGORIES" 
             :key="category.id" 
-            class="col-12 col-md-4">
+            class="card-body col-12 col-md-4"
+             @click="toProducts(category.id)">
           <div class="card border-0">
             <img :src="category.image.src" class="card-img-top img-fluid" alt="...">
             <div class="card-body pl-0">
-              <a href="#" class="h5 card-title text-left text-uppercase">{{category.name}}</a>
+              <div class="h5 card-title text-left text-uppercase">{{category.name}}</div>
             </div>
           </div>
         </div>
@@ -39,7 +40,13 @@ export default {
 
   },
   methods: {
-        ...mapActions(["GET_CATEGORIES_FROM_API"]),
+        ...mapActions(["GET_CATEGORIES_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", "GET_PRODUCTS_FROM_API"]),
+
+        toProducts(value) {
+          this.GET_ID_CATEGORIES_TO_VUEX(value)
+          this.$router.push('/shop');
+          this.GET_PRODUCTS_FROM_API();
+        }
 
   },
   mounted() {
@@ -54,13 +61,16 @@ export default {
 
 <style lang="scss">
   .categories {
-    .card {
-      img {
-        height: 278px;
+    .card-body {
+      cursor: pointer;
+      .card {
+        img {
+          height: 278px;
+        }
+        .card-title {
+          color: #f45a40;
+        }
       }
-    .card-title {
-      color: #f45a40;
-    }
     }
   }
 

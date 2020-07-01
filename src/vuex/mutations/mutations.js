@@ -8,6 +8,9 @@ export default {
   SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
     state.vModelValue = value;
   },
+  SET_ID_CATEGORIES_TO_VUEX: (state, value) => {
+    state.ctegoryId = value;
+  },
   SET_PRODUCTS_TO_STATE: (state, product) => {
     //передаем даные в продукт з мутации
     state.product = product;

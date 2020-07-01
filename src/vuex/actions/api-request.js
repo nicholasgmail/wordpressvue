@@ -11,6 +11,7 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
     });
     return WooCommerce.get("products", {
+      category: state.ctegoryId,
       search: state.vModelValue,
       per_page: state.perpage,
       page: rows,
@@ -86,7 +87,7 @@ export default {
         //$date.setDate(-1);
     var $date_back = $date.toISOString()
         $date_back = $date_back.slice(0, -5);
-    console.log($date_back);
+    //console.log($date_back);
 
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
@@ -109,7 +110,6 @@ export default {
         return error;
       });
   },
-
   GET_CATEGORIES_FROM_API({ commit }) {
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
