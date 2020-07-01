@@ -19,6 +19,8 @@ export default {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCTS_TO_STATE", response.data);
         state.rows = response.headers["x-wp-totalpages"];
+        
+        console.dir(response.data);
         return response;
       })
       .catch((error) => {
@@ -63,7 +65,6 @@ export default {
     return WooCommerce.get("customers/1")
       .then((customers) => {
         commit("SET_CUSTOMERS_TO_STATE", customers.data);
-        console.log(customers.data);
         return customers;
       })
       .catch((error) => {

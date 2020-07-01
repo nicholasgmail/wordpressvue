@@ -10,8 +10,8 @@
             v-for="(menu, index) in MENU"
             :key="index"
             :to="menuURLPath(menu.url)"
-            class="pr-3"
-            link-classes="text-uppercase position-relative px-0"
+            class="pr-2 mr-2"
+            link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -64,16 +64,18 @@ export default {
 <style lang="scss">
 header {
   .navbar-nav {
-    .nav-link {
-      color: $gray-600;
-      &:hover {
-        color: $red;
-        &::before {
-          content: "";
-          border-bottom: 3px solid $red;
-          width: 100%;
-          position: absolute;
-          top: 95%;
+    .nav {
+      &-link {
+        color: $gray-600;
+        &:hover {
+          color: $red;
+          &::before {
+            content: "";
+            border-bottom: 3px solid $red;
+            width: 100%;
+            position: absolute;
+            top: 95%;
+          }
         }
       }
     }

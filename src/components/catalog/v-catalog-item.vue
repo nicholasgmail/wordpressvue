@@ -1,51 +1,49 @@
 <template>
-    <div class="v-catalog-item">
-        <img v-if="product_data.images[0].src" :src="product_data.images[0].src" alt="img" width="150">
-        <img v-else src="" alt="img" width="150">
-        <p class="v-catalog-item__name" v-html="product_data.name"></p>
-        <p class="v-catalog-item__price">{{product_data.price}}</p>
-        <!--собитие клика вызывает метод sendDataToParent-->
-        <button class="btn v-catalog-item__add_to_cart_btn"
-                
-        >Add to cart
-        </button>
-    </div>
+  <b-col class="v-catalog-item px-3 mb-2">
+    <b-card
+      :img-src="product_data.images[0].src"
+      img-alt="Image"
+      img-top
+      tag="article"
+      style="max-width: 20rem;"
+      class="h-100"
+    >
+      <div class="d-flex flex-column justify-content-between h-100">
+        <b-card-title>{{product_data.categories[1].name}}</b-card-title>
+        <b-card-sub-title class="mb-2">{{product_data.sku}}</b-card-sub-title>
+        <b-card-text class="text-muted">{{product_data.name}}</b-card-text>
+        <b-card-text class="text-danger font-weight-bold">{{product_data.price}} грн.</b-card-text>
+
+        <b-button block variant="outline-primary" @click="addToCart" >Купить</b-button>
+      </div>
+    </b-card>
+  </b-col>
 </template>
 
 <script>
-
-    export default {
-        name: "v-catalog-item",
-        //c помощю props получаем даные и родителя
-        props: {
-            product_data: {
-                type: Object,
-                default() {
-                    return {}
-                }
-            }
-        },
-        data() {
-            return {}
-        },
-        computed: {},
-        methods: {
-          /*   addToCart(){
-                this.$emit('addToCart', this.product_data)
-            } */
-        },
-
+export default {
+  name: "v-catalog-item",
+  //c помощю props получаем даные и родителя
+  props: {
+    product_data: {
+      type: Object,
+      default() {
+        return {};
+      }
     }
+  },
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {
+      addToCart(){
+                this.$emit('addToCart', this.product_data)
+                console.log(this.product_data)
+            }
+  }
+};
 </script>
 
 <style lang="scss">
-
-    .v-catalog-item {
-        text-align: center;
-        flex-basis: 25%;
-        box-shadow: 0 0 8px 0 #e0e0e0;
-        padding: $padding * 2;
-        margin-bottom: $margin * 2;
-    }
-
 </style>

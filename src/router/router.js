@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Home from "@/views/home";
 import Shop from "@/views/shop";
+import Cart from "@/views/cart";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,12 @@ const routes = [
     post_name: "shop",
     component: Shop,
   },
+  {
+      path: '/cart',
+      name: 'cart',
+      component: Cart,
+      props: true,
+  }
 ];
 
 const router = new VueRouter({

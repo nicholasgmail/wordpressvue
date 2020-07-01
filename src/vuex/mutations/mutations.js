@@ -30,6 +30,7 @@ export default {
       });
       if (!isProductExists) {
         state.cart.push(product);
+        console.log(product);
       }
     } else {
       state.cart.push(product);

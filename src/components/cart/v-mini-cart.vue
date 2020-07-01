@@ -4,7 +4,7 @@
       <b-col md="9">
         <b-btn-close class="mr-2" />
         <h6 class="mb-0 font-weight-bold p-2">
-          <span class="count">1</span>x19 грн.
+          <span class="count">{{CART.length}}</span>x19 грн.
         </h6>
         <b-card-text class="font-size-14">
           Носки мужские Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
@@ -27,7 +27,9 @@
       </b-col>
       <b-col>
         <div class="d-flex flex-column justify-content-center">
-          <b-button squared variant="outline-info mt-2">Просмотреть корзину</b-button>
+          <router-link class="btn btn-outline-info mt-2" :to="{name: 'cart', params: {cart_data : CART}}">
+            Просмотреть корзину
+          </router-link>
           <b-button squared variant="success mt-2">Оформить заказ</b-button>
         </div>
       </b-col>
@@ -35,10 +37,20 @@
   </b-card>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "v-mini-cart",
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters(["CART"])
+  },
+  methods: {
+    ...mapActions(["GET_PRODUCTS_FROM_API"]),
+    addToCart(data) {
+      this.ADD_TO_CART(data);
+    }
   }
 };
 </script>
