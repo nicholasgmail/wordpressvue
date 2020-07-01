@@ -1,28 +1,34 @@
 
 <template>
-  <b-container fluid="lg">
-    <b-navbar toggleable="lg" type="dark" variant="info">    
-
+  <b-container fluid="lg" tag="header" class="border-top border-bottom">
+    <b-navbar toggleable="lg" type="white" variant="white" class="px-0 pb-0">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav v-for="menu in MENU" :key="menu.id">
-          <b-nav-item v-if="menu.menu_item_parent == '0'" 
-                      :to="menuURLPath(menu.url)"
-                      @click="delete_ctegoryId('')"
-          >{{menu.title}}
-          </b-nav-item>
+        <b-navbar-nav>
+          <b-nav-item
+            v-for="(menu, index) in MENU"
+            :key="index"
+            :to="menuURLPath(menu.url)"
+            class="pr-2 mr-2"
+            link-classes="text-uppercase position-relative px-0 font-size-14"
+          >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
-        
+
         <b-navbar-nav class="ml-auto">
           <b-nav-form v-on:submit.prevent="search(vModelValue)">
-            <b-form-input size="sm" class="mr-sm-2" v-model="vModelValue" @change="search(vModelValue)" placeholder="Search"></b-form-input>
+            <b-form-input
+              size="sm"
+              class="mr-sm-2"
+              v-model="vModelValue"
+              @change="search(vModelValue)"
+              placeholder="Search"
+            ></b-form-input>
             <b-button size="sm" class="search_btn my-2 my-sm-0" @click="search(vModelValue)">
               <svg-icon name="search"></svg-icon>
             </b-button>
           </b-nav-form>
         </b-navbar-nav>
-
       </b-collapse>
     </b-navbar>
   </b-container>
@@ -33,18 +39,22 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "header-menu",
   components: {},
-  props: {
-  },
+  props: {},
   data() {
     return {
-      vModelValue: ''
+      vModelValue: ""
     };
   },
   computed: {
     ...mapGetters(["MENU", "SEARCH_VALUE", "CATEGORY_ID"])
   },
   methods: {
-    ...mapActions(["GET_MENU_FROM_API", "GET_PRODUCTS_FROM_API", "GET_SEARCH_VALUE_TO_VUEX", "GET_ID_CATEGORIES_TO_VUEX"]),
+    ...mapActions([
+      "GET_MENU_FROM_API",
+      "GET_PRODUCTS_FROM_API",
+      "GET_SEARCH_VALUE_TO_VUEX",
+      "GET_ID_CATEGORIES_TO_VUEX"
+    ]),
     menuURLPath(url) {
       /* eslint-disable */
       var m = url.match(
@@ -70,7 +80,7 @@ export default {
       if (this.$route.path === "/shop" || this.$route.path === "/shop/") {
         this.GET_PRODUCTS_FROM_API();
       } else {
-        this.$router.push('/shop');
+        this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
       }
     },
@@ -80,10 +90,7 @@ export default {
     }
   },
   mounted() {
-    this.GET_MENU_FROM_API().then(response => {
-      if (response.data) {
-      }
-    });
+    this.GET_MENU_FROM_API().then(response => {});
   },
   watch: {}
 };
@@ -92,10 +99,39 @@ export default {
 <style lang="scss">
 .search_btn {
   :hover {
-      fill: white;
+    fill: white;
   }
   svg {
-    fill: #7E7F84;
+    fill: #7e7f84;
+  }
+}
+header {
+  .navbar-nav {
+    .nav {
+      &-link {
+        color: $gray-600;
+        &:hover {
+          color: $red;
+          &::before {
+            content: "";
+            border-bottom: 3px solid $red;
+            width: 100%;
+            position: absolute;
+            top: 95%;
+          }
+        }
+      }
+    }
+    .router-link-exact-active {
+      color: $red;
+      &::before {
+        content: "";
+        border-bottom: 3px solid $red;
+        width: 100%;
+        position: absolute;
+        top: 95%;
+      }
+    }
   }
 }
 </style>

@@ -1,13 +1,15 @@
 <template>
-  <div class="v-catalog">
-    <router-link :to="{name: 'cart', params: {cart_data : CART}}">
-      <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
-    </router-link>
-    <h1 class="text-center text-white">Catalog</h1>
-    <div class="v-catalog__list" id="my-table">
+  <b-container fluid="lg" class="v-catalog">
+    <h1 class="text-center">Catalog</h1>
+    <b-row cols="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
-      <v-catalog-item v-for="product in PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
-    </div>
+      <v-catalog-item
+        v-for="product in PRODUCTS"
+        :key="product.id"
+        v-bind:product_data="product"
+        @addToCart="addToCart"
+      ></v-catalog-item>
+    </b-row>
     <b-pagination-nav
       @change="nextPage"
       :link-gen="linkGen"
@@ -18,14 +20,12 @@
     ></b-pagination-nav>
     <p class="mt-3">Текущая страница: {{ currentPage }}</p>
     <p class="mt-3">Всего страниц: {{ ROWS }}</p>
-  </div>
+  </b-container>
 </template>
 
 <script>
 import VCatalogItem from "./v-catalog-item";
 import { mapActions, mapGetters, mapState } from "vuex";
-/* import SETTINGS from "@/settings";
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api"; */
 import paginationMixin from "@/mixins/pagination.mixins";
 
 export default {
@@ -45,7 +45,7 @@ export default {
     ...mapState(["rows"])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     },
@@ -58,7 +58,7 @@ export default {
     },
   },
   async mounted() {
-    this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
+    this.GET_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
         this.currentPage = 1;
       }

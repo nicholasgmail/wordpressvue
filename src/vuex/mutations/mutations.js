@@ -1,9 +1,16 @@
 export default {
   SET_MENU_TO_STATE: (state, menu) => {
-    state.menu = menu;
+    menu.map((menu) => {
+      if (menu.menu_item_parent == "0") {
+        state.menu.push(menu);
+      }
+    });
+  },
+  SET_INFO_TO_STATE: (state, info) => {
+    state.info = info;
   },
   SET_CUSTOMERS_TO_STATE: (state, customers) => {
-    state.customers = customers;
+    state.customers = customers.phone;
   },
   SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
     state.vModelValue = value;
@@ -37,6 +44,7 @@ export default {
       });
       if (!isProductExists) {
         state.cart.push(product);
+        console.log(product);
       }
     } else {
       state.cart.push(product);

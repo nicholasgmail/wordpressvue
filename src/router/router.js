@@ -5,6 +5,7 @@ import Home from "@/views/home";
 import Shop from "@/views/shop";
 import AboutUs from "@/views/about-us";
 import NoPage from "@/views/no-page";
+import Cart from "@/views/cart";
 
 Vue.use(VueRouter);
 
@@ -32,8 +33,13 @@ const routes = [
   { 
     path: '*', 
     redirect: '/404'
+  },
+  {
+      path: '/cart',
+      name: 'cart',
+      component: Cart,
+      props: true,
   }
-
 ];
 
 const router = new VueRouter({

@@ -20,6 +20,7 @@ let store = new Vuex.Store({
   state: {
     customers: [],
     product: [],
+    phone: null,
     cart: [],
     menu: [],
     categories: [],
@@ -28,7 +29,8 @@ let store = new Vuex.Store({
     perpage: 8,
     vModelValue: '',
     popProduct: [],
-    newProduct: []
+    newProduct: [],
+    info: [],
   },
   mutations,
   actions,

@@ -10,6 +10,7 @@ export default {
       consumerKey: SETTINGS.KEY, // Your consumer key
       consumerSecret: SETTINGS.SECRET, // Your consumer secret
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
     });
     return WooCommerce.get("products", {
       category: state.ctegoryId,
@@ -21,6 +22,8 @@ export default {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCTS_TO_STATE", response.data);
         state.rows = response.headers["x-wp-totalpages"];
+        
+        console.dir(response.data);
         return response;
       })
       .catch((error) => {
@@ -41,17 +44,30 @@ export default {
         return error;
       });
   },
+  GET_INFO_FROM_API({ commit }) {
+    return axios(SETTINGS.URL + "wp-json", {
+      method: "GET",
+    })
+      .then((info) => {
+        commit("SET_INFO_TO_STATE", info);
+        return info;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
   GET_CUSTOMERS_FROM_API({ commit }) {
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
       consumerKey: SETTINGS.KEY, // Your consumer key
       consumerSecret: SETTINGS.SECRET, // Your consumer secret
       version: SETTINGS.VERSION_2, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
     });
     return WooCommerce.get("customers/1")
       .then((customers) => {
         commit("SET_CUSTOMERS_TO_STATE", customers.data);
-        console.log(customers.data);
         return customers;
       })
       .catch((error) => {
@@ -117,6 +133,7 @@ export default {
       consumerKey: SETTINGS.KEY, // Your consumer key
       consumerSecret: SETTINGS.SECRET, // Your consumer secret
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
     });
     return WooCommerce.get("products/categories?include=33,36,39")
       .then((categories) => {
