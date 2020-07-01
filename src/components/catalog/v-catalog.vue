@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       currentPage: null,
-      page: 1
+      //page: 1
     };
   },
   created() {},

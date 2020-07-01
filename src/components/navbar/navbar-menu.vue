@@ -7,7 +7,11 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav v-for="menu in MENU" :key="menu.id">
-          <b-nav-item v-if="menu.menu_item_parent == '0'" :to="menuURLPath(menu.url)">{{menu.title}}</b-nav-item>
+          <b-nav-item v-if="menu.menu_item_parent == '0'" 
+                      :to="menuURLPath(menu.url)"
+                      @click="delete_ctegoryId('')"
+          >{{menu.title}}
+          </b-nav-item>
         </b-navbar-nav>
         
         <b-navbar-nav class="ml-auto">
@@ -37,10 +41,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["MENU", "SEARCH_VALUE"])
+    ...mapGetters(["MENU", "SEARCH_VALUE", "CATEGORY_ID"])
   },
   methods: {
-    ...mapActions(["GET_MENU_FROM_API", "GET_PRODUCTS_FROM_API", "GET_SEARCH_VALUE_TO_VUEX"]),
+    ...mapActions(["GET_MENU_FROM_API", "GET_PRODUCTS_FROM_API", "GET_SEARCH_VALUE_TO_VUEX", "GET_ID_CATEGORIES_TO_VUEX"]),
     menuURLPath(url) {
       /* eslint-disable */
       var m = url.match(
@@ -69,6 +73,10 @@ export default {
         this.$router.push('/shop');
         this.GET_PRODUCTS_FROM_API();
       }
+    },
+    delete_ctegoryId(value) {
+      this.GET_ID_CATEGORIES_TO_VUEX(value);
+      this.GET_PRODUCTS_FROM_API();
     }
   },
   mounted() {

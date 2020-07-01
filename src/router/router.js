@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Home from "@/views/home";
 import Shop from "@/views/shop";
+import AboutUs from "@/views/about-us";
 import NoPage from "@/views/no-page";
 
 Vue.use(VueRouter);
@@ -17,6 +18,11 @@ const routes = [
     path: "/shop",
     post_name: "shop",
     component: Shop,
+  },
+  {
+    path: "/blog",
+    post_name: "about-us",
+    component: AboutUs,
   },
   {
     path: "/404",

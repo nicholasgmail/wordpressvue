@@ -14,6 +14,9 @@ export default {
   CATEGORIES(state) {
     return state.categories;
   },
+  CATEGORY_ID(state) {
+    return state.ctegoryId
+  },
   CART(state) {
     return state.cart;
   },
