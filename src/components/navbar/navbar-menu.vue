@@ -1,13 +1,18 @@
 
 <template>
-  <b-container fluid="lg">
-    <b-navbar toggleable="lg" type="dark" variant="info">    
-
+  <b-container fluid="lg" tag="header" class="border-top border-bottom">
+    <b-navbar toggleable="lg" type="white" variant="white" class="px-0 pb-0">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav v-for="menu in MENU" :key="menu.id">
-          <b-nav-item v-if="menu.menu_item_parent == '0'" :to="menuURLPath(menu.url)">{{menu.title}}</b-nav-item>
+        <b-navbar-nav>
+          <b-nav-item
+            v-for="(menu, index) in MENU"
+            :key="index"
+            :to="menuURLPath(menu.url)"
+            class="pr-3"
+            link-classes="text-uppercase position-relative px-0"
+          >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -50,14 +55,38 @@ export default {
     }
   },
   mounted() {
-    this.GET_MENU_FROM_API().then(response => {
-      if (response.data) {
-      }
-    });
+    this.GET_MENU_FROM_API().then(response => {});
   },
   watch: {}
 };
 </script>
 
 <style lang="scss">
+header {
+  .navbar-nav {
+    .nav-link {
+      color: $gray-600;
+      &:hover {
+        color: $red;
+        &::before {
+          content: "";
+          border-bottom: 3px solid $red;
+          width: 100%;
+          position: absolute;
+          top: 95%;
+        }
+      }
+    }
+    .router-link-exact-active {
+      color: $red;
+      &::before {
+        content: "";
+        border-bottom: 3px solid $red;
+        width: 100%;
+        position: absolute;
+        top: 95%;
+      }
+    }
+  }
+}
 </style>

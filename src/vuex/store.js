@@ -20,11 +20,13 @@ let store = new Vuex.Store({
   state: {
     customers: [],
     product: [],
+    phone: null,
     cart: [],
     menu: [],
     categories: [],
     rows: null,
     perpage: 8,
+    info: [],
   },
   mutations,
   actions,

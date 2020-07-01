@@ -11,6 +11,9 @@ export default {
   MENU(state) {
     return state.menu;
   },
+  INFO(state) {
+    return state.info;
+  },
   CUSTOMERS(state) {
     return state.customers;
   },

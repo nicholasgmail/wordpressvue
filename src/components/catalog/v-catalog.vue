@@ -24,8 +24,6 @@
 <script>
 import VCatalogItem from "./v-catalog-item";
 import { mapActions, mapGetters, mapState } from "vuex";
-/* import SETTINGS from "@/settings";
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api"; */
 import paginationMixin from "@/mixins/pagination.mixins";
 
 export default {
@@ -58,11 +56,11 @@ export default {
     }
   },
   async mounted() {
-    this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
-      if (response.data) {
-        this.currentPage = 1;
-      }
-    });
+      this.GET_PRODUCTS_FROM_API().then(response => {
+        if (response.data) {
+          this.currentPage = 1;
+        }
+      });
   }
 };
 </script>
