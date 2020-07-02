@@ -4,7 +4,6 @@ import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
 export default {
   GET_PRODUCTS_FROM_API({ commit, state }, rows) {
-    //console.log(rows);
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
       consumerKey: SETTINGS.KEY, // Your consumer key

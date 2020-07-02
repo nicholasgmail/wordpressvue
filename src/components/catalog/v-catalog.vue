@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       currentPage: null,
-      //page: 1
     };
   },
   created() {},
@@ -45,7 +44,7 @@ export default {
     ...mapState(["rows"])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", "ADD_TO_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     },
@@ -58,11 +57,20 @@ export default {
     },
   },
   async mounted() {
-    this.GET_PRODUCTS_FROM_API().then(response => {
+    this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
-        this.currentPage = 1;
+          this.currentPage = 1;
       }
     });
+  },
+  watch: {
+    $route: function () {
+      if ( !this.$route.query.page ) {
+        this.currentPage = 1;
+        this.GET_ID_CATEGORIES_TO_VUEX('');
+        this.GET_PRODUCTS_FROM_API();
+      }
+    }
   }
 };
 </script>

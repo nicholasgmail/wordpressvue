@@ -83,10 +83,6 @@ export default {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
       }
-    },
-    delete_ctegoryId(value) {
-      this.GET_ID_CATEGORIES_TO_VUEX(value);
-      this.GET_PRODUCTS_FROM_API();
     }
   },
   mounted() {
