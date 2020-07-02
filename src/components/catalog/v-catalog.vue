@@ -1,7 +1,7 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
     <h1 class="text-center">Catalog</h1>
-    <b-row cols="4" id="my-table">
+    <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item
         v-for="product in PRODUCTS"
@@ -51,7 +51,11 @@ export default {
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
-          this.currentPage = this.$route.query.page;
+          if(this.$route.query.page){
+            this.currentPage = this.$route.query.page;
+          } else {
+            this.currentPage = 1;
+          }
         }
       });
     },
@@ -59,7 +63,11 @@ export default {
   async mounted() {
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
+        if(this.$route.query.page){
+          this.currentPage = this.$route.query.page;
+        } else {
           this.currentPage = 1;
+        }
       }
     });
   },

@@ -1,9 +1,12 @@
 import Vue from "vue";
 import SvgIcon from "vue-svgicon";
+
+import { loadProgressBar } from 'axios-progress-bar'
 import "@babel/polyfill";
 import "mutationobserver-shim";
 import "@/plugins/bootstrap.js"
 
+import 'axios-progress-bar/dist/nprogress.css'
 import "./assets/styles/styles.module.scss";
 
 import App from "@/App.vue";
@@ -12,7 +15,7 @@ import router from "@/router/router";
 
 import "@/icons/components";
 
-
+loadProgressBar();
 
 Vue.use(SvgIcon, {
   tagName: "svg-icon",

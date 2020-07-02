@@ -14,7 +14,7 @@
             link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
-
+<!-- Search -->        
         <b-navbar-nav class="ml-auto">
           <b-nav-form v-on:submit.prevent="search(vModelValue)">
             <b-form-input

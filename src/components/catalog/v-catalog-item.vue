@@ -1,8 +1,8 @@
 <template>
-  <b-col class="v-catalog-item  px-1 px-md-3 mb-2">
+  <b-col  class="v-catalog-item px-1 px-md-3 mb-2">
     <b-card
       :img-src="product_data.images[0].src"
-      img-alt="Image"
+      :img-alt="product_data.name"
       img-top
       tag="article"
       style="max-width: 20rem;"
