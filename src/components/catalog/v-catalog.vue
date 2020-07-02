@@ -35,8 +35,7 @@ export default {
   props: {},
   data() {
     return {
-      currentPage: null,
-      //page: 1
+      currentPage: null
     };
   },
   created() {},
@@ -48,6 +47,10 @@ export default {
     ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
+    },    
+    beforeRouteUpdate(to, from, next) {
+      console.log(this.$route)
+      next();
     },
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
@@ -55,7 +58,7 @@ export default {
           this.currentPage = this.$route.query.page;
         }
       });
-    },
+    }
   },
   async mounted() {
     this.GET_PRODUCTS_FROM_API().then(response => {
@@ -63,6 +66,8 @@ export default {
         this.currentPage = 1;
       }
     });
+  },
+  watch: {
   }
 };
 </script>

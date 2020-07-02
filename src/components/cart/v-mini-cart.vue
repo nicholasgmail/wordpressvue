@@ -58,7 +58,7 @@ export default {
 <style lang="scss">
 .navbar {
   .card-yellow {
-    border-color: rgba($color: $yellow, $alpha: 0.2);
+    border-color: rgba($color: $red, $alpha: 1);
   }
 }
 </style>

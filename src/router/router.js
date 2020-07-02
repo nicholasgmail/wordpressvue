@@ -30,16 +30,16 @@ const routes = [
     post_name: "404",
     component: NoPage,
   },
-  { 
-    path: '*', 
-    redirect: '/404'
+  {
+    path: "*",
+    redirect: "/404",
   },
   {
-      path: '/cart',
-      name: 'cart',
-      component: Cart,
-      props: true,
-  }
+    path: "/cart",
+    name: "cart",
+    component: Cart,
+    props: true,
+  },
 ];
 
 const router = new VueRouter({
@@ -47,5 +47,6 @@ const router = new VueRouter({
   base: __dirname /* process.env.BASE_URL, */,
   routes,
 });
+
 
 export default router;

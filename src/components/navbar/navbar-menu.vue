@@ -89,10 +89,12 @@ export default {
       this.GET_PRODUCTS_FROM_API();
     }
   },
+
   mounted() {
     this.GET_MENU_FROM_API().then(response => {});
   },
-  watch: {}
+  watch: {
+  }
 };
 </script>
 

@@ -82,6 +82,7 @@ export default {
       consumerKey: SETTINGS.KEY, // Your consumer key
       consumerSecret: SETTINGS.SECRET, // Your consumer secret
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
     });
     return WooCommerce.get("products", {
       featured: true,
@@ -111,6 +112,7 @@ export default {
       consumerKey: SETTINGS.KEY, // Your consumer key
       consumerSecret: SETTINGS.SECRET, // Your consumer secret
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
     });
     return WooCommerce.get("products", {
       before: $date_back,
