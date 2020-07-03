@@ -4,7 +4,6 @@
     <b-row cols="6" class="px-1 px-md-3">
       <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions" size="sm" class=""></b-form-select>
     </b-row>
-    <div class="mt-3">Selected: <strong>{{ sortingCatalog }}</strong></div>
     <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item
