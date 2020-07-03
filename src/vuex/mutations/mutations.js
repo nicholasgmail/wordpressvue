@@ -18,6 +18,9 @@ export default {
   SET_ID_CATEGORIES_TO_VUEX: (state, value) => {
     state.ctegoryId = value;
   },
+  SET_SORTING_OPTIONS_TO_VUEX: (state, value) => {
+    state.sortingCatalog = value;
+  },
   SET_PRODUCTS_TO_STATE: (state, product) => {
     //передаем даные в продукт з мутации
     state.product = product;

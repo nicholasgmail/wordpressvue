@@ -53,7 +53,7 @@ export default {
   async mounted() {
     this.GET_CUSTOMERS_FROM_API().then(response => {
       if (response.data) {
-        console.log(response.data);
+        //console.log(response.data);
         this.phone = response.data.billing.phone;
         this.email = response.data.billing.email;
         this.toemail = "mailto:" + response.data.billing.email;
