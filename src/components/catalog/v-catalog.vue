@@ -1,7 +1,7 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
     <h1 class="text-center">Носки купить</h1>
-    <b-row cols="6" class="px-1 px-md-3">
+    <b-row cols="6" class="px-1 px-md-3 mb-2">
       <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions" size="sm" class=""></b-form-select>
     </b-row>
     <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
@@ -76,6 +76,9 @@ export default {
     }
   },
   async mounted() {
+    if(this.$route.path === '/shop' || this.$route.path === '/shop/') {
+      this.$set(this.$route.query, 'page', 1);
+    }
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
         if(this.$route.query.page){
@@ -89,15 +92,16 @@ export default {
   watch: {
     $route: function () {
       if ( !this.$route.query.page ) {
-        this.currentPage = 1;
         this.GET_ID_CATEGORIES_TO_VUEX('');
-        //this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog2);
-        this.GET_PRODUCTS_FROM_API();
+        this.sortingCatalog = { orderby: null, order: null };
+        //this.GET_PRODUCTS_FROM_API();
       }
     },
     sortingCatalog: function() {
+      this.$router.push({fullPath: "/shop"});
+      this.$route.query.page = "1";
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
-      this.GET_PRODUCTS_FROM_API();
+      this.GET_PRODUCTS_FROM_API(this.$route.query.page);
     }
   }
 };

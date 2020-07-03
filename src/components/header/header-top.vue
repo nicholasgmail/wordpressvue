@@ -18,7 +18,7 @@
       <div class="position-relative z-1">
         <b-button v-b-toggle.collapse-cart class="btn-icon px-5" variant="outline-danger">
           <svg-icon class="svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
-          <span class="mr-2">{{CART.length}}x19 грн.</span>
+          <span class="mr-2">{{CART.length}} x {{cartTotalCost}} грн.</span>
           <span class="text-uppercase">Корзина</span>
         </b-button>
         <b-collapse id="collapse-cart" class="mt-2 w-100 position-absolute">
@@ -47,7 +47,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["CART"])
+    ...mapGetters(["CART"]),
+    cartTotalCost() {
+      //подсчет общей стоимости
+      let result = [];
+      if (this.CART.length) {
+        for (let item of this.CART) {
+          result.push(item.price * item.quantity);
+        }
+        result = result.reduce(function(sum, el) {
+          return sum + el;
+        });
+        return result;
+      } else {
+        return 0;
+      }
+    },
   },
   methods: {
     ...mapActions(["GET_CUSTOMERS_FROM_API", "GET_INFO_FROM_API"])

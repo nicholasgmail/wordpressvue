@@ -28,7 +28,7 @@ let store = new Vuex.Store({
     rows: null,
     perpage: 8,
     vModelValue: '',
-    sortingCatalog: '',
+    sortingCatalog: { orderby: null, order: null },
     popProduct: [],
     newProduct: [],
     info: [],
