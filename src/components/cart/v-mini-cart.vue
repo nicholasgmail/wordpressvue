@@ -1,20 +1,12 @@
 <template>
   <b-card no-body class="overflow-hidden card-yellow" style="max-width: 540px;">
-    <b-row no-gutters class="p-1">
-      <b-col md="9">
-        <b-btn-close class="mr-2" />
-        <h6 class="mb-0 font-weight-bold p-2">
-          <span class="count">{{CART.length}}</span>x19 грн.
-        </h6>
-        <b-card-text class="font-size-14">
-          Носки мужские Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-          autem!
-        </b-card-text>
-      </b-col>
-      <b-col md="3" align-self="center">
-        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-      </b-col>
-    </b-row>
+    <p v-if="!cart_data.length">Корзина пуста...</p>
+        <v-mini-cart-item
+         v-for="(item, index) in cart_data"
+        :key="index"
+        :cart_item_data="item"
+        @deleteFromCart="deleteFromCart(index)"
+        ></v-mini-cart-item>
     <div class="px-2">
       <hr />
     </div>
@@ -22,7 +14,7 @@
       <b-col>
         <h6>
           Подитог:
-          <span class="font-weight-bold">16 грн.</span>
+          <span class="font-weight-bold">{{cartTotalCost}} грн.</span>
         </h6>
       </b-col>
       <b-col>
@@ -43,13 +35,40 @@ export default {
   data() {
     return {};
   },
+  components: { VMiniCartItem: ()=>import('@/components/cart/v-mini-cart-item') },
+   props: {
+    cart_data: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }
+  },
   computed: {
-    ...mapGetters(["CART"])
+    ...mapGetters(["CART"]),
+    cartTotalCost() {
+      //подсчет общей стоимости
+      let result = [];
+      if (this.cart_data.length) {
+        for (let item of this.cart_data) {
+          result.push(item.price * item.quantity);
+        }
+        result = result.reduce(function(sum, el) {
+          return sum + el;
+        });
+        return result;
+      } else {
+        return 0;
+      }
+    },
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "DELETE_FROM_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
+    },
+    deleteFromCart(index) {
+      this.DELETE_FROM_CART(index);
     }
   }
 };

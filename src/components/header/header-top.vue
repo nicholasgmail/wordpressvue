@@ -2,7 +2,9 @@
 <template>
   <b-navbar toggleable="sm" type="light" variant="white" class="py-0">
     <b-container fluid="lg" class="my-2">
-      <b-navbar-brand :href="url" class="h1 text-uppercase mb-0">Rubizhnesocks</b-navbar-brand>
+      <b-navbar-brand :href="url" class="h1 text-uppercase mb-0">
+        <img  :src=" require('../../assets/logo.png') " alt="logo" height="50">
+      </b-navbar-brand>
       <b-navbar-nav class="ml-auto">
         <b-nav-item :href="tophone" class="my-auto">
           <svg-icon class="mr-2" name="phone" width="1rem" height="1rem" />
@@ -20,7 +22,7 @@
           <span class="text-uppercase">Корзина</span>
         </b-button>
         <b-collapse id="collapse-cart" class="mt-2 w-100 position-absolute">
-          <v-mini-cart></v-mini-cart>
+          <v-mini-cart  v-if="CART.length" :cart_data="CART"></v-mini-cart>
         </b-collapse>
       </div>
     </b-container>

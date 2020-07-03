@@ -1,7 +1,7 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
     <h1 class="text-center">Catalog</h1>
-    <b-row cols="4" id="my-table">
+    <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item
         v-for="product in PRODUCTS"
@@ -35,7 +35,7 @@ export default {
   props: {},
   data() {
     return {
-      currentPage: null
+      currentPage: null,
     };
   },
   created() {},
@@ -44,7 +44,7 @@ export default {
     ...mapState(["rows"])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", "ADD_TO_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     },    
@@ -55,19 +55,34 @@ export default {
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
-          this.currentPage = this.$route.query.page;
+          if(this.$route.query.page){
+            this.currentPage = this.$route.query.page;
+          } else {
+            this.currentPage = 1;
+          }
         }
       });
     }
   },
   async mounted() {
-    this.GET_PRODUCTS_FROM_API().then(response => {
+    this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
-        this.currentPage = 1;
+        if(this.$route.query.page){
+          this.currentPage = this.$route.query.page;
+        } else {
+          this.currentPage = 1;
+        }
       }
     });
   },
   watch: {
+    $route: function () {
+      if ( !this.$route.query.page ) {
+        this.currentPage = 1;
+        this.GET_ID_CATEGORIES_TO_VUEX('');
+        this.GET_PRODUCTS_FROM_API();
+      }
+    }
   }
 };
 </script>
