@@ -1,6 +1,10 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
-    <h1 class="text-center">Catalog</h1>
+    <h1 class="text-center">Носки купить</h1>
+    <b-row cols="6" class="px-1 px-md-3">
+      <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions" size="sm" class=""></b-form-select>
+    </b-row>
+    <div class="mt-3">Selected: <strong>{{ sortingCatalog }}</strong></div>
     <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item
@@ -36,6 +40,14 @@ export default {
   data() {
     return {
       currentPage: null,
+      sortingCatalog: { orderby: null, order: null },
+        sortingOptions: [
+          { value: { orderby: null, order: null }, text: 'Исходная сортировка' },
+          { value: { orderby: 'date', order: 'desc' }, text: 'По популярности' },
+          { value: { orderby: 'date', order: 'asc' }, text: 'По более позднему' },
+          { value: { orderby: 'price', order: 'asc' }, text: 'Цена по возростанию' },
+          { value: { orderby: 'price', order: 'desc' }, text: 'Цена по убыванию' },
+        ]
     };
   },
   created() {},
@@ -44,7 +56,7 @@ export default {
     ...mapState(["rows"])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", "ADD_TO_CART"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", 'GET_SORTING_OPTIONS_TO_VUEX', "ADD_TO_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     },    
@@ -80,8 +92,13 @@ export default {
       if ( !this.$route.query.page ) {
         this.currentPage = 1;
         this.GET_ID_CATEGORIES_TO_VUEX('');
+        //this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog2);
         this.GET_PRODUCTS_FROM_API();
       }
+    },
+    sortingCatalog: function() {
+      this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
+      this.GET_PRODUCTS_FROM_API();
     }
   }
 };

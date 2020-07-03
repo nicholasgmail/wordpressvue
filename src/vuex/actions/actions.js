@@ -18,5 +18,9 @@ export default {
     GET_ID_CATEGORIES_TO_VUEX ({commit}, value) {
         commit('SET_ID_CATEGORIES_TO_VUEX', value)
     },
+    GET_SORTING_OPTIONS_TO_VUEX ({commit}, value) {
+        commit('SET_SORTING_OPTIONS_TO_VUEX', value)
+    },
+
 
 }

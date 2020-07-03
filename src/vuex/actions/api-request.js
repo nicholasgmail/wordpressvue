@@ -12,6 +12,9 @@ export default {
       axiosConfig: SETTINGS.AXIOS,
     });
     return WooCommerce.get("products", {
+      orderby: state.sortingCatalog.orderby,
+      order: state.sortingCatalog.order,
+      stock_status: 'instock',
       category: state.ctegoryId,
       search: state.vModelValue,
       per_page: state.perpage,
@@ -22,7 +25,7 @@ export default {
         commit("SET_PRODUCTS_TO_STATE", response.data);
         state.rows = response.headers["x-wp-totalpages"];
         
-        console.dir(response.data);
+        //console.dir(response.data);
         return response;
       })
       .catch((error) => {
@@ -140,7 +143,7 @@ export default {
       .then((categories) => {
         //вызываем мутацию для передачи даных
         commit("SET_CATEGORIES_TO_STATE", categories.data);
-        console.log(categories.data);
+        //console.log(categories.data);
         return categories;
       })
       .catch((error) => {
