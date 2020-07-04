@@ -1,5 +1,6 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
+    <b-button @click="ordersProduct">send</b-button>
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="px-1 px-md-3 mb-2">
       <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions" size="sm" class=""></b-form-select>
@@ -55,7 +56,12 @@ export default {
     ...mapState(["rows"])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", 'GET_SORTING_OPTIONS_TO_VUEX', "ADD_TO_CART"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", 
+    "GET_ID_CATEGORIES_TO_VUEX", 
+    'GET_SORTING_OPTIONS_TO_VUEX', 
+    "ADD_TO_CART",
+    "GET_ORDERS_FROM_API"
+    ]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     },    
@@ -66,6 +72,7 @@ export default {
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
+          console.dir(response.data)
           if(this.$route.query.page){
             this.currentPage = this.$route.query.page;
           } else {
@@ -73,6 +80,13 @@ export default {
           }
         }
       });
+    },
+    ordersProduct(){
+      this.GET_ORDERS_FROM_API().then(response => {
+      if (response.data) {
+        console.dir(response.data)
+      }
+    });
     }
   },
   async mounted() {

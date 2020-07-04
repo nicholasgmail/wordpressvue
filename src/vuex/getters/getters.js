@@ -26,6 +26,9 @@ export default {
   INFO(state) {
     return state.info;
   },
+  ORDERS(state) {
+    return state.orders;
+  },
   CUSTOMERS(state) {
     return state.customers;
   },

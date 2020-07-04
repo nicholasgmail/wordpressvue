@@ -6,6 +6,9 @@ export default {
       }
     });
   },
+  SET_ORDERS_TO_STATE: (state, orders) => {
+    state.orders = orders;
+  },
   SET_INFO_TO_STATE: (state, info) => {
     state.info = info;
   },
