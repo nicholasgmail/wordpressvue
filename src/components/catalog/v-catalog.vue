@@ -66,13 +66,13 @@ export default {
       this.ADD_TO_CART(data);
     },    
     beforeRouteUpdate(to, from, next) {
-      console.log(this.$route)
+      //console.log(this.$route)
       next();
     },
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
-          console.dir(response.data)
+          //console.dir(response.data)
           if(this.$route.query.page){
             this.currentPage = this.$route.query.page;
           } else {
@@ -105,16 +105,19 @@ export default {
   },
   watch: {
     $route: function () {
-      //this.sortingCatalog = { orderby: null, order: null };
+      //добавить страницу оплата и доставка
+      if(this.$route.path === "/" || this.$route.path === "/blog/"){
+        this.sortingCatalog = { orderby: null, order: null };
+      }
       if( this.$route.fullPath === "/shop" || this.$route.fullPath === "/shop/") {
         this.$set(this.$route.query, 'page', 1);
       }
     },
     sortingCatalog: function() {
       if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
-        //this.$router.push({fullPath: "/shop"});
+        this.$router.push({fullPath: "/shop"});
       }
-      this.$router.push({fullPath: "/shop"});
+      //this.$router.push({fullPath: "/shop"});
       this.$route.query.page = 1;
       this.currentPage = 1;
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
