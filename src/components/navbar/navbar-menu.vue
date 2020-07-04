@@ -10,6 +10,7 @@
             v-for="(menu, index) in MENU"
             :key="index"
             :to="menuURLPath(menu.url)"
+            @click="deleteCategoryID()"
             class="pr-2 mr-2"
             link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
@@ -83,7 +84,13 @@ export default {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
       }
-    }
+    },
+    deleteCategoryID() {
+      if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
+        //this.GET_ID_CATEGORIES_TO_VUEX('');
+      }
+    },
+
   },
 
   mounted() {

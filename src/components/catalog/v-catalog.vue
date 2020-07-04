@@ -76,7 +76,7 @@ export default {
     }
   },
   async mounted() {
-    if(this.$route.path === '/shop' || this.$route.path === '/shop/') {
+    if(this.$route.fullPath === '/shop' || this.$route.fullPath === '/shop/') {
       this.$set(this.$route.query, 'page', 1);
     }
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
@@ -92,7 +92,7 @@ export default {
   watch: {
     $route: function () {
       if ( !this.$route.query.page ) {
-        this.GET_ID_CATEGORIES_TO_VUEX('');
+        //this.GET_ID_CATEGORIES_TO_VUEX('');
         this.sortingCatalog = { orderby: null, order: null };
         //this.GET_PRODUCTS_FROM_API();
       }
@@ -100,6 +100,7 @@ export default {
     sortingCatalog: function() {
       this.$router.push({fullPath: "/shop"});
       this.$route.query.page = "1";
+      this.currentPage = 1;
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
       this.GET_PRODUCTS_FROM_API(this.$route.query.page);
     }
