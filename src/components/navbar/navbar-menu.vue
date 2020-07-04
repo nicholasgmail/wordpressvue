@@ -88,6 +88,9 @@ export default {
     deleteCategoryID() {
       if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
         this.GET_ID_CATEGORIES_TO_VUEX('');
+        this.vModelValue = '';
+        this.GET_SEARCH_VALUE_TO_VUEX('');
+        this.GET_PRODUCTS_FROM_API();
       }
     },
 

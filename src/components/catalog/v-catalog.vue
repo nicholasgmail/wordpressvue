@@ -106,7 +106,6 @@ export default {
   watch: {
     $route: function () {
       if ( !this.$route.query.page ) {
-        //this.GET_ID_CATEGORIES_TO_VUEX('');
         this.sortingCatalog = { orderby: null, order: null };
         //this.GET_PRODUCTS_FROM_API();
       }
