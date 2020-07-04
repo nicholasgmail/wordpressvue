@@ -3,7 +3,7 @@
     <b-button @click="ordersProduct">send</b-button>
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="px-1 px-md-3 mb-2">
-      <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions" size="sm" class=""></b-form-select>
+      <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions"  size="sm" class=""></b-form-select>
     </b-row>
     <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
@@ -105,14 +105,17 @@ export default {
   },
   watch: {
     $route: function () {
-      if ( !this.$route.query.page ) {
-        this.sortingCatalog = { orderby: null, order: null };
-        //this.GET_PRODUCTS_FROM_API();
+      //this.sortingCatalog = { orderby: null, order: null };
+      if( this.$route.fullPath === "/shop" || this.$route.fullPath === "/shop/") {
+        this.$set(this.$route.query, 'page', 1);
       }
     },
     sortingCatalog: function() {
+      if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
+        //this.$router.push({fullPath: "/shop"});
+      }
       this.$router.push({fullPath: "/shop"});
-      this.$route.query.page = "1";
+      this.$route.query.page = 1;
       this.currentPage = 1;
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
       this.GET_PRODUCTS_FROM_API(this.$route.query.page);
