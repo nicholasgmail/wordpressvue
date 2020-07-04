@@ -14,7 +14,7 @@ export default {
     return WooCommerce.get("products", {
       orderby: state.sortingCatalog.orderby,
       order: state.sortingCatalog.order,
-      stock_status: 'instock',
+      stock_status: "instock",
       category: state.ctegoryId,
       search: state.vModelValue,
       per_page: state.perpage,
@@ -24,8 +24,68 @@ export default {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCTS_TO_STATE", response.data);
         state.rows = response.headers["x-wp-totalpages"];
-        
+
         //console.dir(response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+  GET_ORDERS_FROM_API({ commit }) {
+    const WooCommerce = new WooCommerceRestApi({
+      url: SETTINGS.URL, // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version 
+      axiosConfig: SETTINGS.AXIOS,
+    });
+    
+    return WooCommerce.post("orders", {
+      payment_method: "bacs",
+      payment_method_title: "Direct Bank Transfer",
+      set_paid: true,
+      billing: {
+        first_name: "John",
+        last_name: "Doe",
+        address_1: "969 Market",
+        address_2: "",
+        city: "San Francisco",
+        state: "CA",
+        postcode: "94103",
+        country: "US",
+        email: "john.doe@example.com",
+        phone: "(555) 555-5555",
+      },
+      shipping: {
+        first_name: "John",
+        last_name: "Doe",
+        address_1: "969 Market",
+        address_2: "",
+        city: "San Francisco",
+        state: "CA",
+        postcode: "94103",
+        country: "US",
+      },
+      line_items: [
+        {
+          product_id: 3112,
+          quantity: 2,
+        },
+      ],
+      shipping_lines: [
+        {
+          method_id: "flat_rate",
+          method_title: "Flat Rate",
+          total: 10,
+        },
+      ],
+    })
+      .then((response) => {
+        //вызываем мутацию для передачи даных
+        commit("SET_ORDERS_TO_STATE", response.data);
+        console.log(response);
         return response;
       })
       .catch((error) => {
@@ -102,11 +162,11 @@ export default {
       });
   },
   GET_NEW_PRODUCTS_FROM_API({ commit }) {
-    var $date = new Date;
-        $date.setMonth(1);
-        //$date.setDate(-1);
-    var $date_back = $date.toISOString()
-        $date_back = $date_back.slice(0, -5);
+    var $date = new Date();
+    $date.setMonth(1);
+    //$date.setDate(-1);
+    var $date_back = $date.toISOString();
+    $date_back = $date_back.slice(0, -5);
     //console.log($date_back);
 
     const WooCommerce = new WooCommerceRestApi({

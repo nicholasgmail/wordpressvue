@@ -20,6 +20,7 @@ let store = new Vuex.Store({
   state: {
     customers: [],
     product: [],
+    orders: [],
     phone: null,
     cart: [],
     menu: [],
