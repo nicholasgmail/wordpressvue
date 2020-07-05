@@ -10,6 +10,7 @@
             v-for="(menu, index) in MENU"
             :key="index"
             :to="menuURLPath(menu.url)"
+            @click="deleteCategoryID()"
             class="pr-2 mr-2"
             link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
@@ -77,13 +78,26 @@ export default {
     },
     search(value) {
       this.GET_SEARCH_VALUE_TO_VUEX(value);
-      if (this.$route.path === "/shop" || this.$route.path === "/shop/") {
-        this.GET_PRODUCTS_FROM_API();
-      } else {
+      if (!this.$route.query.page && this.$route.path != "/shop" && this.$route.path != "/shop/") {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
+
+        
+      } else {
+        this.$router.push({fullPath: "/shop"});
+        this.GET_PRODUCTS_FROM_API();
       }
-    }
+    },
+    deleteCategoryID() {
+      if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
+        this.GET_ID_CATEGORIES_TO_VUEX('');
+        this.vModelValue = '';
+        //this.sortingCatalog = { orderby: null, order: null };
+        this.GET_SEARCH_VALUE_TO_VUEX('');
+        this.GET_PRODUCTS_FROM_API();
+      }
+    },
+
   },
 
   mounted() {

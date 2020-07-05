@@ -19,7 +19,7 @@ export default {
     state.vModelValue = value;
   },
   SET_ID_CATEGORIES_TO_VUEX: (state, value) => {
-    state.ctegoryId = value;
+    state.categoryId = value;
   },
   SET_SORTING_OPTIONS_TO_VUEX: (state, value) => {
     state.sortingCatalog = value;

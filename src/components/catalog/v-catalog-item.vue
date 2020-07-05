@@ -33,8 +33,18 @@ export default {
   },
   computed: {},
   methods: {
+    makeToast(variant = null) {
+      let $price = this.product_data.price
+        this.$bvToast.toast(this.product_data.name, {
+          title: `Товар добавлен, по цене ${$price} грн`,
+          variant: variant,
+          solid: true,
+          autoHideDelay: 1500
+        })
+      },
     addToCart() {
       this.$emit("addToCart", this.product_data);
+      this.makeToast('info');
     }
   }
 };

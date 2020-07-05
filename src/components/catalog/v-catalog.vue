@@ -2,9 +2,17 @@
   <b-container fluid="lg" class="v-catalog">
     <b-button @click="ordersProduct">send</b-button>
     <h1 class="text-center">Носки купить</h1>
-    <b-row cols="6" class="px-1 px-md-3 mb-2">
-      <b-form-select cols="2" v-model="sortingCatalog" :options="sortingOptions" size="sm" class=""></b-form-select>
+    <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
+      <b-form-select v-model="sortingCatalog" :options="sortingOptions"  size="sm" ></b-form-select>
+      <div class="col-4 d-flex pr-0">
+        <b-form-select v-model="sortingCategories" :options="optionsCategories" class="mr-2" size="sm"></b-form-select>
+        <b-form-select v-if="sortingCategories === null" v-model="sortingSubCategories" :options="optionsSubCategories"  size="sm"></b-form-select>
+        <b-form-select v-if="sortingCategories === 36" v-model="maleSortingSubCategories" :options="maleOptionsSubCategories"  size="sm"></b-form-select>
+        <b-form-select v-if="sortingCategories === 33" v-model="femaleSortingSubCategories" :options="femaleOptionsSubCategories"  size="sm"></b-form-select>
+        <b-form-select v-if="sortingCategories === 39" v-model="babySortingSubCategories" :options="babyOptionsSubCategories"  size="sm"></b-form-select>
+      </div>
     </b-row>
+    
     <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item
@@ -47,12 +55,43 @@ export default {
           { value: { orderby: 'date', order: 'asc' }, text: 'По более позднему' },
           { value: { orderby: 'price', order: 'asc' }, text: 'Цена по возростанию' },
           { value: { orderby: 'price', order: 'desc' }, text: 'Цена по убыванию' },
-        ]
+        ],
+      sortingCategories: null,
+        optionsCategories: [
+          { value: null, text: 'Выбрать категорию' },
+          { value: 36, text: 'Мужские' },
+          { value: 33, text: 'Женские' },
+          { value: 39, text: 'Детские' },
+        ],
+      sortingSubCategories: null,
+        optionsSubCategories: [{ value: null, text: 'Сезон' }],
+
+      maleSortingSubCategories: null,
+        maleOptionsSubCategories: [
+          { value: null, text: 'Сезон' },
+          { value: 38, text: 'Зима' },
+          { value: 37, text: 'Весна - осень' },
+          { value: 73, text: 'Лето' },
+        ],
+      femaleSortingSubCategories: null,
+        femaleOptionsSubCategories: [
+          { value: null, text: 'Сезон' },
+          { value: 35, text: 'Зима' },
+          { value: 34, text: 'Весна - осень' },
+          { value: 69, text: 'Лето' },
+        ],
+      babySortingSubCategories: null,
+        babyOptionsSubCategories: [
+          { value: null, text: 'Сезон' },
+          { value: 41, text: 'Зима' },
+          { value: 40, text: 'Весна - осень' },
+          { value: 70, text: 'Лето' },
+        ],
     };
   },
   created() {},
   computed: {
-    ...mapGetters(["SEARCH_VALUE", "PRODUCTS", "CART", "ROWS"]),
+    ...mapGetters(["SEARCH_VALUE", "PRODUCTS", "CART", "ROWS", "CATEGORY_ID"]),
     ...mapState(["rows"])
   },
   methods: {
@@ -66,13 +105,13 @@ export default {
       this.ADD_TO_CART(data);
     },    
     beforeRouteUpdate(to, from, next) {
-      console.log(this.$route)
+      //console.log(this.$route)
       next();
     },
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
-          console.dir(response.data)
+          //console.dir(response.data)
           if(this.$route.query.page){
             this.currentPage = this.$route.query.page;
           } else {
@@ -90,7 +129,7 @@ export default {
     }
   },
   async mounted() {
-    if(this.$route.path === '/shop' || this.$route.path === '/shop/') {
+    if(this.$route.fullPath === '/shop' || this.$route.fullPath === '/shop/') {
       this.$set(this.$route.query, 'page', 1);
     }
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
@@ -105,19 +144,59 @@ export default {
   },
   watch: {
     $route: function () {
-      if ( !this.$route.query.page ) {
-        this.GET_ID_CATEGORIES_TO_VUEX('');
+      //добавить страницу оплата и доставка
+      if(this.$route.path === "/" || this.$route.path === "/blog/"){
         this.sortingCatalog = { orderby: null, order: null };
-        //this.GET_PRODUCTS_FROM_API();
+        this.sortingCategories = null;
+      }
+      if( this.$route.fullPath === "/shop" || this.$route.fullPath === "/shop/") {
+        this.$set(this.$route.query, 'page', 1);
       }
     },
+
     sortingCatalog: function() {
-      this.$router.push({fullPath: "/shop"});
-      this.$route.query.page = "1";
+      if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
+        this.$router.push({fullPath: "/shop"});
+      }
+      this.$route.query.page = 1;
+      this.currentPage = 1;
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
       this.GET_PRODUCTS_FROM_API(this.$route.query.page);
+    },
+
+    sortingCategories: function() {
+      this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
+    },
+    maleSortingSubCategories: function() {
+      this.GET_ID_CATEGORIES_TO_VUEX(this.maleSortingSubCategories);
+      if(this.maleSortingSubCategories === null) {
+        this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
+      }
+    }, 
+    femaleSortingSubCategories: function() {
+      this.GET_ID_CATEGORIES_TO_VUEX(this.femaleSortingSubCategories);
+      if(this.femaleSortingSubCategories === null) {
+        this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
+      }
+
+    }, 
+    babySortingSubCategories: function() {
+      this.GET_ID_CATEGORIES_TO_VUEX(this.babySortingSubCategories);
+      if(this.babySortingSubCategories === null) {
+        this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
+      }
+
+    }, 
+
+    CATEGORY_ID: function() {
+      if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
+        this.$router.push({fullPath: "/shop"});
+      }
+      this.$route.query.page = 1;
+      this.currentPage = 1;
+      this.GET_PRODUCTS_FROM_API(this.$route.query.page);
     }
-  }
+   }
 };
 </script>
 
