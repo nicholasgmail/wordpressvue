@@ -16,17 +16,17 @@ const routes = [
     component: Home,
   },
   {
-    path: "/shop",
+    path: "/shop/",
     post_name: "shop",
     component: Shop,
   },
   {
-    path: "/blog",
+    path: "/blog/",
     post_name: "about-us",
     component: AboutUs,
   },
   {
-    path: "/404",
+    path: "/404/",
     post_name: "404",
     component: NoPage,
   },
@@ -35,7 +35,7 @@ const routes = [
     redirect: "/404",
   },
   {
-    path: "/cart",
+    path: "/cart/",
     name: "cart",
     component: Cart,
     props: true,

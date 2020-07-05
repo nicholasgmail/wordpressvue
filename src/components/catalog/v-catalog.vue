@@ -7,6 +7,7 @@
       <div class="col-4 d-flex pr-0">
         <b-form-select v-model="sortingCategories" :options="optionsCategories" class="mr-2" size="sm"></b-form-select>
         <b-form-select v-if="sortingCategories === null" v-model="sortingSubCategories" :options="optionsSubCategories"  size="sm"></b-form-select>
+        
         <b-form-select v-if="sortingCategories === 36" v-model="maleSortingSubCategories" :options="maleOptionsSubCategories"  size="sm"></b-form-select>
         <b-form-select v-if="sortingCategories === 33" v-model="femaleSortingSubCategories" :options="femaleOptionsSubCategories"  size="sm"></b-form-select>
         <b-form-select v-if="sortingCategories === 39" v-model="babySortingSubCategories" :options="babyOptionsSubCategories"  size="sm"></b-form-select>
@@ -143,6 +144,7 @@ export default {
     });
   },
   watch: {
+    // отслеживание изменения route
     $route: function () {
       //добавить страницу оплата и доставка
       if(this.$route.path === "/" || this.$route.path === "/blog/"){
@@ -153,7 +155,7 @@ export default {
         this.$set(this.$route.query, 'page', 1);
       }
     },
-
+    // отслеживание сортировок товаров по дате, популярности и стоимости
     sortingCatalog: function() {
       if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
         this.$router.push({fullPath: "/shop"});
@@ -163,9 +165,11 @@ export default {
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
       this.GET_PRODUCTS_FROM_API(this.$route.query.page);
     },
-
+    // отслеживание сортировок по категориям и под категориям
     sortingCategories: function() {
-      this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
+      if (this.sortingCategories != this.CATEGORY_ID) {
+        this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
+      }
     },
     maleSortingSubCategories: function() {
       this.GET_ID_CATEGORIES_TO_VUEX(this.maleSortingSubCategories);
@@ -178,16 +182,14 @@ export default {
       if(this.femaleSortingSubCategories === null) {
         this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
       }
-
     }, 
     babySortingSubCategories: function() {
       this.GET_ID_CATEGORIES_TO_VUEX(this.babySortingSubCategories);
       if(this.babySortingSubCategories === null) {
         this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
       }
-
     }, 
-
+    // отслеживание изменения id категории
     CATEGORY_ID: function() {
       if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
         this.$router.push({fullPath: "/shop"});
@@ -195,6 +197,16 @@ export default {
       this.$route.query.page = 1;
       this.currentPage = 1;
       this.GET_PRODUCTS_FROM_API(this.$route.query.page);
+
+      if (this.CATEGORY_ID === 36) {
+        this.sortingCategories = this.CATEGORY_ID;
+      }
+      if (this.CATEGORY_ID === 33) {
+        this.sortingCategories = this.CATEGORY_ID;
+      }
+      if (this.CATEGORY_ID === 39) {
+        this.sortingCategories = this.CATEGORY_ID;
+      }
     }
    }
 };
