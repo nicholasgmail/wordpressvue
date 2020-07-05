@@ -15,7 +15,7 @@ export default {
     return state.categories;
   },
   CATEGORY_ID(state) {
-    return state.ctegoryId
+    return state.categoryId
   },
   CART(state) {
     return state.cart;

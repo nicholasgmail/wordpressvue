@@ -25,7 +25,7 @@ let store = new Vuex.Store({
     cart: [],
     menu: [],
     categories: [],
-    ctegoryId: '',
+    categoryId: null,
     rows: null,
     perpage: 8,
     vModelValue: '',

@@ -15,7 +15,7 @@ export default {
       orderby: state.sortingCatalog.orderby,
       order: state.sortingCatalog.order,
       stock_status: "instock",
-      category: state.ctegoryId,
+      category: state.categoryId,
       search: state.vModelValue,
       per_page: state.perpage,
       page: rows,
@@ -199,7 +199,7 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
-    return WooCommerce.get("products/categories?include=33,36,39")
+    return WooCommerce.get("products/categories?include=33,36,39")  // ?include=33,36,39
       .then((categories) => {
         //вызываем мутацию для передачи даных
         commit("SET_CATEGORIES_TO_STATE", categories.data);
