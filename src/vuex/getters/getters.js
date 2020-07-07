@@ -3,7 +3,13 @@ export default {
     return state.vModelValue;
   },
   PRODUCTS(state) {
+    return state.products;
+  },
+  PRODUCT(state) {
     return state.product;
+  },
+  PRODUCT_ID(state) {
+    return state.product_id
   },
   POP_PRODUCTS(state) {
     return state.popProduct;

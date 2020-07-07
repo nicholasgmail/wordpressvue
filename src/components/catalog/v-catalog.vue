@@ -142,6 +142,15 @@ export default {
         }
       }
     });
+    if (this.CATEGORY_ID === 36) {
+      this.sortingCategories = this.CATEGORY_ID;
+    }
+    if (this.CATEGORY_ID === 33) {
+      this.sortingCategories = this.CATEGORY_ID;
+    }
+    if (this.CATEGORY_ID === 39) {
+      this.sortingCategories = this.CATEGORY_ID;
+    }
   },
   watch: {
     // отслеживание изменения route

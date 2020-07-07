@@ -211,4 +211,25 @@ export default {
         return error;
       });
   },
+  GET_PRODUCT_FROM_API({ commit, state }) {
+    const WooCommerce = new WooCommerceRestApi({
+      url: SETTINGS.URL, // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
+    });
+    return WooCommerce.get("products/" + state.product_id)
+      .then((response) => {
+        //вызываем мутацию для передачи даных
+        commit("SET_PRODUCT_FROM_API", response.data);
+        //console.log(categories.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+
 };

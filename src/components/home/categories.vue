@@ -36,7 +36,7 @@ export default {
     };
   },
   computed: {
-        ...mapGetters(["CATEGORIES"])
+    ...mapGetters(["CATEGORIES"])
 
   },
   methods: {

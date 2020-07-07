@@ -6,6 +6,7 @@ import Shop from "@/views/shop";
 import AboutUs from "@/views/about-us";
 import NoPage from "@/views/no-page";
 import Cart from "@/views/cart";
+import Product from "@/components/product/product";
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,13 @@ const routes = [
     component: Cart,
     props: true,
   },
+  {
+    path: "/product/",
+    name: "product",
+    component: Product,
+    props: true,
+  },
+
 ];
 
 const router = new VueRouter({
