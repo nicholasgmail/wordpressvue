@@ -5,6 +5,9 @@ export default {
   PRODUCTS(state) {
     return state.product;
   },
+  LSTOREG(state) {
+    return state.lstoreg;
+  },
   POP_PRODUCTS(state) {
     return state.popProduct;
   },

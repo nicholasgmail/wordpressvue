@@ -33,60 +33,24 @@ export default {
         return error;
       });
   },
-  GET_ORDERS_FROM_API({ commit }) {
+  GET_ORDERS_FROM_API({ getters }) {
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
-      consumerKey: SETTINGS.KEY, // Your consumer key
-      consumerSecret: SETTINGS.SECRET, // Your consumer secret
-      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version 
-      axiosConfig: SETTINGS.AXIOS,
+      consumerKey: SETTINGS.KEY_ORDERS, // Your consumer key
+      consumerSecret: SETTINGS.SECRET_ORDERS, // Your consumer secret
+      queryStringAuth: true,
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS_JSON,
     });
-    
-    return WooCommerce.post("orders", {
-      payment_method: "bacs",
-      payment_method_title: "Direct Bank Transfer",
-      set_paid: true,
-      billing: {
-        first_name: "John",
-        last_name: "Doe",
-        address_1: "969 Market",
-        address_2: "",
-        city: "San Francisco",
-        state: "CA",
-        postcode: "94103",
-        country: "US",
-        email: "john.doe@example.com",
-        phone: "(555) 555-5555",
-      },
-      shipping: {
-        first_name: "John",
-        last_name: "Doe",
-        address_1: "969 Market",
-        address_2: "",
-        city: "San Francisco",
-        state: "CA",
-        postcode: "94103",
-        country: "US",
-      },
-      line_items: [
-        {
-          product_id: 3112,
-          quantity: 2,
-        },
-      ],
-      shipping_lines: [
-        {
-          method_id: "flat_rate",
-          method_title: "Flat Rate",
-          total: 10,
-        },
-      ],
-    })
+
+    return WooCommerce.post("orders", getters.ORDERS)
       .then((response) => {
         //вызываем мутацию для передачи даных
-        commit("SET_ORDERS_TO_STATE", response.data);
-        console.log(response);
-        return response;
+        /*  commit("SET_ORDERS_TO_STATE", response.data);*/
+
+        console.log(getters.ORDERS);
+        console.log(response.data);
+        /*  return response; */
       })
       .catch((error) => {
         console.log(error);
@@ -199,12 +163,36 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
-    return WooCommerce.get("products/categories?include=33,36,39")  // ?include=33,36,39
+    return WooCommerce.get("products/categories?include=33,36,39") // ?include=33,36,39
       .then((categories) => {
         //вызываем мутацию для передачи даных
         commit("SET_CATEGORIES_TO_STATE", categories.data);
         //console.log(categories.data);
         return categories;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+  GET_CART_FROM_API({ commit }, data) {
+    const WooCommerce = new WooCommerceRestApi({
+      url: SETTINGS.URL, // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
+    });
+
+   /*  let $data = {
+      id: $id,
+    } */
+
+    return WooCommerce.get("products/" + data)
+      .then((response) => {
+        //вызываем мутацию для передачи даных  
+        commit("SET_CART", response.data);    
+        return response;
       })
       .catch((error) => {
         console.log(error);

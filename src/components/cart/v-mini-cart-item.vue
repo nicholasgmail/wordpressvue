@@ -1,5 +1,5 @@
 <template>
-  <b-row no-gutters class="p-1">    
+  <b-row no-gutters class="p-1">
     <b-col md="9">
       <b-btn-close @click="deleteFromCart" class="mr-2" />
       <h6 class="mb-0 font-weight-bold p-2">
@@ -25,15 +25,17 @@ export default {
       }
     }
   },
-  methods:{
+  data() {
+    return {};
+  },
+  methods: {
     deleteFromCart() {
       this.$emit("deleteFromCart");
+    },
+    //c помощью ключа добавляем параметр quantity c количеством 1
+    created() {
+      this.$set(this.cart_item_data, "quantity", 1);
     }
-  },
-  //c помощью ключа добавляем параметр quantity c количеством 1
-  mounted() {
-    this.$set(this.cart_item_data, "quantity", 1);
-    console.log(this.cart_item_data);
   }
 };
 </script>

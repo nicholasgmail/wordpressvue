@@ -33,7 +33,9 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "v-mini-cart",
   data() {
-    return {};
+    return {
+      cart: []
+    };
   },
   components: { VMiniCartItem: ()=>import('@/components/cart/v-mini-cart-item') },
    props: {
@@ -45,7 +47,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["CART"]),
+    ...mapGetters(["CART",
+      "LSTOREG"]),
     cartTotalCost() {
       //подсчет общей стоимости
       let result = [];
@@ -63,13 +66,23 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "DELETE_FROM_CART"]),
-    addToCart(data) {
-      this.ADD_TO_CART(data);
+    ...mapActions(["GET_PRODUCTS_FROM_API", "DELETE_FROM_CART"]), 
+      //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
     },
     deleteFromCart(index) {
       this.DELETE_FROM_CART(index);
-    }
+      this.cart = this.getToCart();
+      this.cart.splice(index, 1);
+       let $parse = JSON.stringify(this.cart);
+       localStorage.setItem(this.LSTOREG, $parse);
+    },
+    
   }
 };
 </script>

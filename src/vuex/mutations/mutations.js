@@ -39,6 +39,7 @@ export default {
   SET_CATEGORIES_TO_STATE: (state, categories) => {
     state.categories = categories;
   },
+  
   SET_CART: (state, product) => {
     if (state.cart.length) {
       let isProductExists = false;
@@ -50,7 +51,7 @@ export default {
       });
       if (!isProductExists) {
         state.cart.push(product);
-        console.log(product);
+       /*  console.log(product); */
       }
     } else {
       state.cart.push(product);

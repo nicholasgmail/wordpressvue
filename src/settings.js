@@ -11,6 +11,6 @@ export default {
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
   },
   AXIOS_JSON: {
-    headers: { 'content-type': 'application/json"' },
+    headers: { 'content-type': 'application/json' },
   },
 };

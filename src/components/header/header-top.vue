@@ -3,7 +3,7 @@
   <b-navbar toggleable="sm" type="light" variant="white" class="py-0">
     <b-container fluid="lg" class="my-2">
       <b-navbar-brand :href="url" class="h1 text-uppercase mb-0">
-        <img  :src=" require('../../assets/logo.png') " alt="logo" height="50">
+        <img :src=" require('../../assets/logo.png') " alt="logo" height="50" />
       </b-navbar-brand>
       <b-navbar-nav class="ml-auto">
         <b-nav-item :href="tophone" class="my-auto">
@@ -18,11 +18,15 @@
       <div class="position-relative z-1">
         <b-button v-b-toggle.collapse-cart class="btn-icon px-5" variant="outline-danger">
           <svg-icon class="svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
-          <span class="mr-2">{{CART.length}} x {{cartTotalCost}} грн.</span>
+          <span class="mr-2">
+            {{CART.length}}
+            <!-- x  {{cartTotalCost}}  -->
+            грн.
+          </span>
           <span class="text-uppercase">Корзина</span>
         </b-button>
         <b-collapse id="collapse-cart" class="mt-2 w-100 position-absolute">
-          <v-mini-cart  v-if="CART.length" :cart_data="CART"></v-mini-cart>
+          <v-mini-cart v-if="CART.length" :cart_data="CART"></v-mini-cart>
         </b-collapse>
       </div>
     </b-container>
@@ -38,6 +42,7 @@ export default {
   props: {},
   data() {
     return {
+      cart: [],
       phone: null,
       email: null,
       toemail: null,
@@ -46,13 +51,29 @@ export default {
       description: null
     };
   },
+  created() {
+     this.cart = this.getToCart();
+    this.cart.map(el => {
+      this.GET_CART_FROM_API(el.product_id).then(response => {
+        console.log(response.data);
+      });
+    });
+  },
   computed: {
-    ...mapGetters(["CART"]),
+    ...mapGetters(["CART", "LSTOREG"])
+  },
+  methods: {
+    ...mapActions([
+      "GET_CUSTOMERS_FROM_API",
+      "GET_INFO_FROM_API",
+      "GET_CART_FROM_API"
+    ]),
+    //подсчет общей стоимости
     cartTotalCost() {
       //подсчет общей стоимости
       let result = [];
-      if (this.CART.length) {
-        for (let item of this.CART) {
+      if (this.cart_data.length) {
+        for (let item of this.cart_data) {
           result.push(item.price * item.quantity);
         }
         result = result.reduce(function(sum, el) {
@@ -63,9 +84,14 @@ export default {
         return 0;
       }
     },
-  },
-  methods: {
-    ...mapActions(["GET_CUSTOMERS_FROM_API", "GET_INFO_FROM_API"])
+    //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
+    }
   },
   async mounted() {
     this.GET_CUSTOMERS_FROM_API().then(response => {

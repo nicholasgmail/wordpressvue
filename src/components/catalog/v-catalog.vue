@@ -1,19 +1,43 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
-    <b-button @click="ordersProduct">send</b-button>
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
-      <b-form-select v-model="sortingCatalog" :options="sortingOptions"  size="sm" ></b-form-select>
+      <b-form-select v-model="sortingCatalog" :options="sortingOptions" size="sm"></b-form-select>
       <div class="col-4 d-flex pr-0">
-        <b-form-select v-model="sortingCategories" :options="optionsCategories" class="mr-2" size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === null" v-model="sortingSubCategories" :options="optionsSubCategories"  size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === 36" v-model="maleSortingSubCategories" :options="maleOptionsSubCategories"  size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === 33" v-model="femaleSortingSubCategories" :options="femaleOptionsSubCategories"  size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === 39" v-model="babySortingSubCategories" :options="babyOptionsSubCategories"  size="sm"></b-form-select>
+        <b-form-select
+          v-model="sortingCategories"
+          :options="optionsCategories"
+          class="mr-2"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === null"
+          v-model="sortingSubCategories"
+          :options="optionsSubCategories"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === 36"
+          v-model="maleSortingSubCategories"
+          :options="maleOptionsSubCategories"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === 33"
+          v-model="femaleSortingSubCategories"
+          :options="femaleOptionsSubCategories"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === 39"
+          v-model="babySortingSubCategories"
+          :options="babyOptionsSubCategories"
+          size="sm"
+        ></b-form-select>
       </div>
     </b-row>
-    
-    <b-row cols="2"  cols-md="3" cols-lg="4" id="my-table">
+
+    <b-row cols="2" cols-md="3" cols-lg="4" id="my-table">
       <!--Передали даные с дочернему елементу с помощю v-bind -->
       <v-catalog-item
         v-for="product in PRODUCTS"
@@ -37,7 +61,7 @@
 
 <script>
 import VCatalogItem from "./v-catalog-item";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import paginationMixin from "@/mixins/pagination.mixins";
 
 export default {
@@ -47,116 +71,162 @@ export default {
   props: {},
   data() {
     return {
+      lineItems: [],
       currentPage: null,
       sortingCatalog: { orderby: null, order: null },
-        sortingOptions: [
-          { value: { orderby: null, order: null }, text: 'Исходная сортировка' },
-          { value: { orderby: 'date', order: 'desc' }, text: 'По популярности' },
-          { value: { orderby: 'date', order: 'asc' }, text: 'По более позднему' },
-          { value: { orderby: 'price', order: 'asc' }, text: 'Цена по возростанию' },
-          { value: { orderby: 'price', order: 'desc' }, text: 'Цена по убыванию' },
-        ],
+      sortingOptions: [
+        { value: { orderby: null, order: null }, text: "Исходная сортировка" },
+        { value: { orderby: "date", order: "desc" }, text: "По популярности" },
+        { value: { orderby: "date", order: "asc" }, text: "По более позднему" },
+        {
+          value: { orderby: "price", order: "asc" },
+          text: "Цена по возростанию"
+        },
+        { value: { orderby: "price", order: "desc" }, text: "Цена по убыванию" }
+      ],
       sortingCategories: null,
-        optionsCategories: [
-          { value: null, text: 'Выбрать категорию' },
-          { value: 36, text: 'Мужские' },
-          { value: 33, text: 'Женские' },
-          { value: 39, text: 'Детские' },
-        ],
+      optionsCategories: [
+        { value: null, text: "Выбрать категорию" },
+        { value: 36, text: "Мужские" },
+        { value: 33, text: "Женские" },
+        { value: 39, text: "Детские" }
+      ],
       sortingSubCategories: null,
-        optionsSubCategories: [{ value: null, text: 'Сезон' }],
+      optionsSubCategories: [{ value: null, text: "Сезон" }],
 
       maleSortingSubCategories: null,
-        maleOptionsSubCategories: [
-          { value: null, text: 'Сезон' },
-          { value: 38, text: 'Зима' },
-          { value: 37, text: 'Весна - осень' },
-          { value: 73, text: 'Лето' },
-        ],
+      maleOptionsSubCategories: [
+        { value: null, text: "Сезон" },
+        { value: 38, text: "Зима" },
+        { value: 37, text: "Весна - осень" },
+        { value: 73, text: "Лето" }
+      ],
       femaleSortingSubCategories: null,
-        femaleOptionsSubCategories: [
-          { value: null, text: 'Сезон' },
-          { value: 35, text: 'Зима' },
-          { value: 34, text: 'Весна - осень' },
-          { value: 69, text: 'Лето' },
-        ],
+      femaleOptionsSubCategories: [
+        { value: null, text: "Сезон" },
+        { value: 35, text: "Зима" },
+        { value: 34, text: "Весна - осень" },
+        { value: 69, text: "Лето" }
+      ],
       babySortingSubCategories: null,
-        babyOptionsSubCategories: [
-          { value: null, text: 'Сезон' },
-          { value: 41, text: 'Зима' },
-          { value: 40, text: 'Весна - осень' },
-          { value: 70, text: 'Лето' },
-        ],
+      babyOptionsSubCategories: [
+        { value: null, text: "Сезон" },
+        { value: 41, text: "Зима" },
+        { value: 40, text: "Весна - осень" },
+        { value: 70, text: "Лето" }
+      ]
     };
   },
-  created() {},
+  created() {
+   
+  },
   computed: {
-    ...mapGetters(["SEARCH_VALUE", "PRODUCTS", "CART", "ROWS", "CATEGORY_ID"]),
-    ...mapState(["rows"])
+    ...mapGetters([
+      "SEARCH_VALUE",
+      "PRODUCTS",
+      "CART",
+      "ROWS",
+      "CATEGORY_ID",
+      "ORDERS",
+      "LSTOREG"
+    ])
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", 
-    "GET_ID_CATEGORIES_TO_VUEX", 
-    'GET_SORTING_OPTIONS_TO_VUEX', 
-    "ADD_TO_CART",
-    "GET_ORDERS_FROM_API"
+    ...mapActions([
+      "GET_PRODUCTS_FROM_API",
+      "GET_ID_CATEGORIES_TO_VUEX",
+      "GET_SORTING_OPTIONS_TO_VUEX",
+      "ADD_TO_CART",
+      "GET_ORDERS_FROM_API",
+      "GET_CART_FROM_API"
     ]),
+    //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
+    },
+    actionToCart() {
+      this.lineItems.map(el => {
+        this.GET_CART_FROM_API(el.product_id)
+      });
+    },
+    //метод добавления в хранилище
     addToCart(data) {
       this.ADD_TO_CART(data);
-    },    
-    beforeRouteUpdate(to, from, next) {
-      //console.log(this.$route)
-      next();
+      //получаем из хранилища даные
+      this.lineItems = this.getToCart();      
+      //существует продукт или нет в хранилище
+      const $index = this.lineItems.find(item => item.product_id == data.id);
+      //действие если существует в хранилище
+      if (!$index) {
+        var $orders = {
+          product_id: data.id,
+          quantity: 1
+        };
+        this.lineItems.push($orders);
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      } else {
+        //действие если не существует в хранилище
+        this.lineItems.find(item =>
+          item.product_id == data.id ? ++item.quantity : ""
+        );
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      }
     },
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
-          //console.dir(response.data)
-          if(this.$route.query.page){
+          console.dir(response.data);
+          if (this.$route.query.page) {
             this.currentPage = this.$route.query.page;
           } else {
             this.currentPage = 1;
           }
         }
       });
-    },
-    ordersProduct(){
-      this.GET_ORDERS_FROM_API().then(response => {
-      if (response.data) {
-        console.dir(response.data)
-      }
-    });
     }
   },
   async mounted() {
-    if(this.$route.fullPath === '/shop' || this.$route.fullPath === '/shop/') {
-      this.$set(this.$route.query, 'page', 1);
+    if (this.$route.fullPath === "/shop" || this.$route.fullPath === "/shop/") {
+      this.$set(this.$route.query, "page", 1);
     }
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
-        if(this.$route.query.page){
+        console.dir(response.data);
+        if (this.$route.query.page) {
           this.currentPage = this.$route.query.page;
         } else {
           this.currentPage = 1;
         }
       }
     });
+    /* const data = await this.getToCart();
+    data.map(el => {
+      this.GET_CART_FROM_API(el.product_id);
+    }); */
   },
   watch: {
-    $route: function () {
+    $route: function() {
       //добавить страницу оплата и доставка
-      if(this.$route.path === "/" || this.$route.path === "/blog/"){
+      if (this.$route.path === "/" || this.$route.path === "/blog/") {
         this.sortingCatalog = { orderby: null, order: null };
         this.sortingCategories = null;
       }
-      if( this.$route.fullPath === "/shop" || this.$route.fullPath === "/shop/") {
-        this.$set(this.$route.query, 'page', 1);
+      if (
+        this.$route.fullPath === "/shop" ||
+        this.$route.fullPath === "/shop/"
+      ) {
+        this.$set(this.$route.query, "page", 1);
       }
     },
-
     sortingCatalog: function() {
-      if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
-        this.$router.push({fullPath: "/shop"});
+      if (this.$route.path === "/shop" || this.$route.path === "/shop/") {
+        this.$router.push({ fullPath: "/shop" });
       }
       this.$route.query.page = 1;
       this.currentPage = 1;
@@ -169,34 +239,32 @@ export default {
     },
     maleSortingSubCategories: function() {
       this.GET_ID_CATEGORIES_TO_VUEX(this.maleSortingSubCategories);
-      if(this.maleSortingSubCategories === null) {
+      if (this.maleSortingSubCategories === null) {
         this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
       }
-    }, 
+    },
     femaleSortingSubCategories: function() {
       this.GET_ID_CATEGORIES_TO_VUEX(this.femaleSortingSubCategories);
-      if(this.femaleSortingSubCategories === null) {
+      if (this.femaleSortingSubCategories === null) {
         this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
       }
-
-    }, 
+    },
     babySortingSubCategories: function() {
       this.GET_ID_CATEGORIES_TO_VUEX(this.babySortingSubCategories);
-      if(this.babySortingSubCategories === null) {
+      if (this.babySortingSubCategories === null) {
         this.GET_ID_CATEGORIES_TO_VUEX(this.sortingCategories);
       }
-
-    }, 
+    },
 
     CATEGORY_ID: function() {
-      if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
-        this.$router.push({fullPath: "/shop"});
+      if (this.$route.path === "/shop" || this.$route.path === "/shop/") {
+        this.$router.push({ fullPath: "/shop" });
       }
       this.$route.query.page = 1;
       this.currentPage = 1;
       this.GET_PRODUCTS_FROM_API(this.$route.query.page);
     }
-   }
+  }
 };
 </script>
 
