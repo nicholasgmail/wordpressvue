@@ -2,7 +2,7 @@
   <b-col class="v-catalog-item px-3 mb-2">
     <b-card tag="article" style="max-width: 20rem;" class="h-100">
       <div @click="toProduct(product_data)">
-      <b-card-img-lazy :src="product_data.images[0].src" top alt="img" ></b-card-img-lazy>
+      <b-card-img-lazy :src="product_data.images[0].src" top :alt="product_data.name" ></b-card-img-lazy>
       </div>
       <b-card-body>
         <div class="d-flex flex-column justify-content-between h-100">
@@ -11,7 +11,7 @@
           <b-card-text class="text-muted">{{product_data.name}}</b-card-text>
           <b-card-text class="text-danger font-weight-bold">{{product_data.price}} грн.</b-card-text>
 
-          <b-button block variant="outline-primary" @click="addToCart">Купить</b-button>
+          <b-button block variant="outline-primary" @click="addToCart, makeToast( 'info', 'b-toaster-bottom-left', true)">Купить</b-button>
         </div>
       </b-card-body>
     </b-card>
@@ -41,18 +41,19 @@ export default {
   methods: {
     ...mapActions(["GET_PRODUCT_ID_TO_VUEX", "GET_PRODUCT_FROM_API"]),
 
-    makeToast(variant = null) {
-      let $price = this.product_data.price
+    makeToast(variant = null, toaster, append = false) {
+        let $price = this.product_data.price
         this.$bvToast.toast(this.product_data.name, {
-          title: `Товар добавлен, по цене ${$price} грн`,
-          variant: variant,
-          solid: true,
-          autoHideDelay: 1500
+            title: `Товар добавлен, по цене ${$price} грн`,
+            variant: variant,
+            toaster: toaster,
+            solid: true,
+            appendToast: append,
+            autoHideDelay: 500
         })
-      },
+    },
     addToCart() {
       this.$emit("addToCart", this.product_data);
-      this.makeToast('info');
     },
     toProduct() {
       function toTranslit(text) {
@@ -80,8 +81,7 @@ export default {
 
       this.$router.push({ path: `/product`, query: { name: $name_id } });
       this.GET_PRODUCT_ID_TO_VUEX(this.product_data.id);
-      this.GET_PRODUCT_FROM_API()
-
+      this.GET_PRODUCT_FROM_API();
     }
   }
 };
