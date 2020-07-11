@@ -175,7 +175,7 @@ export default {
         return error;
       });
   },
-  GET_CART_FROM_API({ commit }, data) {
+  GET_PRODUCT_FROM_API({ commit, state }) {
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
       consumerKey: SETTINGS.KEY, // Your consumer key
@@ -183,15 +183,11 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
-
-   /*  let $data = {
-      id: $id,
-    } */
-
-    return WooCommerce.get("products/" + data)
+    return WooCommerce.get("products/" + state.product_id)
       .then((response) => {
-        //вызываем мутацию для передачи даных  
-        commit("SET_CART", response.data);    
+        //вызываем мутацию для передачи даных
+        commit("SET_PRODUCT_FROM_API", response.data);
+        //console.log(categories.data);
         return response;
       })
       .catch((error) => {

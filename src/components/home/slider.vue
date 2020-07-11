@@ -5,6 +5,7 @@
       style="text-shadow: 0px 0px 2px #000"
       fade
       indicators
+      :interval="0"
       img-width="1024"
       img-height="480"
     >
@@ -40,5 +41,4 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>

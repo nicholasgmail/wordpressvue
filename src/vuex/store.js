@@ -42,6 +42,8 @@ let store = new Vuex.Store({
         },
       ],
     },
+    products: [],
+    product_id: '',
     phone: null,
     cart: [],
     lstoreg:"line_items",

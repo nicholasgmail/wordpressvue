@@ -81,8 +81,6 @@ export default {
       if (!this.$route.query.page && this.$route.path != "/shop" && this.$route.path != "/shop/") {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
-
-        
       } else {
         this.$router.push({fullPath: "/shop"});
         this.GET_PRODUCTS_FROM_API();
@@ -92,19 +90,15 @@ export default {
       if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
         this.GET_ID_CATEGORIES_TO_VUEX('');
         this.vModelValue = '';
-        //this.sortingCatalog = { orderby: null, order: null };
         this.GET_SEARCH_VALUE_TO_VUEX('');
         this.GET_PRODUCTS_FROM_API();
       }
     },
-
   },
-
   mounted() {
     this.GET_MENU_FROM_API().then(response => {});
   },
-  watch: {
-  }
+  watch: {}
 };
 </script>
 

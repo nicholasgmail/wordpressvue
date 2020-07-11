@@ -21,6 +21,10 @@ export default {
     GET_SORTING_OPTIONS_TO_VUEX ({commit}, value) {
         commit('SET_SORTING_OPTIONS_TO_VUEX', value)
     },
+    GET_PRODUCT_ID_TO_VUEX ({commit}, value) {
+        commit('SET_PRODUCT_ID_TO_VUEX', value)
+    },
+
 
 
 }

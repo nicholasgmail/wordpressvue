@@ -6,6 +6,7 @@ import Shop from "@/views/shop";
 import AboutUs from "@/views/about-us";
 import NoPage from "@/views/no-page";
 import Cart from "@/views/cart";
+import Product from "@/components/product/product";
 
 Vue.use(VueRouter);
 
@@ -16,17 +17,17 @@ const routes = [
     component: Home,
   },
   {
-    path: "/shop",
+    path: "/shop/",
     post_name: "shop",
     component: Shop,
   },
   {
-    path: "/blog",
+    path: "/blog/",
     post_name: "about-us",
     component: AboutUs,
   },
   {
-    path: "/404",
+    path: "/404/",
     post_name: "404",
     component: NoPage,
   },
@@ -35,11 +36,18 @@ const routes = [
     redirect: "/404",
   },
   {
-    path: "/cart",
+    path: "/cart/",
     name: "cart",
     component: Cart,
     props: true,
   },
+  {
+    path: "/product/",
+    name: "product",
+    component: Product,
+    props: true,
+  },
+
 ];
 
 const router = new VueRouter({

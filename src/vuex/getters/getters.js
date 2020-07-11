@@ -3,6 +3,9 @@ export default {
     return state.vModelValue;
   },
   PRODUCTS(state) {
+    return state.products;
+  },
+  PRODUCT(state) {
     return state.product;
   },
   LSTOREG(state) {

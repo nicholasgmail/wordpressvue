@@ -21,10 +21,17 @@ export default {
   SET_ID_CATEGORIES_TO_VUEX: (state, value) => {
     state.categoryId = value;
   },
+  SET_PRODUCT_ID_TO_VUEX: (state, value) => {
+    state.product_id = value;
+  },
   SET_SORTING_OPTIONS_TO_VUEX: (state, value) => {
     state.sortingCatalog = value;
   },
   SET_PRODUCTS_TO_STATE: (state, product) => {
+    //передаем даные в продукт з мутации
+    state.products = product;
+  },
+  SET_PRODUCT_FROM_API: (state, product) => {
     //передаем даные в продукт з мутации
     state.product = product;
   },

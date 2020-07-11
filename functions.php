@@ -20,48 +20,84 @@ add_filter( 'vuejs-wordpress-theme-starter-app', 'mihdan_add_async_attribute', 1
 
 // Load scripts
 function load_vue_scripts() {
+	
 	wp_enqueue_script(
-		'vuejs-wordpress-theme-starter-chunk-95acb4cc',
-		get_stylesheet_directory_uri() . '/dist/js/chunk-95acb4cc.js',
+		'vuejs-wordpress-theme-starter-app-11',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-0cda41aa.js',
 		null,
-		filemtime( get_stylesheet_directory() . '/dist/js/chunk-95acb4cc.js' ),
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-0cda41aa.js' ),
 		true
-	);	
+	);
 	wp_enqueue_script(
-		'vuejs-wordpress-theme-starter-chunk-50a78869',
-		get_stylesheet_directory_uri() . '/dist/js/chunk-50a78869.js',
+		'vuejs-wordpress-theme-starter-app-10',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-1a450389.js',
 		null,
-		filemtime( get_stylesheet_directory() . '/dist/js/chunk-50a78869.js' ),
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-1a450389.js' ),
 		true
-	);	
+	);
 	wp_enqueue_script(
-		'vuejs-wordpress-theme-starter-chunk-d71fd098',
-		get_stylesheet_directory_uri() . '/dist/js/chunk-d71fd098.js',
+		'vuejs-wordpress-theme-starter-app-9',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-2d0c8db9.js',
 		null,
-		filemtime( get_stylesheet_directory() . '/dist/js/chunk-d71fd098.js' ),
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-2d0c8db9.js' ),
 		true
-	);	
+	);
 	wp_enqueue_script(
-		'vuejs-wordpress-theme-starter-chunk-2d2094f4',
+		'vuejs-wordpress-theme-starter-app-8',
 		get_stylesheet_directory_uri() . '/dist/js/chunk-2d2094f4.js',
 		null,
 		filemtime( get_stylesheet_directory() . '/dist/js/chunk-2d2094f4.js' ),
 		true
-	);	
+	);
 	wp_enqueue_script(
-		'vuejs-wordpress-theme-starter-chunk-5506898a',
-		get_stylesheet_directory_uri() . '/dist/js/chunk-5506898a.js',
-		null,
-		filemtime( get_stylesheet_directory() . '/dist/js/chunk-5506898a.js' ),
-		true
-	);	
-	wp_enqueue_script(
-		'vuejs-wordpress-theme-starter-chunk-2d21de06',
+		'vuejs-wordpress-theme-starter-app-7',
 		get_stylesheet_directory_uri() . '/dist/js/chunk-2d21de06.js',
 		null,
 		filemtime( get_stylesheet_directory() . '/dist/js/chunk-2d21de06.js' ),
 		true
-	);	
+	);
+	wp_enqueue_script(
+		'vuejs-wordpress-theme-starter-app-6',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-396f5c22.js',
+		null,
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-396f5c22.js' ),
+		true
+	);
+	wp_enqueue_script(
+		'vuejs-wordpress-theme-starter-app-5',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-48f0cc49.js',
+		null,
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-48f0cc49.js' ),
+		true
+	);
+	wp_enqueue_script(
+		'vuejs-wordpress-theme-starter-app-4',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-5dc9f146.js',
+		null,
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-5dc9f146.js' ),
+		true
+	);
+	wp_enqueue_script(
+		'vuejs-wordpress-theme-starter-app-3',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-78743710.js',
+		null,
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-78743710.js' ),
+		true
+	);
+	wp_enqueue_script(
+		'vuejs-wordpress-theme-starter-app-2',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-7aac1130.js',
+		null,
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-7aac1130.js' ),
+		true
+	);
+	wp_enqueue_script(
+		'vuejs-wordpress-theme-starter-app-1',
+		get_stylesheet_directory_uri() . '/dist/js/chunk-d1aa8c68.js',
+		null,
+		filemtime( get_stylesheet_directory() . '/dist/js/chunk-d1aa8c68.js' ),
+		true
+	);
 	wp_enqueue_script(
 		'vuejs-wordpress-theme-starter-app',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
@@ -83,24 +119,6 @@ function load_vue_scripts() {
 		get_stylesheet_directory_uri() . '/dist/css/app.css',
 		null,
 		filemtime( get_stylesheet_directory() . '/dist/css/app.css' )
-	); 
-	wp_enqueue_style(
-		'vuejs-wordpress-theme-starter-css-chunk-50a78869',
-		get_stylesheet_directory_uri() . '/dist/css/chunk-50a78869.css',
-		null,
-		filemtime( get_stylesheet_directory() . '/dist/css/chunk-50a78869.css' )
-	); 
-	wp_enqueue_style(
-		'vuejs-wordpress-theme-starter-css-chunk-5506898a',
-		get_stylesheet_directory_uri() . '/dist/css/chunk-5506898a.css',
-		null,
-		filemtime( get_stylesheet_directory() . '/dist/css/chunk-5506898a.css' )
-	); 
-	wp_enqueue_style(
-		'vuejs-wordpress-theme-starter-css-chunk-d71fd098',
-		get_stylesheet_directory_uri() . '/dist/css/chunk-d71fd098.css',
-		null,
-		filemtime( get_stylesheet_directory() . '/dist/css/chunk-d71fd098.css' )
 	); 
 }
 add_action( 'wp_enqueue_scripts', 'load_vue_scripts', 100 );
