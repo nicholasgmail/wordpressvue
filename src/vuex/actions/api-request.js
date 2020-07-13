@@ -128,10 +128,8 @@ export default {
   GET_NEW_PRODUCTS_FROM_API({ commit }) {
     var $date = new Date();
     $date.setMonth(1);
-    //$date.setDate(-1);
     var $date_back = $date.toISOString();
     $date_back = $date_back.slice(0, -5);
-    //console.log($date_back);
 
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL

@@ -10,6 +10,7 @@
         v-for="product in NEW_PRODUCTS"
         :key="product.id"
         v-bind:product_data="product"
+        @addToCart="addToCart"
       ></v-catalog-item>
     </div>
   </div>
@@ -28,16 +29,46 @@ export default {
   props: {},
   data() {
     return {
+      lineItems: [],
       show: true
     };
   },
   computed: {
-    ...mapGetters(["NEW_PRODUCTS", "CART"])
+    ...mapGetters(["NEW_PRODUCTS", "CART", "LSTOREG"])
   },
   methods: {
-    ...mapActions(["GET_NEW_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_NEW_PRODUCTS_FROM_API", "ADD_TO_CART"]),
+    //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
+    },
+    //метод добавления в хранилище
     addToCart(data) {
       this.ADD_TO_CART(data);
+      this.lineItems = this.getToCart();
+      //существует продукт или нет в хранилище
+      const $index = this.lineItems.find(item => item.product_id == data.id);
+      //действие если существует в хранилище
+      if (!$index) {
+        var $orders = {
+          product_id: data.id,
+          quantity: 1
+        };
+        this.lineItems.push($orders);
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      } else {
+        //действие если не существует в хранилище
+        this.lineItems.find(item =>
+          item.product_id == data.id ? ++item.quantity : ""
+        );
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      }
     }
   },
   mounted() {

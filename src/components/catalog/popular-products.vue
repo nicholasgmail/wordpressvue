@@ -1,61 +1,85 @@
 <template>
   <div class="popular-products container py-3">
-      <h1 class="text-center" v-pre>Популярные товары</h1>
-      <div class="row">
-        
-      <div v-if="show" class="w-100 text-center my-3 text-primary"> 
-        <b-spinner  option="primary" label="Text Centered"> </b-spinner> 
+    <h1 class="text-center" v-pre>Популярные товары</h1>
+    <div class="row">
+      <div v-if="show" class="w-100 text-center my-3 text-primary">
+        <b-spinner option="primary" label="Text Centered"></b-spinner>
       </div>
 
-        <v-catalog-item v-for="product in POP_PRODUCTS" :key="product.id" v-bind:product_data="product"></v-catalog-item>
-      </div>
+      <v-catalog-item
+        v-for="product in POP_PRODUCTS"
+        :key="product.id"
+        :product_data="product"
+        @addToCart="addToCart"
+      ></v-catalog-item>
+    </div>
   </div>
 </template>
 
 <script>
-import { BSpinner } from 'bootstrap-vue'
-import { mapActions, mapGetters } from "vuex"
+import { BSpinner } from "bootstrap-vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-    name: "popular-products",
-    components: { 
-      VCatalogItem: ()=>import ('@/components/catalog/v-catalog-item'),
-      BSpinner 
-    },
-    props: {
-    },
+  name: "popular-products",
+  components: {
+    VCatalogItem: () => import("@/components/catalog/v-catalog-item"),
+    BSpinner
+  },
+  props: {},
   data() {
     return {
+      lineItems: [],
       show: true
     };
   },
-  computed: { 
-    ...mapGetters(["POP_PRODUCTS", "CART"])
+  computed: {
+    ...mapGetters(["POP_PRODUCTS", "CART", "LSTOREG"])
   },
-  methods:{
-    ...mapActions(["GET_POP_PRODUCTS_FROM_API"]),
+  methods: {
+    ...mapActions(["GET_POP_PRODUCTS_FROM_API", "ADD_TO_CART"]),
+    //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
+    },
+    //метод добавления в хранилище
     addToCart(data) {
       this.ADD_TO_CART(data);
+      this.lineItems = this.getToCart();
+      //существует продукт или нет в хранилище
+      const $index = this.lineItems.find(item => item.product_id == data.id);
+      //действие если существует в хранилище
+      if (!$index) {
+        var $orders = {
+          product_id: data.id,
+          quantity: 1
+        };
+        this.lineItems.push($orders);
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      } else {
+        //действие если не существует в хранилище
+        this.lineItems.find(item =>
+          item.product_id == data.id ? ++item.quantity : ""
+        );
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      }
     }
-
   },
-  mounted() { 
+  mounted() {
     this.GET_POP_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
         this.show = false;
-/*               let vm = this;
-              this.PRODUCTS.map(function (item) {
-                if (item.type === 'variable' && vm.popProducts.length <= 3) {
-                  vm.popProducts.push(item);
-                }
-              })
- */      }
+      }
     });
-
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 </style>

@@ -18,12 +18,8 @@
       <div class="position-relative z-1">
         <b-button v-b-toggle.collapse-cart class="btn-icon px-5" variant="outline-danger">
           <svg-icon class="svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
-          <span class="mr-2">
-            {{CART.length}}
-            <!-- x  {{cartTotalCost}}  -->
-            грн.
-          </span>
-          <span class="text-uppercase">Корзина</span>
+          <span v-if="cartQuantity" class="mr-2"> {{cartTotalCost}} грн.</span>
+          <span class="text-uppercase" v-pre>Корзина</span>
         </b-button>
         <b-collapse id="collapse-cart" class="mt-2 w-100 position-absolute">
           <v-mini-cart v-if="CART.length" :cart_data="CART"></v-mini-cart>
@@ -33,7 +29,7 @@
   </b-navbar>
 </template>
 <script>
-import { mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "header-top",
   components: {
@@ -54,12 +50,38 @@ export default {
   created() {
     this.cart = this.getToCart();
     this.cart.map(el => {
-      this.GET_CART_FROM_API(el.product_id)
-
+      this.GET_CART_FROM_API(el.product_id);
     });
   },
   computed: {
-    ...mapGetters(["CART", "LSTOREG"])
+    ...mapGetters(["CART", "LSTOREG"]),
+    //подсчет общей стоимости
+    cartTotalCost() {
+      var result = [];
+      if (this.CART.length) {
+        this.CART.map(elem => {
+          result.push(elem.price * elem.quantity);
+        });
+        var $summ = result.reduce(function(sum, el) {
+          return sum + el;
+        });
+        return $summ;
+      }
+      return 0;
+    },
+    cartQuantity() {
+      var quantity = [];
+      if (this.CART.length) {
+        for (let item of this.CART) {
+          quantity.push(item.quantity);
+        }
+        quantity = quantity.reduce(function(sum, el) {
+          return sum + el;
+        });
+        return quantity;
+      }
+      return 0;
+    }
   },
   methods: {
     ...mapActions([
@@ -67,22 +89,7 @@ export default {
       "GET_INFO_FROM_API",
       "GET_CART_FROM_API"
     ]),
-    //подсчет общей стоимости
-    cartTotalCost() {
-      //подсчет общей стоимости
-      let result = [];
-      if (this.cart_data.length) {
-        for (let item of this.cart_data) {
-          result.push(item.price * item.quantity);
-        }
-        result = result.reduce(function(sum, el) {
-          return sum + el;
-        });
-        return result;
-      } else {
-        return 0;
-      }
-    },
+
     //метод для получения даных из локального хранилища
     getToCart() {
       const $itemProduct = localStorage.getItem(this.LSTOREG);
