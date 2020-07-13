@@ -83,7 +83,7 @@ export default {
       this.GET_PRODUCT_FROM_API()
 
     }
-  }
+  },
 };
 </script>
 

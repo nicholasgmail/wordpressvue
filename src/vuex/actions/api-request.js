@@ -48,9 +48,9 @@ export default {
         //вызываем мутацию для передачи даных
         /*  commit("SET_ORDERS_TO_STATE", response.data);*/
 
-        console.log(getters.ORDERS);
-        console.log(response.data);
-        /*  return response; */
+        /* console.log(getters.ORDERS); */
+        /* console.log(response.data); */
+         return response;
       })
       .catch((error) => {
         console.log(error);
@@ -128,10 +128,8 @@ export default {
   GET_NEW_PRODUCTS_FROM_API({ commit }) {
     var $date = new Date();
     $date.setMonth(1);
-    //$date.setDate(-1);
     var $date_back = $date.toISOString();
     $date_back = $date_back.slice(0, -5);
-    //console.log($date_back);
 
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
@@ -183,7 +181,12 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
+<<<<<<< HEAD
     return WooCommerce.get("products/" + state.product_id)
+=======
+
+    return WooCommerce.get("products/" + data)
+>>>>>>> cart
       .then((response) => {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCT_FROM_API", response.data);

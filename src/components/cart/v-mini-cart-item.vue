@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "v-mini-cart-item",
   props: {
@@ -26,15 +27,32 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      $elem: []
+    };
+  },
+  computed: {
+    ...mapGetters(["LSTOREG"])
+  },
+  //c помощью ключа добавляем параметр quantity c количеством 1
+  created() {
+    this.$elem = this.getToCart();
+    this.$elem.map(element => {
+      if (element.product_id == this.cart_item_data.id) {
+        this.$set(this.cart_item_data, "quantity", element.quantity);
+      }
+    });
   },
   methods: {
     deleteFromCart() {
       this.$emit("deleteFromCart");
-    },
-    //c помощью ключа добавляем параметр quantity c количеством 1
-    created() {
-      this.$set(this.cart_item_data, "quantity", 1);
+    }, //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
     }
   }
 };

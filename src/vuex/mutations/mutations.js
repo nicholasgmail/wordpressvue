@@ -46,7 +46,7 @@ export default {
   SET_CATEGORIES_TO_STATE: (state, categories) => {
     state.categories = categories;
   },
-  
+
   SET_CART: (state, product) => {
     if (state.cart.length) {
       let isProductExists = false;
@@ -58,10 +58,9 @@ export default {
       });
       if (!isProductExists) {
         state.cart.push(product);
-       /*  console.log(product); */
       }
     } else {
-      state.cart.push(product);
+          state.cart.push(product);
     }
   },
   REMOVE_FROM_CART: (state, index) => {
@@ -73,6 +72,8 @@ export default {
   DECREMENT: (state, index) => {
     if (state.cart[index].quantity > 1) {
       state.cart[index].quantity--;
+    } else {
+      state.cart.slice(index, 1);
     }
   },
 };

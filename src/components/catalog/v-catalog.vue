@@ -93,9 +93,7 @@ export default {
       ]
     };
   },
-  created() {
-   
-  },
+  created() {},
   computed: {
     ...mapGetters([
       "SEARCH_VALUE",
@@ -124,16 +122,10 @@ export default {
       }
       return [];
     },
-    actionToCart() {
-      this.lineItems.map(el => {
-        this.GET_CART_FROM_API(el.product_id)
-      });
-    },
     //метод добавления в хранилище
     addToCart(data) {
       this.ADD_TO_CART(data);
-      //получаем из хранилища даные
-      this.lineItems = this.getToCart();      
+      this.lineItems = this.getToCart();
       //существует продукт или нет в хранилище
       const $index = this.lineItems.find(item => item.product_id == data.id);
       //действие если существует в хранилище
@@ -157,7 +149,6 @@ export default {
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
-          console.dir(response.data);
           if (this.$route.query.page) {
             this.currentPage = this.$route.query.page;
           } else {
@@ -173,7 +164,6 @@ export default {
     }
     this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
       if (response.data) {
-        console.dir(response.data);
         if (this.$route.query.page) {
           this.currentPage = this.$route.query.page;
         } else {
