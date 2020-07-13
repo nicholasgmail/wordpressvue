@@ -42,7 +42,6 @@ export default {
   //c помощью ключа добавляем параметр quantity c количеством 1
   mounted() {
     this.$set(this.cart_item_data, "quantity", 1);
-    console.log(this.cart_item_data);
   }
 };
 </script>

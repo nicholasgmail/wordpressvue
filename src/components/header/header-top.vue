@@ -33,7 +33,7 @@
   </b-navbar>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters} from "vuex";
 export default {
   name: "header-top",
   components: {
@@ -52,11 +52,10 @@ export default {
     };
   },
   created() {
-     this.cart = this.getToCart();
+    this.cart = this.getToCart();
     this.cart.map(el => {
-      this.GET_CART_FROM_API(el.product_id).then(response => {
-        console.log(response.data);
-      });
+      this.GET_CART_FROM_API(el.product_id)
+
     });
   },
   computed: {

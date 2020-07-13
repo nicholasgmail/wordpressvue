@@ -1,6 +1,6 @@
 <template>
   <div class="popular-products container py-3">
-      <h1 class="text-center">Популярные товары</h1>
+      <h1 class="text-center" v-pre>Популярные товары</h1>
       <div class="row">
         
       <div v-if="show" class="w-100 text-center my-3 text-primary"> 

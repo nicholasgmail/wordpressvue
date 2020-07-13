@@ -51,7 +51,7 @@ export default {
       "LSTOREG"]),
     cartTotalCost() {
       //подсчет общей стоимости
-      let result = [];
+      let result = [];      
       if (this.cart_data.length) {
         for (let item of this.cart_data) {
           result.push(item.price * item.quantity);

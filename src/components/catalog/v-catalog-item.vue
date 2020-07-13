@@ -46,7 +46,7 @@ export default {
       this.$emit("addToCart", this.product_data);
       this.makeToast("info");
     }
-  }
+  },
 };
 </script>
 

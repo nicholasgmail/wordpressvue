@@ -48,9 +48,9 @@ export default {
         //вызываем мутацию для передачи даных
         /*  commit("SET_ORDERS_TO_STATE", response.data);*/
 
-        console.log(getters.ORDERS);
-        console.log(response.data);
-        /*  return response; */
+        /* console.log(getters.ORDERS); */
+        /* console.log(response.data); */
+         return response;
       })
       .catch((error) => {
         console.log(error);
@@ -183,10 +183,6 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
-
-   /*  let $data = {
-      id: $id,
-    } */
 
     return WooCommerce.get("products/" + data)
       .then((response) => {
