@@ -37,17 +37,18 @@ export default {
   },
   computed: {
     ...mapGetters(["CATEGORIES"])
-
   },
   methods: {
-        ...mapActions(["GET_CATEGORIES_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", "GET_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_CATEGORIES_FROM_API", "GET_ID_CATEGORIES_TO_VUEX", "GET_PRODUCTS_FROM_API"]),
 
-        toProducts(value) {
-          this.GET_ID_CATEGORIES_TO_VUEX(value);
+    toProducts(value) {
+      this.GET_ID_CATEGORIES_TO_VUEX(value);
+      this.GET_PRODUCTS_FROM_API().then(response => {
+        if (response.data) {
           this.$router.push('/shop');
-          this.GET_PRODUCTS_FROM_API();
         }
-
+      })
+    }
   },
   mounted() {
     this.GET_CATEGORIES_FROM_API().then(response => {

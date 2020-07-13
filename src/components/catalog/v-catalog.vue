@@ -1,6 +1,9 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
-    <b-button @click="ordersProduct">send</b-button>
+    <b-breadcrumb class="pl-0">
+      <b-breadcrumb-item to="/">Главная</b-breadcrumb-item>
+      <b-breadcrumb-item active>Носки купить</b-breadcrumb-item>
+    </b-breadcrumb>
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
       <b-form-select v-model="sortingCatalog" :options="sortingOptions"  size="sm" ></b-form-select>
@@ -105,10 +108,6 @@ export default {
     addToCart(data) {
       this.ADD_TO_CART(data);
     },    
-    beforeRouteUpdate(to, from, next) {
-      //console.log(this.$route)
-      next();
-    },
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
@@ -223,6 +222,9 @@ export default {
 
 <style lang="scss">
 .v-catalog {
+  .breadcrumb {
+    background-color: #fff;
+  }
   &__list {
     display: flex;
     flex-wrap: wrap;
