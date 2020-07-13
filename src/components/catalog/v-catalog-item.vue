@@ -11,7 +11,7 @@
           <b-card-text class="text-muted">{{product_data.name}}</b-card-text>
           <b-card-text class="text-danger font-weight-bold">{{product_data.price}} грн.</b-card-text>
 
-          <b-button block variant="outline-primary" @click="addToCart, makeToast( 'info', 'b-toaster-bottom-left', true)">Купить</b-button>
+          <b-button block variant="outline-primary" @click="addToCart">Купить</b-button>
         </div>
       </b-card-body>
     </b-card>
@@ -54,6 +54,7 @@ export default {
     },
     addToCart() {
       this.$emit("addToCart", this.product_data);
+      this.makeToast( 'info', 'b-toaster-bottom-left', true)
     },
     toProduct() {
       function toTranslit(text) {
