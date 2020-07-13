@@ -171,9 +171,6 @@ export default {
         }
       }
     });
-  },
-  watch: {
-    $route: function() {
     if (this.CATEGORY_ID === 36) {
       this.sortingCategories = this.CATEGORY_ID;
     }
@@ -182,7 +179,11 @@ export default {
     }
     if (this.CATEGORY_ID === 39) {
       this.sortingCategories = this.CATEGORY_ID;
-    } 
+    }
+  },
+  watch: {
+    // отслеживание изменения route
+    $route: function () {
       //добавить страницу оплата и доставка
       if (this.$route.path === "/" || this.$route.path === "/blog/") {
         this.sortingCatalog = { orderby: null, order: null };
