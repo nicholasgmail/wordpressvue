@@ -15,11 +15,7 @@
                             <div    v-for="(img, thumbIndex) in PRODUCT.images" :key="thumbIndex" 
                                     :class="{ active: thumbIndex === isActive }"
                                     @click="indexGallery = thumbIndex" 
-<<<<<<< HEAD
-                                    class="carousel-item">
-=======
                                     class="carousel-item p-2">
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
 
                                 <img :src="img.src" 
                                     :alt="PRODUCT.name"
@@ -54,41 +50,6 @@
                 </b-col>
                 
                 <b-col sm="6" class="col-12 ml-md-4">
-<<<<<<< HEAD
-                    <b-card-body :title="PRODUCT.name">
-                        <b-card-text class="mt-4" v-html="PRODUCT.short_description"></b-card-text>
-                        <p class="mt-4">{{PRODUCT.price}} грн</p>
-                        
-                        <div class="d-flex flex-wrap align-items-center">
-                            <!-- Count -->
-                            <div size="sm" class="count_product d-flex my-3 mr-3">
-                                <b-button @click="countMinus" variant="outline-info" class="plus_minus">-</b-button>
-                                <input type="number" v-model="countProduct" variant="outline-info" class="border-info font-size-14 mx-1 pl-3" min="1">
-                                <b-button @click="countPlus" variant="outline-info" class="plus_minus">+</b-button>
-                            </div>
-
-                            <!-- Color -->
-                            <b-form-select v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'" size="md" v-model="colorProduct" :options="optionsColor" class="col-3 col-md-2 border-info my-3 mr-2"></b-form-select>
-                            <div v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'" class="color_jins border-info my-3 mx-1"></div>
-                            
-                            <!-- Size -->
-                            <select v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'Размер'" class="col-4 col-md-3 form-control form-control-md border-info h-100 mx-2 my-3">
-                                <option>Размер</option>
-                                <option v-for="(size, index ) in PRODUCT.attributes[0].options" :key="index">{{size}}</option>
-                            </select>
-                            <select v-if="PRODUCT.attributes[1] && PRODUCT.attributes[1].name === 'Размер'" class="col-4 col-md-3 form-control form-control-md border-info h-100 mx-2 my-3">
-                                <option>Размер</option>
-                            <option v-for="(size, index ) in PRODUCT.attributes[1].options" :key="index">{{size}}</option>
-                            </select>
-                        </div>
-                        
-
-                        <div size="sm" class="d-flex my-4 py-3">
-                            <b-button @click="addToCart(PRODUCT)" variant="outline-info mr-3">В корзину</b-button>
-                            <b-button variant="outline-info ml-3">Купить в один клик</b-button>
-                        </div>
-
-=======
                     <b-card-body class="pt-0">
                         <h2 class="">{{PRODUCT.name}}</h2>
                         <div class="product_description" v-html="PRODUCT.description"></div>
@@ -133,7 +94,6 @@
 
                         
 
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
                     </b-card-body>
                 </b-col>
             </b-row>
@@ -208,32 +168,19 @@ export default {
            this.countProduct-- ;
         }
     },
-<<<<<<< HEAD
-    makeToast(variant = null) {
-=======
     makeToast(variant = null, toaster, append = false) {
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
         let $price = this.PRODUCT.price
         this.$bvToast.toast(this.PRODUCT.name, {
             title: `Товар добавлен, по цене ${$price} грн`,
             variant: variant,
-<<<<<<< HEAD
-            solid: true,
-            autoHideDelay: 1500
-=======
             toaster: toaster,
             solid: true,
             appendToast: append,
             autoHideDelay: 500
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
         })
     },
     addToCart(data) {
       this.ADD_TO_CART(data);
-<<<<<<< HEAD
-      this.makeToast('info');
-=======
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
     },    
 
   },
@@ -255,16 +202,6 @@ export default {
             this.PRODUCT.images.map(function(img) {
                 vm.images.push(img.src);
             });
-<<<<<<< HEAD
-
-            if(this.PRODUCT.attributes[0] && this.PRODUCT.attributes[0].name === 'цвет') {
-                this.PRODUCT.attributes[0].options.map(function(value) {
-                    vm.optionsColor.push(value);
-                });
-            }
-            
-=======
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
         } else {
         //this.GET_PRODUCT_ID_TO_VUEX(3115);
         this.$router.push({path: '/shop/'});
@@ -273,12 +210,6 @@ export default {
 
   },
   watch: {
-<<<<<<< HEAD
-      $route: function () {
-          this.isActive = 0;
-          this.colorProduct = null;
-      }
-=======
     $route: function () {
         this.isActive = 0;
         this.colorProduct = null;
@@ -293,28 +224,12 @@ export default {
             });
         }
     }
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
   }
 };
 </script>
 
 <style lang="scss">
 .product-vue {
-<<<<<<< HEAD
-    .btn_thumb {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: white;;
-        color: white;
-        outline: none;
-        &:hover {
-            background: rgb(209, 216, 221);
-            color: $red;
-        }
-    }
-=======
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
     .mini_slide {
         .slide {
             .active {
@@ -326,26 +241,6 @@ export default {
             }
         }
     }
-<<<<<<< HEAD
-    .color_jins {
-        background: #3361;
-        width: 35px;
-        height: 35px;
-        border: black solid 1px;
-        border-radius: 5px;
-    }
-    .count_product {
-        .plus_minus {
-            width: 38px;
-            height: 38px;
-        }
-        input {
-            max-width: 50px;
-            outline: none;
-            border: solid 0.3px;
-        }
-    }
-=======
     .card-body {
         .select_black {
             background: #000;
@@ -382,7 +277,6 @@ export default {
         }
     }
 
->>>>>>> 97ce6bd19baea71873d6449ffe12b0067425806b
 }
 </style>
 
