@@ -2,12 +2,6 @@
   <b-card no-body class="overflow-hidden card-yellow" style="max-width: 540px;">
     <b-row class="p-1 flex-column justify-content-center">
       <b-col>
-        <h6>
-          Подитог:
-          <span class="font-weight-bold">{{cartTotalCost}} грн.</span>
-        </h6>
-      </b-col>
-      <b-col>
         <div class="d-flex flex-column justify-content-center">
           <router-link
             class="btn btn-outline-info mt-2"
@@ -15,6 +9,12 @@
           >Просмотреть корзину</router-link>
           <b-button squared variant="success mt-2">Оформить заказ</b-button>
         </div>
+      </b-col>
+      <b-col class="pt-5">
+        <h6 class="m-0">
+          Подитог:
+          <span class="font-weight-bold">{{cartTotalCost}} грн.</span>
+        </h6>
       </b-col>
     </b-row>
     <div class="px-2">
