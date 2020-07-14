@@ -39,9 +39,8 @@ export default {
 
   },
   methods: {
-    ...mapActions(["GET_PRODUCT_ID_TO_VUEX", "GET_PRODUCT_FROM_API"]),
-
-    makeToast(variant = null, toaster, append = false) {
+    ...mapActions(["GET_PRODUCT_ID_TO_VUEX", "GET_PRODUCT_FROM_API"]),   
+     makeToast(variant = null, toaster, append = false) {
         let $price = this.product_data.price
         this.$bvToast.toast(this.product_data.name, {
             title: `Товар добавлен, по цене ${$price} грн`,
@@ -54,7 +53,7 @@ export default {
     },
     addToCart() {
       this.$emit("addToCart", this.product_data);
-      this.makeToast( 'info', 'b-toaster-bottom-left', true)
+      this.makeToast("info", "b-toaster-bottom-left", true); 
     },
     toProduct() {
       function toTranslit(text) {

@@ -8,12 +8,37 @@
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
       <b-form-select v-model="sortingCatalog" :options="sortingOptions" size="sm"></b-form-select>
       <div class="col-4 d-flex pr-0">
-        <b-form-select v-model="sortingCategories" :options="optionsCategories" class="mr-2" size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === null" v-model="sortingSubCategories" :options="optionsSubCategories"  size="sm"></b-form-select>
-        
-        <b-form-select v-if="sortingCategories === 36" v-model="maleSortingSubCategories" :options="maleOptionsSubCategories"  size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === 33" v-model="femaleSortingSubCategories" :options="femaleOptionsSubCategories"  size="sm"></b-form-select>
-        <b-form-select v-if="sortingCategories === 39" v-model="babySortingSubCategories" :options="babyOptionsSubCategories"  size="sm"></b-form-select>
+        <b-form-select
+          v-model="sortingCategories"
+          :options="optionsCategories"
+          class="mr-2"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === null"
+          v-model="sortingSubCategories"
+          :options="optionsSubCategories"
+          size="sm"
+        ></b-form-select>
+
+        <b-form-select
+          v-if="sortingCategories === 36"
+          v-model="maleSortingSubCategories"
+          :options="maleOptionsSubCategories"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === 33"
+          v-model="femaleSortingSubCategories"
+          :options="femaleOptionsSubCategories"
+          size="sm"
+        ></b-form-select>
+        <b-form-select
+          v-if="sortingCategories === 39"
+          v-model="babySortingSubCategories"
+          :options="babyOptionsSubCategories"
+          size="sm"
+        ></b-form-select>
       </div>
     </b-row>
 
@@ -43,22 +68,18 @@
 import VCatalogItem from "./v-catalog-item";
 import { mapActions, mapGetters } from "vuex";
 import paginationMixin from "@/mixins/pagination.mixins";
-import sortingCatalogMixin from "@/mixins/sorting-catalog.mixins"; 
-import sortingCategoriesMixin from "@/mixins/sorting-categories.mixins";  
-
+import sortingCatalogMixin from "@/mixins/sorting-catalog.mixins";
+import sortingCategoriesMixin from "@/mixins/sorting-categories.mixins";
 
 export default {
   name: "v-catalog",
-  mixins: [ paginationMixin, 
-            sortingCatalogMixin, 
-            sortingCategoriesMixin
-  ],
+  mixins: [paginationMixin, sortingCatalogMixin, sortingCategoriesMixin],
   components: { VCatalogItem },
   props: {},
   data() {
     return {
       lineItems: [],
-      currentPage: null,
+      currentPage: null
     };
   },
   created() {},
@@ -82,7 +103,6 @@ export default {
       "GET_ORDERS_FROM_API",
       "GET_CART_FROM_API"
     ]),
-    
     //метод для получения даных из локального хранилища
     getToCart() {
       const $itemProduct = localStorage.getItem(this.LSTOREG);
@@ -91,12 +111,13 @@ export default {
       }
       return [];
     },
-    //метод добавления в хранилище
-    addToCart(data) {
-      this.ADD_TO_CART(data);
+    //метод обновления корзины
+    updateTocart(data) {
       this.lineItems = this.getToCart();
       //существует продукт или нет в хранилище
-      const $index = this.lineItems.find(item => item.product_id == data.id);
+      const $index = this.lineItems.find(item =>
+        item.product_id == data.id ? true : false
+      );
       //действие если существует в хранилище
       if (!$index) {
         var $orders = {
@@ -106,7 +127,8 @@ export default {
         this.lineItems.push($orders);
         let $parse = JSON.stringify(this.lineItems);
         return localStorage.setItem(this.LSTOREG, $parse);
-      } else {
+      }
+      if ($index) {
         //действие если не существует в хранилище
         this.lineItems.find(item =>
           item.product_id == data.id ? ++item.quantity : ""
@@ -114,6 +136,11 @@ export default {
         let $parse = JSON.stringify(this.lineItems);
         return localStorage.setItem(this.LSTOREG, $parse);
       }
+    },
+    //метод добавления в хранилище
+    addToCart(data) {
+      this.updateTocart(data);
+      this.ADD_TO_CART(data);
     },
     nextPage() {
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
@@ -143,7 +170,7 @@ export default {
   },
   watch: {
     // отслеживание изменения route
-    $route: function () {
+    $route: function() {
       //добавить страницу оплата и доставка
       if (this.$route.path === "/" || this.$route.path === "/blog/") {
         this.sortingCatalog = { orderby: null, order: null };
@@ -155,7 +182,7 @@ export default {
       ) {
         this.$set(this.$route.query, "page", 1);
       }
-    },
+    }
   }
 };
 </script>

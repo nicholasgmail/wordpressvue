@@ -45,13 +45,14 @@ export default {
         return JSON.parse($itemProduct);
       }
       return [];
-    },
-    //метод добавления в хранилище
-    addToCart(data) {
-      this.ADD_TO_CART(data);
+    },    
+    //метод обновления корзины
+    updateTocart(data) {
       this.lineItems = this.getToCart();
       //существует продукт или нет в хранилище
-      const $index = this.lineItems.find(item => item.product_id == data.id);
+      const $index = this.lineItems.find(item =>
+        item.product_id == data.id ? true : false
+      );
       //действие если существует в хранилище
       if (!$index) {
         var $orders = {
@@ -61,7 +62,8 @@ export default {
         this.lineItems.push($orders);
         let $parse = JSON.stringify(this.lineItems);
         return localStorage.setItem(this.LSTOREG, $parse);
-      } else {
+      }
+      if ($index) {
         //действие если не существует в хранилище
         this.lineItems.find(item =>
           item.product_id == data.id ? ++item.quantity : ""
@@ -69,6 +71,11 @@ export default {
         let $parse = JSON.stringify(this.lineItems);
         return localStorage.setItem(this.LSTOREG, $parse);
       }
+    },
+    //метод добавления в хранилище
+    addToCart(data) {
+      this.updateTocart(data);
+      this.ADD_TO_CART(data);     
     }
   },
   mounted() {
