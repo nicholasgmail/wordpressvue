@@ -114,6 +114,7 @@ export default {
       "GET_ORDERS_FROM_API",
       "GET_CART_FROM_API"
     ]),
+    
     //метод для получения даных из локального хранилища
     getToCart() {
       const $itemProduct = localStorage.getItem(this.LSTOREG);
