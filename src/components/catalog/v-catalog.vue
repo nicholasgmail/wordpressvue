@@ -1,5 +1,9 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
+    <b-breadcrumb class="pl-0">
+      <b-breadcrumb-item to="/">Главная</b-breadcrumb-item>
+      <b-breadcrumb-item active>Носки купить</b-breadcrumb-item>
+    </b-breadcrumb>
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
       <b-form-select v-model="sortingCatalog" :options="sortingOptions" size="sm"></b-form-select>
@@ -198,8 +202,8 @@ export default {
     },
     // отслеживание сортировок товаров по дате, популярности и стоимости
     sortingCatalog: function() {
-      if (this.$route.path === "/shop" || this.$route.path === "/shop/") {
-        this.$router.push({ fullPath: "/shop" });
+      if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
+        this.$router.push({path: "/shop"});
       }
       this.$route.query.page = 1;
       this.currentPage = 1;
@@ -255,6 +259,9 @@ export default {
 
 <style lang="scss">
 .v-catalog {
+  .breadcrumb {
+    background-color: #fff;
+  }
   &__list {
     display: flex;
     flex-wrap: wrap;

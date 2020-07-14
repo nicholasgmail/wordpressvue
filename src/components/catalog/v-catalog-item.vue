@@ -6,7 +6,7 @@
       </div>
       <b-card-body>
         <div class="d-flex flex-column justify-content-between h-100">
-          <b-card-title>{{product_data.categories[1].name}}</b-card-title>
+          <b-card-title>{{product_data.categories[0].name}}</b-card-title>
           <b-card-sub-title class="mb-2">{{product_data.sku}}</b-card-sub-title>
           <b-card-text class="text-muted">{{product_data.name}}</b-card-text>
           <b-card-text class="text-danger font-weight-bold">{{product_data.price}} грн.</b-card-text>
@@ -79,10 +79,12 @@ export default {
           $name = $name_s.toLowerCase(),     
           $id = '-id-' + this.product_data.id,
           $name_id = $name + $id;
-
-      this.$router.push({ path: `/product`, query: { name: $name_id } });
       this.GET_PRODUCT_ID_TO_VUEX(this.product_data.id);
-      this.GET_PRODUCT_FROM_API();
+      this.GET_PRODUCT_FROM_API().then(response => {
+        if (response.data) {
+          this.$router.push({ path: `/product`, query: { name: $name_id } });
+        }
+      });
     }
   },
 };
