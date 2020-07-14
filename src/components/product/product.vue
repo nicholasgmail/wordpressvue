@@ -69,7 +69,7 @@
                                     <b-form-select v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'" 
                                                     size="md" v-model="colorProduct" 
                                                     :options="optionsColor"
-                                                    :class="{ select_black: colorProduct === 'Black', select_jins: colorProduct === 'Jins', select_yellow: colorProduct === 'Yellow', select_lilak: colorProduct === 'lilac'}" 
+                                                    :class="{ select_black: colorProduct === 'Black', select_jins: colorProduct === 'Jins', select_yellow: colorProduct === 'Yellow', select_lilak: colorProduct === 'lilac', select_dark_grey: colorProduct === 'dark grey'}" 
                                                     class="col-4 col-sm-3 border-info my-3 mr-2 w-50">
                                     </b-form-select>
 
@@ -91,8 +91,6 @@
                             <b-button @click="addToCart(PRODUCT), makeToast( 'info', 'b-toaster-bottom-left', true)" variant="outline-info mr-3">В корзину</b-button>
                             <b-button variant="outline-info ml-3">Купить в один клик</b-button>
                         </div>
-
-                        
 
                     </b-card-body>
                 </b-col>
@@ -136,7 +134,7 @@ export default {
     };
   },
   computed: {
-      ...mapGetters(["PRODUCT", "PRODUCT_ID", "CART"])
+      ...mapGetters(["PRODUCT", "PRODUCT_ID", "CART", "LSTOREG"])
   },
   methods: {
     ...mapActions(["GET_PRODUCT_ID_TO_VUEX", "GET_PRODUCT_FROM_API", "ADD_TO_CART"]),
@@ -181,9 +179,39 @@ export default {
             autoHideDelay: 500
         })
     },
+    //метод для получения даных из локального хранилища
+    getToCart() {
+      const $itemProduct = localStorage.getItem(this.LSTOREG);
+      if ($itemProduct !== null) {
+        return JSON.parse($itemProduct);
+      }
+      return [];
+    },
+    //метод добавления в хранилище
     addToCart(data) {
       this.ADD_TO_CART(data);
-    },    
+      this.lineItems = this.getToCart();
+      //существует продукт или нет в хранилище
+      const $index = this.lineItems.find(item => item.product_id == data.id);
+      //действие если существует в хранилище
+      if (!$index) {
+        var $orders = {
+          product_id: data.id,
+          quantity: this.countProduct
+        };
+        this.lineItems.push($orders);
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      } else {
+        //действие если не существует в хранилище
+        var vm = this;
+        this.lineItems.find(item =>
+          item.product_id == data.id ? item.quantity = item.quantity + vm.countProduct : ""
+        );
+        let $parse = JSON.stringify(this.lineItems);
+        return localStorage.setItem(this.LSTOREG, $parse);
+      }
+    },
 
   },
   mounted() {
@@ -249,7 +277,7 @@ export default {
             color: white;
         }
         .select_jins {
-            background: rgb(109, 109, 189);
+            background: rgb(31, 31, 167);
             color: white;
         }
         .select_yellow {
@@ -257,6 +285,10 @@ export default {
         }
         .select_lilak {
             background: rgb(101, 33, 128);
+            color: white;
+        }
+        .select_dark_grey {
+            background: rgb(47, 46, 48);
             color: white;
         }
 
