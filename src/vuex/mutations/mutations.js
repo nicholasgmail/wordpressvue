@@ -50,17 +50,24 @@ export default {
   SET_CART: (state, product) => {
     if (state.cart.length) {
       let isProductExists = false;
+      let $itemLocal = JSON.parse(localStorage.getItem(state.lstoreg));
       state.cart.map(function(item) {
         if (item.id === product.id) {
           isProductExists = true;
-          item.quantity++;
+          let $local= $itemLocal.find((elem) => {
+            if (elem.product_id == product.id) {
+              return elem;
+            }
+            return "";
+          });
+          item.quantity = $local.quantity
         }
       });
       if (!isProductExists) {
         state.cart.push(product);
       }
     } else {
-          state.cart.push(product);
+      state.cart.push(product);
     }
   },
   REMOVE_FROM_CART: (state, index) => {
