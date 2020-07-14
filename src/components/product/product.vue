@@ -1,6 +1,6 @@
 <template>
     <div class="product-vue container-lg px-0 py-3 mt-3">
-         <b-card v-if="PRODUCT != '' " no-body class="overflow-hidden border-0" style="max-width: ;">
+         <b-card v-if="PRODUCT != '' " no-body class="overflow-hidden border-0 mb-4" style="max-width: ;">
             <b-row no-gutters class="justify-content-center">
                 <b-col sm="3">
                     <div id="carouselExampleIndicators" class="carousel slide px-1 px-sm-0" data-ride="carousel">
@@ -99,6 +99,7 @@
             </b-row>
         </b-card> 
 
+        <similar-products v-if="PRODUCT !=''" :category_id="PRODUCT.categories[0].id"></similar-products>
 
     </div>
 </template>
@@ -112,7 +113,8 @@ export default {
   name: "product",
   components: {
       agile: VueAgile,
-      LightGallery
+      LightGallery,
+      SimilarProducts: ()=>import ('@/components/catalog/similar-products'),
   },
   props: {},
    data() {
