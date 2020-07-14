@@ -166,7 +166,7 @@ export default {
     // отслеживание сортировок товаров по дате, популярности и стоимости
     sortingCatalog: function() {
       if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
-        this.$router.push({fullPath: "/shop"});
+        this.$router.push({path: "/shop"});
       }
       this.$route.query.page = 1;
       this.currentPage = 1;
