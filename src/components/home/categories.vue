@@ -13,7 +13,7 @@
         @click="toProducts(category.id)"
       >
         <div class="card border-0">
-          <img :src="category.image.src" class="card-img-top img-fluid" alt="..." />
+          <img :src="category.image.src" class="card-img-top img-fluid" :alt="category.name" />
           <div class="card-body pl-0">
             <div class="h5 card-title text-left text-uppercase">{{category.name}}</div>
           </div>
@@ -67,6 +67,7 @@ export default {
     .card {
       img {
         height: 278px;
+        object-fit: cover;
       }
       .card-title {
         color: #f45a40;

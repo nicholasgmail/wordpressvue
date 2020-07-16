@@ -83,4 +83,8 @@ export default {
       state.cart.slice(index, 1);
     }
   },
+  SET_SIMILAR_PRODUCTS_TO_STATE: (state, product) => {
+    //передаем даные в продукт з мутации
+    state.similar_products = product;
+  },
 };

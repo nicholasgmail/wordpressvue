@@ -44,4 +44,8 @@ export default {
   ROWS(state) {
     return state.rows;
   },
+  SIMILAR_PRODUCTS(state) {
+    return state.similar_products;
+  },
+
 };

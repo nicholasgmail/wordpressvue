@@ -4,9 +4,19 @@
       v-if="PRODUCT != '' "
       no-body
       class="overflow-hidden border-0 mb-4"
-      style="max-width: ;"
     >
       <b-row no-gutters class="justify-content-center">
+        <b-col sm="1" class="p-2 overflow-auto" style="max-height: 360px">
+          <div v-for="(img, index) in PRODUCT.images" :key="index" class="left_slide">
+            <img @click="clickImg(index)"
+                :src="img.src"
+                :alt="PRODUCT.name"
+                :class="{ active: index === isActive }"
+                class="d-block mx-auto img-fluid p-2"
+            />
+          </div>
+        </b-col>
+
         <b-col sm="3">
           <div
             id="carouselExampleIndicators"
@@ -40,52 +50,24 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-
-          <div class="row align-items-center justify-content-center w-100 px-2 mx-0">
-            <div class="col-9">
-              <agile
-                ref="thumbnails"
-                :slides-to-show="3"
-                :options="optionsThumbnails"
-                class="mini_slide mt-2"
-              >
-                <div v-for="(img, index) in PRODUCT.images" :key="index" class="slide mx-2">
-                  <img
-                    @click="clickImg(index)"
-                    :src="img.src"
-                    :alt="PRODUCT.name"
-                    :class="{ active: index === isActive }"
-                    class="d-block p-2"
-                    height="100"
-                  />
-                </div>
-              </agile>
-            </div>
-          </div>
         </b-col>
 
         <b-col sm="6" class="col-12 ml-md-4">
           <b-card-body class="pt-0">
             <h2 class>{{PRODUCT.name}}</h2>
+            <p>Артикул: {{PRODUCT.sku}}</p>
             <div class="product_description" v-html="PRODUCT.description"></div>
             <div class="row">
-              <h2 class="col-4">{{PRODUCT.price}} грн</h2>
+              <div class="col-4">
+                <h2 class="h2">{{PRODUCT.price}} грн</h2>
+              </div>
 
               <div class="col-8 d-flex flex-column px-0">
                 <!-- Count -->
-                <div class="count_product d-flex">
-                  <b-button @click="countMinus" variant="outline-info" class="plus_minus">-</b-button>
-                  <input
-                    type="number"
-                    v-model="countProduct"
-                    variant="outline-info"
-                    class="border-info font-size-14 mx-1 pl-3"
-                    min="1"
-                  />
-                  <b-button @click="countPlus" variant="outline-info" class="plus_minus">+</b-button>
+                <div class="count_product">
+                  <b-form-spinbutton size="md" id="sb-inline" v-model="countProduct" inline class="border-info"></b-form-spinbutton>
                 </div>
-
-                <div class="d-flex col-12 px-0">
+                <div class="d-flex-column d-sm-flex col-12 px-0">
                   <!-- Color -->
                   <b-form-select
                     v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'"
@@ -93,13 +75,14 @@
                     v-model="colorProduct"
                     :options="optionsColor"
                     :class="{ select_black: colorProduct === 'Black', select_jins: colorProduct === 'Jins', select_yellow: colorProduct === 'Yellow', select_lilak: colorProduct === 'lilac', select_dark_grey: colorProduct === 'dark grey'}"
-                    class="col-4 col-sm-3 border-info my-3 mr-2 w-50"
+                    class="border-info my-2 mr-2"
+                    style="width: 115px"
                   ></b-form-select>
-
                   <!-- Size -->
                   <select
                     v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'Размер'"
-                    class="col-4 form-control form-control-md border-info my-3 w-50"
+                    class="form-control form-control-md border-info my-1 my-sm-2"
+                    style="width: 115px"
                   >
                     <option>Размер</option>
                     <option
@@ -109,7 +92,8 @@
                   </select>
                   <select
                     v-if="PRODUCT.attributes[1] && PRODUCT.attributes[1].name === 'Размер'"
-                    class="col-4 form-control form-control-md border-info my-3 w-50"
+                    class="form-control form-control-md border-info my-1 my-sm-2"
+                    style="width: 115px"
                   >
                     <option>Размер</option>
                     <option
@@ -136,13 +120,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { VueAgile } from "vue-agile";
 import { LightGallery } from "vue-light-gallery";
 
 export default {
   name: "product",
   components: {
-    agile: VueAgile,
     LightGallery,
     SimilarProducts: () => import("@/components/catalog/similar-products")
   },
@@ -154,12 +136,6 @@ export default {
       colorProduct: null,
       optionsColor: [{ value: null, text: "Цвет" }],
       isActive: "",
-      optionsThumbnails: {
-        navButtons: false,
-        dots: false,
-        infinite: false,
-        swipeDistance: 50
-      },
       size: null,
       images: [],
       indexGallery: null
@@ -175,7 +151,6 @@ export default {
       "ADD_TO_CART"
     ]),
     nextImg() {
-      this.$refs.thumbnails.goToNext();
       if (this.isActive < this.PRODUCT.images.length) {
         this.isActive++;
       }
@@ -184,7 +159,6 @@ export default {
       }
     },
     prevImg() {
-      this.$refs.thumbnails.goToPrev();
       if (this.isActive != -1) {
         this.isActive--;
       }
@@ -193,16 +167,7 @@ export default {
       }
     },
     clickImg(value) {
-      //console.log(value);
       this.isActive = value;
-    },
-    countPlus() {
-      this.countProduct++;
-    },
-    countMinus() {
-      if (this.countProduct > 1) {
-        this.countProduct--;
-      }
     },
     makeToast(variant = null, toaster, append = false) {
       let $price = this.PRODUCT.price;
@@ -230,7 +195,7 @@ export default {
       const $index = this.lineItems.find(item =>
         item.product_id == data.id ? true : false
       );
-      //действие если существует в хранилище
+      //действие если не существует в хранилище
       if (!$index) {
         var $orders = {
           product_id: data.id,
@@ -241,7 +206,7 @@ export default {
         return localStorage.setItem(this.LSTOREG, $parse);
       } 
       if($index) {
-        //действие если не существует в хранилище
+        //действие если существует в хранилище
         this.lineItems.find(item =>
           item.product_id == data.id
             ? (item.quantity = item.quantity + this.countProduct)
@@ -277,7 +242,6 @@ export default {
           vm.images.push(img.src);
         });
       } else {
-        //this.GET_PRODUCT_ID_TO_VUEX(3115);
         this.$router.push({ path: "/shop/" });
       }
     });
@@ -298,6 +262,10 @@ export default {
           vm.optionsColor.push(value);
         });
       }
+      this.images.splice(0);
+      this.PRODUCT.images.map(function(img) {
+          vm.images.push(img.src);
+        });
     }
   }
 };
@@ -305,6 +273,14 @@ export default {
 
 <style lang="scss">
 .product-vue {
+  .left_slide {
+    .active {
+      padding: 0px !important;
+    }
+    img {
+      height: 90px;
+    }
+  }
   .mini_slide {
     .slide {
       .active {
@@ -338,10 +314,6 @@ export default {
     }
 
     .count_product {
-      .plus_minus {
-        width: 38px;
-        height: 38px;
-      }
       input {
         max-width: 50px;
         height: 38px;

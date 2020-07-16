@@ -1,16 +1,16 @@
 
 <template>
   <b-container fluid="lg" tag="header" class="border-top border-bottom">
-    <b-navbar toggleable="lg" type="white" variant="white" class="px-0 pb-0">
+    <b-navbar toggleable="lg" type="white" variant="white" class="px-0 pb-0 pt-0">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
+        <b-navbar-nav class="pt-2">
           <b-nav-item
             v-for="(menu, index) in MENU"
             :key="index"
             :to="menuURLPath(menu.url)"
-            @click="deleteCategoryID()"
+            @click="clearing_values()"
             class="pr-2 mr-2"
             link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
@@ -86,7 +86,7 @@ export default {
         this.GET_PRODUCTS_FROM_API();
       }
     },
-    deleteCategoryID() {
+    clearing_values() {
       if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
         this.GET_ID_CATEGORIES_TO_VUEX('');
         this.vModelValue = '';
@@ -105,7 +105,10 @@ export default {
 <style lang="scss">
 .search_btn {
   :hover {
-    fill: white;
+    svg {
+      fill: white;
+    }
+      
   }
   svg {
     fill: #7e7f84;

@@ -7,6 +7,7 @@ import AboutUs from "@/views/about-us";
 import NoPage from "@/views/no-page";
 import Cart from "@/views/cart";
 import Product from "@/components/product/product";
+import PaymentDelivery from "@/views/payment-delivery";
 
 Vue.use(VueRouter);
 
@@ -47,6 +48,12 @@ const routes = [
     component: Product,
     props: true,
   },
+  {
+    path: "/oplata-i-dostavka/",
+    post_name: "payment-delivery",
+    component: PaymentDelivery,
+  },
+
 
 ];
 

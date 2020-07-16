@@ -7,7 +7,7 @@
           <b-spinner  option="primary" label="Text Centered"> </b-spinner> 
         </div>
 
-        <v-catalog-item v-for="product in product_slice" :key="product.id" :product_data="product"></v-catalog-item>
+        <v-catalog-item v-for="product in SIMILAR_PRODUCTS" :key="product.id" :product_data="product"></v-catalog-item>
       </div>
   </div>
 </template>
@@ -36,22 +36,21 @@ export default {
     };
   },
   computed: { 
-    ...mapGetters(["PRODUCTS", "CART"]),
+    ...mapGetters(["CART", "SIMILAR_PRODUCTS"]),
     product_slice() {
-      var product_slice = this.PRODUCTS.slice(4);
+      var product_slice = this.PRODUCTS.slice(5);
       return product_slice
     }
   },
   methods:{
-    ...mapActions(["GET_PRODUCTS_FROM_API", "GET_ID_CATEGORIES_TO_VUEX"]),
+    ...mapActions(["GET_SIMILAR_PRODUCTS_FROM_API", "ADD_TO_CART"]),
     addToCart(data) {
       this.ADD_TO_CART(data);
     }
 
   },
   mounted() {
-    this.GET_ID_CATEGORIES_TO_VUEX(this.category_id); 
-    this.GET_PRODUCTS_FROM_API().then(response => {
+    this.GET_SIMILAR_PRODUCTS_FROM_API(this.category_id).then(response => {
       if (response.data) {
         this.show = false;
       }
@@ -59,9 +58,8 @@ export default {
   },
   watch: {
     category_id: function(){
-      this.GET_ID_CATEGORIES_TO_VUEX(this.category_id);
-      this.GET_PRODUCTS_FROM_API();
-    }
+      this.GET_SIMILAR_PRODUCTS_FROM_API(this.category_id);
+     }
   }
 }
 </script>

@@ -1,21 +1,33 @@
 <template>
-  <b-col class="v-catalog-item px-3 mb-2">
-    <b-card tag="article" style="max-width: 20rem;" class="h-100">
-      <div @click="toProduct(product_data)">
-      <b-card-img-lazy :src="product_data.images[0].src" top :alt="product_data.name" ></b-card-img-lazy>
-      </div>
-      <b-card-body>
-        <div class="d-flex flex-column justify-content-between h-100">
-          <b-card-title>{{product_data.categories[0].name}}</b-card-title>
-          <b-card-sub-title class="mb-2">{{product_data.sku}}</b-card-sub-title>
-          <b-card-text class="text-muted">{{product_data.name}}</b-card-text>
-          <b-card-text class="text-danger font-weight-bold">{{product_data.price}} грн.</b-card-text>
 
-          <b-button block variant="outline-primary" @click="addToCart">Купить</b-button>
+  <div class="v-catalog-item col mb-4 px-1">
+    <div class="card h-100" 
+          @mouseenter="hover = true"
+          @mouseleave="hover = false" 
+          :class="{ shadow: hover === true }">
+      <img @click="toProduct(product_data)" 
+          :src="product_data.images[0].src" 
+          class="mx-auto d-block w-100 p-2" 
+          :alt="product_data.name"
+          :style="{ 'object-fit': 'cover', height:'220px'}"/>
+      <div class="card-body d-flex align-items-start flex-column bd-highlight">
+        <h6 class="text-center mb-auto text-muted bd-highlight">{{product_data.name}}</h6>
+        <div class="mx-auto my-4">
+          <h4 class="card-text  font-weight-bold">{{product_data.price}} грн.</h4>
         </div>
-      </b-card-body>
-    </b-card>
-  </b-col>
+        <b-button block variant="primary bd-highlight" 
+                  @click="addToCart"
+                  v-if="!this.product_data.attributes[0]"
+        >Купить</b-button>
+
+        <b-button block variant="success bd-highlight" 
+                  @click="toProduct(product_data)"
+                  v-else
+        >Просмотреть</b-button>
+
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,7 +45,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      hover: false
+    };
   },
   computed: {
 
@@ -86,15 +100,18 @@ export default {
       });
     }
   },
-};
+}
 </script>
 
 <style lang="scss">
-.v-catalog-item{
-  .card-body {
-    img {
+.v-catalog-item {
+  .card {
+    transition: all 0.1s ease-out;
+     &:hover {
       cursor: pointer;
+      transform: scale(1.02);
     }
   }
+
 }
 </style>

@@ -80,6 +80,9 @@ export default {
       if (this.CATEGORY_ID === 39) {
         this.sortingCategories = this.CATEGORY_ID;
       }
+      if(this.CATEGORY_ID === "") {
+        this.sortingCategories = null;
+      }
     }
   }
 };

@@ -112,7 +112,7 @@ export default {
     });
     return WooCommerce.get("products", {
       featured: true,
-      per_page: 4,
+      per_page: 5,
       page: $random,
     })
       .then((response) => {
@@ -140,7 +140,7 @@ export default {
     });
     return WooCommerce.get("products", {
       before: $date_back,
-      per_page: 4,
+      per_page: 5,
       page: 1,
     })
       .then((response) => {
@@ -206,6 +206,29 @@ export default {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCT_FROM_API", response.data);
         //console.log(categories.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  },
+  GET_SIMILAR_PRODUCTS_FROM_API({ commit }, category) {
+    const WooCommerce = new WooCommerceRestApi({
+      url: SETTINGS.URL, // Your store URL
+      consumerKey: SETTINGS.KEY, // Your consumer key
+      consumerSecret: SETTINGS.SECRET, // Your consumer secret
+      version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
+      axiosConfig: SETTINGS.AXIOS,
+    });
+    return WooCommerce.get("products", {
+      category: category,
+      per_page: 5,
+      page: 1,
+    })
+      .then((response) => {
+        //вызываем мутацию для передачи даных
+        commit("SET_SIMILAR_PRODUCTS_TO_STATE", response.data);
         return response;
       })
       .catch((error) => {

@@ -42,15 +42,15 @@
       </div>
     </b-row>
 
-    <b-row cols="2" cols-md="3" cols-lg="4" id="my-table">
-      <!--Передали даные с дочернему елементу с помощю v-bind -->
-      <v-catalog-item
-        v-for="product in PRODUCTS"
-        :key="product.id"
-        v-bind:product_data="product"
-        @addToCart="addToCart"
-      ></v-catalog-item>
-    </b-row>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 pt-4">
+        <!--Передали даные с дочернему елементу с помощю v-bind -->
+        <v-catalog-item
+          v-for="product in PRODUCTS"
+          :key="product.id"
+          :product_data="product"
+          @addToCart="addToCart"
+        ></v-catalog-item>
+      </div>
     <b-pagination-nav
       @change="nextPage"
       :link-gen="linkGen"
@@ -58,9 +58,8 @@
       use-router
       first-number
       last-number
+      align="center"
     ></b-pagination-nav>
-    <p class="mt-3">Текущая страница: {{ currentPage }}</p>
-    <p class="mt-3">Всего страниц: {{ ROWS }}</p>
   </b-container>
 </template>
 
@@ -118,7 +117,7 @@ export default {
       const $index = this.lineItems.find(item =>
         item.product_id == data.id ? true : false
       );
-      //действие если существует в хранилище
+      //действие если не существует в хранилище
       if (!$index) {
         var $orders = {
           product_id: data.id,
@@ -129,7 +128,7 @@ export default {
         return localStorage.setItem(this.LSTOREG, $parse);
       }
       if ($index) {
-        //действие если не существует в хранилище
+        //действие если существует в хранилище
         this.lineItems.find(item =>
           item.product_id == data.id ? ++item.quantity : ""
         );
