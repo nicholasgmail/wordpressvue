@@ -12,7 +12,6 @@ import "./assets/styles/styles.module.scss";
 import App from "@/App.vue";
 import store from "@/vuex/store";
 import router from "@/router/router";
-import VueAgile from 'vue-agile'
 import LightGallery from 'vue-light-gallery';
 
 import "@/icons/components";
@@ -24,7 +23,6 @@ Vue.use(SvgIcon, {
   defaultWidth: "1em",
   defaultHeight: "1em",
 });
-Vue.use(VueAgile);
 Vue.use(LightGallery);
 
 Vue.config.productionTip = false;

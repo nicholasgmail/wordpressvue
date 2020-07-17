@@ -37,10 +37,6 @@ export default {
   },
   computed: { 
     ...mapGetters(["CART", "SIMILAR_PRODUCTS"]),
-    product_slice() {
-      var product_slice = this.PRODUCTS.slice(5);
-      return product_slice
-    }
   },
   methods:{
     ...mapActions(["GET_SIMILAR_PRODUCTS_FROM_API", "ADD_TO_CART"]),
