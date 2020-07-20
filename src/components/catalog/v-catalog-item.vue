@@ -13,17 +13,21 @@
       <div class="card-body d-flex align-items-start flex-column bd-highlight">
         <h6 class="text-center mb-auto text-muted bd-highlight">{{product_data.name}}</h6>
         <div class="mx-auto my-4">
-          <h4 class="card-text  font-weight-bold">{{product_data.price}} грн.</h4>
+          <h4 class="card-text font-weight-bold">{{product_data.price}} грн.</h4>
         </div>
-        <b-button block variant="primary bd-highlight" 
+        <b-button class="btn_buy"
+                  block variant="primary bd-highlight" 
                   @click="addToCart"
                   v-if="!this.product_data.attributes[0]"
-        >Купить</b-button>
+        >Купить <svg-icon name="shopping-cart" style="width: 1.4em; height: 1.4em"></svg-icon>
+        </b-button>
 
-        <b-button block variant="success bd-highlight" 
+        <b-button class="btn_look"
+                  block variant="success bd-highlight" 
                   @click="toProduct(product_data)"
                   v-else
-        >Просмотреть</b-button>
+        >Просмотреть <svg-icon name="redo"></svg-icon>
+        </b-button>
 
       </div>
     </div>
@@ -110,6 +114,18 @@ export default {
      &:hover {
       cursor: pointer;
       transform: scale(1.02);
+    }
+    .card-body {
+      .btn_buy {
+        svg {
+          fill: url(#svgicon_shopping-cart_a);
+        }
+      }
+      .btn_look {
+        svg {
+          fill: rgb(255, 231, 13);
+        }
+      }
     }
   }
 

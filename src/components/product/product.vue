@@ -1,13 +1,17 @@
 <template>
-  <div class="product-vue container-lg px-0 py-3 mt-3">
+  <div class="product-vue container-lg  mt-3">
     <b-card
       v-if="PRODUCT != '' "
       no-body
-      class="overflow-hidden border-0 mb-4"
+      class="overflow-hidden border-0 p-2"
     >
-      <b-row no-gutters class="justify-content-center">
-        <b-col sm="1" class="p-2 overflow-auto" style="max-height: 360px">
-          <div v-for="(img, index) in PRODUCT.images" :key="index" class="left_slide">
+    <div class="text-center text-sm-left px-3">
+      <h2 class="mb-4 font-weight-bold">{{PRODUCT.name}}</h2>
+    </div>
+    <!-- left gallery--> 
+      <b-row class="justify-content-around">
+        <b-col sm="2" class="left_slide overflow-auto d-none d-lg-block p-2" style="max-height: 502px; max-width: 115px">
+          <div v-for="(img, index) in PRODUCT.images" :key="index" class="left_slide__item ">
             <img @click="clickImg(index)"
                 :src="img.src"
                 :alt="PRODUCT.name"
@@ -16,11 +20,11 @@
             />
           </div>
         </b-col>
-
-        <b-col sm="3">
+        <!-- big gallery-->        
+        <b-col class="col-12 p-0" sm="4">
           <div
             id="carouselExampleIndicators"
-            class="carousel slide px-1 px-sm-0"
+            class="carousel slide px-sm-0"
             data-ride="carousel"
           >
             <div class="carousel-inner">
@@ -36,7 +40,7 @@
                 :key="thumbIndex"
                 :class="{ active: thumbIndex === isActive }"
                 @click="indexGallery = thumbIndex"
-                class="carousel-item p-2"
+                class="carousel-item"
               >
                 <img :src="img.src" :alt="PRODUCT.name" class="d-block w-100" />
               </div>
@@ -50,64 +54,85 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          <!-- bottom gallery-->
+          <div class="bottom_slide d-flex justify-content-center overflow-auto d-lg-none p-2 mt-1" style="height: 135px; ">
+            <div v-for="(img, index) in PRODUCT.images" :key="index" class="bottom_slide__item" style="min-width: 90px;">
+              <img @click="clickImg(index)"
+                  :src="img.src"
+                  :alt="PRODUCT.name"
+                  :class="{ active: index === isActive }"
+                  class="d-block mx-auto img-fluid p-2"
+              />
+            </div>
+          </div>
         </b-col>
-
-        <b-col sm="6" class="col-12 ml-md-4">
+        <!-- content--> 
+        <b-col sm="8" md="6">
           <b-card-body class="pt-0">
-            <h2 class>{{PRODUCT.name}}</h2>
-            <p>Артикул: {{PRODUCT.sku}}</p>
+            <div class="border-bottom mt-4 mt-sm-0 mb-2 text-center text-sm-left" v-html="PRODUCT.short_description"></div>
+            <div class="d-flex flex-column flex-sm-wrap justify-content-between text-center text-sm-left">
+              <p class="text-muted">Артикул: {{PRODUCT.sku}}</p>
+              <p v-if="PRODUCT.purchasable" class="in_stock text-success px-1">
+                <svg-icon name="correct" style="width: 1.3em; height: 1.3em;"></svg-icon>
+                В наличии
+              </p>
+              <p v-else class="text-danger text-uppercase">Нет в наличии</p>
+            </div>
+            <!-- Price -->
+            <div class="text-center text-sm-left mb-4 pl-0">
+              <h2 class="h2 text-danger font-weight-bold">{{PRODUCT.price}} грн.</h2>
+            </div>
+            <!-- Description -->
             <div class="product_description" v-html="PRODUCT.description"></div>
+            <hr>
             <div class="row">
-              <div class="col-4">
-                <h2 class="h2">{{PRODUCT.price}} грн</h2>
-              </div>
-
-              <div class="col-8 d-flex flex-column px-0">
+              <div class="col-12 d-flex flex-column mb-4 mx-auto">
+                <!-- Color -->
+                <colour v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'" 
+                        :colour="PRODUCT.attributes[0].options">
+                </colour>
+                <!-- Size -->
+                <select v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'Размер'"
+                        class="form-control form-control-md border-info mb-3">
+                  <option>Размер</option>
+                  <option
+                    v-for="(size, index ) in PRODUCT.attributes[0].options"
+                    :key="index">
+                    {{size}}
+                  </option>
+                </select>
+                <select v-if="PRODUCT.attributes[1] && PRODUCT.attributes[1].name === 'Размер'"
+                        class="form-control form-control-md border-info mb-4">
+                  <option>Размер</option>
+                  <option
+                    v-for="(size, index ) in PRODUCT.attributes[1].options"
+                    :key="index">
+                    {{size}}
+                  </option>
+                </select>
                 <!-- Count -->
-                <div class="count_product">
-                  <b-form-spinbutton size="md" id="sb-inline" v-model="countProduct" inline class="border-info"></b-form-spinbutton>
-                </div>
-                <div class="d-flex-column d-sm-flex col-12 px-0">
-                  <!-- Color -->
-                  <b-form-select
-                    v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'"
-                    size="md"
-                    v-model="colorProduct"
-                    :options="optionsColor"
-                    :class="{ select_black: colorProduct === 'Black', select_jins: colorProduct === 'Jins', select_yellow: colorProduct === 'Yellow', select_lilak: colorProduct === 'lilac', select_dark_grey: colorProduct === 'dark grey'}"
-                    class="border-info my-2 mr-2"
-                    style="width: 115px"
-                  ></b-form-select>
-                  <!-- Size -->
-                  <select
-                    v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'Размер'"
-                    class="form-control form-control-md border-info my-1 my-sm-2"
-                    style="width: 115px"
-                  >
-                    <option>Размер</option>
-                    <option
-                      v-for="(size, index ) in PRODUCT.attributes[0].options"
-                      :key="index"
-                    >{{size}}</option>
-                  </select>
-                  <select
-                    v-if="PRODUCT.attributes[1] && PRODUCT.attributes[1].name === 'Размер'"
-                    class="form-control form-control-md border-info my-1 my-sm-2"
-                    style="width: 115px"
-                  >
-                    <option>Размер</option>
-                    <option
-                      v-for="(size, index ) in PRODUCT.attributes[1].options"
-                      :key="index"
-                    >{{size}}</option>
-                  </select>
+                <div class="text-center text-sm-left">
+                  <b-form-spinbutton size="md" id="sb-inline" v-model="countProduct" inline class="border-info mb-3 mr-sm-2"></b-form-spinbutton>
                 </div>
               </div>
             </div>
 
-            <div size="sm" class="d-flex my-4 py-3">
-              <b-button @click="addToCart(PRODUCT)" variant="outline-info mr-3">В корзину</b-button>
-              <b-button variant="outline-info ml-3">Купить в один клик</b-button>
+            <div class="col-12 col-sm-12 d-flex d-flex flex-column flex-sm-row justify-content-between align-items-center px-0 py-5 mx-auto">
+              <b-button @click="addToCart(PRODUCT)"
+                        @mouseenter="hover_cart = true"
+                        @mouseleave="hover_cart  = false" 
+                        variant="outline-info btn_to_cart mb-2 mb-sm-0 w-100">В корзину
+                <svg-icon name="shopping-cart"
+                          :class="{ hover_svg: hover_cart === true }" 
+                          style="width: 1.4em; height: 1.4em"></svg-icon>
+              </b-button>
+              <b-button @mouseenter="hover_buy = true"
+                        @mouseleave="hover_buy = false" 
+                        variant="outline-info btn_one_click w-100">Купить в один клик
+                <svg-icon name="click" 
+                          style="width: 1.4em; height: 1.4em"
+                          :class="{ hover_svg: hover_buy === true }"></svg-icon>
+              </b-button>
             </div>
           </b-card-body>
         </b-col>
@@ -126,19 +151,20 @@ export default {
   name: "product",
   components: {
     LightGallery,
-    SimilarProducts: () => import("@/components/catalog/similar-products")
+    SimilarProducts: () => import("@/components/catalog/similar-products"),
+    Colour: () => import("./colour")
   },
   props: {},
   data() {
     return {
       title: "product",
       countProduct: 1,
-      colorProduct: null,
-      optionsColor: [{ value: null, text: "Цвет" }],
       isActive: "",
       size: null,
       images: [],
-      indexGallery: null
+      indexGallery: null,
+      hover_cart: false,
+      hover_buy: false
     };
   },
   computed: {
@@ -249,19 +275,9 @@ export default {
   watch: {
     $route: function() {
       this.isActive = 0;
-      this.colorProduct = null;
     },
     PRODUCT: function() {
       let vm = this;
-      vm.optionsColor.splice(1);
-      if (
-        this.PRODUCT.attributes[0] &&
-        this.PRODUCT.attributes[0].name === "цвет"
-      ) {
-        this.PRODUCT.attributes[0].options.map(function(value) {
-          vm.optionsColor.push(value);
-        });
-      }
       this.images.splice(0);
       this.PRODUCT.images.map(function(img) {
           vm.images.push(img.src);
@@ -273,57 +289,100 @@ export default {
 
 <style lang="scss">
 .product-vue {
-  .left_slide {
-    .active {
-      padding: 0px !important;
-    }
-    img {
-      height: 90px;
-    }
+  .left_slide::-webkit-scrollbar {
+    width: 3px;
+    background-color: #ececec;
   }
-  .mini_slide {
-    .slide {
+  .bottom_slide::-webkit-scrollbar {
+    height: 3px;
+    background-color: #ececec;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    width: 3px;
+    background-image: -webkit-linear-gradient(#F5F5F5, #8A8A8A);
+  }
+  
+
+  .left_slide {
+    &__item{
       .active {
-        padding: 0px !important;
-        background: rgb(190, 188, 192);
+        border: black solid 1px;
+        padding: 2px !important;
       }
       img {
+        height: rem-calc(120px);
         cursor: pointer;
       }
     }
   }
-  .card-body {
-    .select_black {
-      background: #000;
-      color: white;
-    }
-    .select_jins {
-      background: rgb(31, 31, 167);
-      color: white;
-    }
-    .select_yellow {
-      background: rgb(197, 187, 128);
-    }
-    .select_lilak {
-      background: rgb(101, 33, 128);
-      color: white;
-    }
-    .select_dark_grey {
-      background: rgb(47, 46, 48);
-      color: white;
-    }
-
-    .count_product {
-      input {
-        max-width: 50px;
-        height: 38px;
-        outline: none;
-        border: solid 0.3px;
+  .bottom_slide {
+    //overflow-x: auto;
+    &__item{
+      .active {
+        border: black solid 1px;
+        padding: 2px !important;
+      }
+      img {
+        height: rem-calc(120px);
+        cursor: pointer;
       }
     }
+  }
+  #carouselExampleIndicators {
+    .carousel-inner {
+      .carousel-item {
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .card-body {
     .product_description {
+      ul {
+        margin-left: 0;
+        padding-left: 0;
+        li {
+          padding-left: 1.3rem;
+          list-style: none;
+          font-size: rem-calc(14px);
+          position: relative; 
+          &::before {
+            content: ' ';
+            background: url(../../assets/images/tick.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            position: absolute;
+            left: 0;
+            top: 5%;
+            width: 15px;
+            height: 15px;
+
+          }
+        }
+      }
       p {
         display: none;
+      }
+    }
+    .b-form-spinbutton {
+      width: 115px;
+    }
+    .in_stock {
+      svg {
+        fill: $green;
+      }
+    }
+    .btn_to_cart,
+    .btn_one_click {
+      min-width: 200px;
+      .hover_svg {
+          fill: #fff;
+      }
+      svg {
+        fill: url(#svgicon_shopping-cart_a);
       }
     }
   }

@@ -1,14 +1,13 @@
 <template>
-  <div class="similar-products container py-4">
+  <div class="similar-products container-lg py-4">
       <h1 class="mt-4">Похожие товары</h1>
-      <div class="row">
         
         <div v-if="show" class="w-100 text-center my-3 text-primary"> 
           <b-spinner  option="primary" label="Text Centered"> </b-spinner> 
         </div>
-
-        <v-catalog-item v-for="product in SIMILAR_PRODUCTS" :key="product.id" :product_data="product"></v-catalog-item>
-      </div>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 pt-4">
+          <v-catalog-item v-for="product in SIMILAR_PRODUCTS" :key="product.id" :product_data="product"></v-catalog-item>
+        </div>
   </div>
 </template>
 
