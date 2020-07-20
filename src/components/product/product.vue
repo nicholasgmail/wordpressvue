@@ -70,7 +70,7 @@
         <b-col sm="8" md="6">
           <b-card-body class="pt-0">
             <div class="border-bottom mt-4 mt-sm-0 mb-2 text-center text-sm-left" v-html="PRODUCT.short_description"></div>
-            <div class="d-flex flex-column flex-sm-wrap justify-content-between text-center text-sm-left">
+            <div class="d-flex flex-column flex-sm-row justify-content-sm-between text-center">
               <p class="text-muted">Артикул: {{PRODUCT.sku}}</p>
               <p v-if="PRODUCT.purchasable" class="in_stock text-success px-1">
                 <svg-icon name="correct" style="width: 1.3em; height: 1.3em;"></svg-icon>
@@ -111,9 +111,18 @@
                   </option>
                 </select>
                 <!-- Count -->
-                <div class="text-center text-sm-left">
-                  <b-form-spinbutton size="md" id="sb-inline" v-model="countProduct" inline class="border-info mb-3 mr-sm-2"></b-form-spinbutton>
-                </div>
+                <div class="col-12 col-sm-6 col-md-5 px-0 text-center text-sm-left">
+                  <b-input-group size="md">
+                    <b-input-group-prepend>
+                      <b-btn variant="info" @click="decrement">-</b-btn>
+                    </b-input-group-prepend>
+                    <b-form-input class="text-center" type="number" min="0" v-model="countProduct" :value="countProduct"></b-form-input>
+                    <b-input-group-append>
+                      <b-btn variant="info" @click="increment">+</b-btn>
+                    </b-input-group-append>
+                  </b-input-group>
+<!--                   <b-form-spinbutton size="lg" id="sb-inline" v-model="countProduct" inline class="border-info mb-3 mr-sm-2"></b-form-spinbutton>
+ -->            </div>
               </div>
             </div>
 
@@ -121,7 +130,7 @@
               <b-button @click="addToCart(PRODUCT)"
                         @mouseenter="hover_cart = true"
                         @mouseleave="hover_cart  = false" 
-                        variant="outline-info btn_to_cart mb-2 mb-sm-0 w-100">В корзину
+                        variant="outline-info btn_to_cart mr-0 mr-sm-4 mb-2 mb-sm-0 w-100">В корзину
                 <svg-icon name="shopping-cart"
                           :class="{ hover_svg: hover_cart === true }" 
                           style="width: 1.4em; height: 1.4em"></svg-icon>
@@ -174,7 +183,9 @@ export default {
     ...mapActions([
       "GET_PRODUCT_ID_TO_VUEX",
       "GET_PRODUCT_FROM_API",
-      "ADD_TO_CART"
+      "ADD_TO_CART",
+      "INCREMENT_CART_ITEM",
+      "DECREMENT_CART_ITEM",
     ]),
     nextImg() {
       if (this.isActive < this.PRODUCT.images.length) {
@@ -247,7 +258,16 @@ export default {
       this.makeToast("info", "b-toaster-bottom-left", true);
       this.updateTocart(data);       
       this.ADD_TO_CART(data);      
-    }
+    },
+    increment() {
+      this.countProduct++;
+    },
+    decrement() {
+      if (this.countProduct > 1) {
+        this.countProduct--;
+      }
+    },
+
   },
   mounted() {
     this.isActive = 0;

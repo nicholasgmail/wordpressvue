@@ -9,7 +9,7 @@
     
     <ul class="mb-0 colours-wrapper-product pl-0">
       <li v-for="(item, index) in colour" :key="index" class="list-inline-item m-0">
-          <label  :class="[item, {active: item === colourModel}]"  class="btn-colour border-r50 p-2 mr-2">
+          <label  :class="['sock-'+item, {active: item === colourModel}]"  class="btn-colour border-r50 p-2 mr-2">
             <input type="radio" name="colour"  v-model="colourModel" :value="item" class="input-invisible">
           </label>
       </li>
@@ -116,46 +116,46 @@ export default {
     }
   }
 
-  .black {
+  .sock-black {
     background: #000;
   }
-  .jins {
+  .sock-jins {
     background: $blue;
   }
-  .yellow {
+  .sock-yellow {
     background: $yellow;
   }
-  .lilac {
+  .sock-lilac {
     background: rgb(101, 33, 128);
   }
-  .dark_grey {
+  .sock-dark_grey {
     background: rgb(47, 46, 48);
   }
-  .white {
+  .sock-white {
     background: $secondary;
   }
-  .blue {
+  .sock-blue {
     background: $blue;
   }
-  .red {
+  .sock-red {
     background: $red;
   }
-  .gray {
+  .sock-gray {
     background: $gray-600;
   }
-  .pink {
+  .sock-pink {
     background: pink;
   }
-  .salad {
+  .sock-salad {
     background: lightgreen;
   }
-  .orange {
+  .sock-orange {
     background: $orang;
   }
-  .turquoise {
+  .sock-turquoise {
     background: rgb(4, 78, 112);
   }
-  .green {
+  .sock-green {
     background: $green;
   }
 
