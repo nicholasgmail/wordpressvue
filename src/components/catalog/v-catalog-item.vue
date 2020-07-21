@@ -1,5 +1,4 @@
 <template>
-
   <div class="v-catalog-item col mb-4 px-1">
     <div class="card h-100" 
           @mouseenter="hover = true"
@@ -28,7 +27,6 @@
                   v-else
         >Просмотреть <svg-icon name="redo"></svg-icon>
         </b-button>
-
       </div>
     </div>
   </div>
@@ -39,7 +37,6 @@ import { mapActions} from "vuex"
 
 export default {
   name: "v-catalog-item",
-  //c помощю props получаем даные и родителя
   props: {
     product_data: {
       type: Object,
@@ -54,10 +51,9 @@ export default {
     };
   },
   computed: {
-
   },
   methods: {
-    ...mapActions(["GET_PRODUCT_ID_TO_VUEX", "GET_PRODUCT_FROM_API"]),   
+    ...mapActions(["GET_PRODUCT_SLUG_TO_VUEX", "GET_PRODUCT_FROM_API"]),   
      makeToast(variant = null, toaster, append = false) {
         let $price = this.product_data.price
         this.$bvToast.toast(this.product_data.name, {
@@ -74,32 +70,18 @@ export default {
       this.makeToast("info", "b-toaster-bottom-left", true); 
     },
     toProduct() {
-      function toTranslit(text) {
-          return text.replace( /([а-яё])|([\s_-])|([^a-z\d])/gi,
-            function (all, ch, space, words) {
-              if (space || words) {
-                  return space ? '-' : '';
-              }
-              var code = ch.charCodeAt(0),
-                  index = code == 1025 || code == 1105 ? 0 :
-                      code > 1071 ? code - 1071 : code - 1039,
-                  t = ['yo', 'a', 'b', 'v', 'g', 'd', 'e', 'zh',
-                      'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p',
-                      'r', 's', 't', 'u', 'f', 'h', 'c', 'ch', 'sh',
-                      'shch', '', 'y', '', 'e', 'yu', 'ya'
-                  ]; 
-              return t[index];
-            }
-          );
-        }
-      var $name_s = toTranslit(this.product_data.name), 
-          $name = $name_s.toLowerCase(),     
-          $id = '-id-' + this.product_data.id,
-          $name_id = $name + $id;
-      this.GET_PRODUCT_ID_TO_VUEX(this.product_data.id);
+      this.GET_PRODUCT_SLUG_TO_VUEX(this.product_data.slug);
       this.GET_PRODUCT_FROM_API().then(response => {
         if (response.data) {
-          this.$router.push({ path: `/product`, query: { name: $name_id } });
+          const slug = this.product_data.slug;
+          if (this.product_data.attributes[0].name === "цвет") {
+            const colour = this.product_data.attributes[0].options[0];
+            this.$router.push({ name: 'product',  params: { product: slug }, query: { colour: colour } });
+          } 
+          if (this.product_data.attributes[0].name != "цвет") {
+            const colour = '';
+            this.$router.push({ name: 'product',  params: { product: slug }, query: { colour: colour } });
+          }
         }
       });
     }
@@ -128,6 +110,5 @@ export default {
       }
     }
   }
-
 }
 </style>

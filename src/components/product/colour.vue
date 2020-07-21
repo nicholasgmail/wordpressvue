@@ -8,10 +8,14 @@
     </div>
     
     <ul class="mb-0 colours-wrapper-product pl-0">
-      <li v-for="(item, index) in colour" :key="index" class="list-inline-item m-0">
-          <label  :class="['sock-'+item, {active: item === colourModel}]"  class="btn-colour border-r50 p-2 mr-2">
-            <input type="radio" name="colour"  v-model="colourModel" :value="item" class="input-invisible">
-          </label>
+      <li v-for="(item, index) in colour" :key="index" @click="addColour(item)" class="list-inline-item m-0">
+        <label  :class="['sock-'+item, {active: item === colourModel}]"  class="btn-colour border-r50 p-2 mr-2">
+          <input type="radio" 
+                name="colour"  
+                v-model="colourModel" 
+                :value="item" 
+                class="input-invisible">
+        </label>
       </li>
     </ul>
   </div>
@@ -47,18 +51,26 @@ export default {
         { value: 'salad', text: "Салатовый" },
         { value: 'orange', text: "Оранжевый" },//
         { value: 'turquoise', text: "Бирюзовый" },
-        
       ],
-
     };
   },
   computed: { 
   },
   methods:{
+    addColour(value) {
+      let $wLoc = window.location.href;
+          $wLoc = $wLoc.split('?')[0];
+      let $newUrl = $wLoc + '?colour=' + value
+      history.pushState(null, null, $newUrl);
+    }
   },
   mounted() {
-    if (this.colour.length) {
-      this.colourModel = this.colour[0];
+    let $wLoc = window.location.href;
+        $wLoc = $wLoc.split('?colour=')[1];
+    if ($wLoc != '') {
+      this.colourModel = $wLoc;
+    } else {
+      this.colourModel = '';
     }
   },
   watch: {
@@ -79,7 +91,6 @@ export default {
       background-color: white;
       appearance:none; -moz-appearance:none; -webkit-appearance: none;
     }
-
   }
   .colours-wrapper-product{
     .input-invisible{
@@ -158,7 +169,5 @@ export default {
   .sock-green {
     background: $green;
   }
-
 }
-
 </style>

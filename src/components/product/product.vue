@@ -6,15 +6,15 @@
       class="overflow-hidden border-0 p-2"
     >
     <div class="text-center text-sm-left px-3">
-      <h2 class="mb-4 font-weight-bold">{{PRODUCT.name}}</h2>
+      <h2 class="mb-4 font-weight-bold">{{PRODUCT[0].name}}</h2>
     </div>
     <!-- left gallery--> 
       <b-row class="justify-content-around">
         <b-col sm="2" class="left_slide overflow-auto d-none d-lg-block p-2" style="max-height: 502px; max-width: 115px">
-          <div v-for="(img, index) in PRODUCT.images" :key="index" class="left_slide__item ">
+          <div v-for="(img, index) in PRODUCT[0].images" :key="index" class="left_slide__item ">
             <img @click="clickImg(index)"
                 :src="img.src"
-                :alt="PRODUCT.name"
+                :alt="PRODUCT[0].name"
                 :class="{ active: index === isActive }"
                 class="d-block mx-auto img-fluid p-2"
             />
@@ -36,13 +36,13 @@
               />
 
               <div
-                v-for="(img, thumbIndex) in PRODUCT.images"
+                v-for="(img, thumbIndex) in PRODUCT[0].images"
                 :key="thumbIndex"
                 :class="{ active: thumbIndex === isActive }"
                 @click="indexGallery = thumbIndex"
                 class="carousel-item"
               >
-                <img :src="img.src" :alt="PRODUCT.name" class="d-block w-100" />
+                <img :src="img.src" :alt="PRODUCT[0].name" class="d-block w-100" />
               </div>
             </div>
             <a @click="prevImg" class="carousel-control-prev">
@@ -56,10 +56,10 @@
           </div>
           <!-- bottom gallery-->
           <div class="bottom_slide d-flex justify-content-center overflow-auto d-lg-none p-2 mt-1" style="height: 135px; ">
-            <div v-for="(img, index) in PRODUCT.images" :key="index" class="bottom_slide__item" style="min-width: 90px;">
+            <div v-for="(img, index) in PRODUCT[0].images" :key="index" class="bottom_slide__item" style="min-width: 90px;">
               <img @click="clickImg(index)"
                   :src="img.src"
-                  :alt="PRODUCT.name"
+                  :alt="PRODUCT[0].name"
                   :class="{ active: index === isActive }"
                   class="d-block mx-auto img-fluid p-2"
               />
@@ -69,10 +69,10 @@
         <!-- content--> 
         <b-col sm="8" md="6">
           <b-card-body class="pt-0">
-            <div class="border-bottom mt-4 mt-sm-0 mb-2 text-center text-sm-left" v-html="PRODUCT.short_description"></div>
+            <div class="border-bottom mt-4 mt-sm-0 mb-2 text-center text-sm-left" v-html="PRODUCT[0].short_description"></div>
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between text-center">
-              <p class="text-muted">Артикул: {{PRODUCT.sku}}</p>
-              <p v-if="PRODUCT.purchasable" class="in_stock text-success px-1">
+              <p class="text-muted">Артикул: {{PRODUCT[0].sku}}</p>
+              <p v-if="PRODUCT[0].purchasable" class="in_stock text-success px-1">
                 <svg-icon name="correct" style="width: 1.3em; height: 1.3em;"></svg-icon>
                 В наличии
               </p>
@@ -80,32 +80,32 @@
             </div>
             <!-- Price -->
             <div class="text-center text-sm-left mb-4 pl-0">
-              <h2 class="h2 text-danger font-weight-bold">{{PRODUCT.price}} грн.</h2>
+              <h2 class="h2 text-danger font-weight-bold">{{PRODUCT[0].price}} грн.</h2>
             </div>
             <!-- Description -->
-            <div class="product_description" v-html="PRODUCT.description"></div>
+            <div class="product_description" v-html="PRODUCT[0].description"></div>
             <hr>
             <div class="row">
               <div class="col-12 d-flex flex-column mb-4 mx-auto">
                 <!-- Color -->
-                <colour v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'цвет'" 
-                        :colour="PRODUCT.attributes[0].options">
+                <colour v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'цвет'" 
+                        :colour="PRODUCT[0].attributes[0].options">
                 </colour>
                 <!-- Size -->
-                <select v-if="PRODUCT.attributes[0] && PRODUCT.attributes[0].name === 'Размер'"
+                <select v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'Размер'"
                         class="form-control form-control-md border-info mb-3">
                   <option>Размер</option>
                   <option
-                    v-for="(size, index ) in PRODUCT.attributes[0].options"
+                    v-for="(size, index ) in PRODUCT[0].attributes[0].options"
                     :key="index">
                     {{size}}
                   </option>
                 </select>
-                <select v-if="PRODUCT.attributes[1] && PRODUCT.attributes[1].name === 'Размер'"
+                <select v-if="PRODUCT[0].attributes[1] && PRODUCT[0].attributes[1].name === 'Размер'"
                         class="form-control form-control-md border-info mb-4">
                   <option>Размер</option>
                   <option
-                    v-for="(size, index ) in PRODUCT.attributes[1].options"
+                    v-for="(size, index ) in PRODUCT[0].attributes[1].options"
                     :key="index">
                     {{size}}
                   </option>
@@ -121,13 +121,12 @@
                       <b-btn variant="info" @click="increment">+</b-btn>
                     </b-input-group-append>
                   </b-input-group>
-<!--                   <b-form-spinbutton size="lg" id="sb-inline" v-model="countProduct" inline class="border-info mb-3 mr-sm-2"></b-form-spinbutton>
- -->            </div>
+                </div>
               </div>
             </div>
 
             <div class="col-12 col-sm-12 d-flex d-flex flex-column flex-sm-row justify-content-between align-items-center px-0 py-5 mx-auto">
-              <b-button @click="addToCart(PRODUCT)"
+              <b-button @click="addToCart(PRODUCT[0])"
                         @mouseenter="hover_cart = true"
                         @mouseleave="hover_cart  = false" 
                         variant="outline-info btn_to_cart mr-0 mr-sm-4 mb-2 mb-sm-0 w-100">В корзину
@@ -148,7 +147,7 @@
       </b-row>
     </b-card>
 
-    <similar-products v-if="PRODUCT !=''" :category_id="PRODUCT.categories[0].id"></similar-products>
+    <similar-products v-if="PRODUCT !=''" :category_id="PRODUCT[0].categories[0].id"></similar-products>
   </div>
 </template>
 
@@ -177,21 +176,19 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["PRODUCT", "PRODUCT_ID", "CART", "LSTOREG"])
+    ...mapGetters(["PRODUCT", "PRODUCT_SLUG", "CART", "LSTOREG"])
   },
   methods: {
     ...mapActions([
-      "GET_PRODUCT_ID_TO_VUEX",
+      "GET_PRODUCT_SLUG_TO_VUEX",
       "GET_PRODUCT_FROM_API",
       "ADD_TO_CART",
-      "INCREMENT_CART_ITEM",
-      "DECREMENT_CART_ITEM",
     ]),
     nextImg() {
-      if (this.isActive < this.PRODUCT.images.length) {
+      if (this.isActive < this.PRODUCT[0].images.length) {
         this.isActive++;
       }
-      if (this.isActive === this.PRODUCT.images.length) {
+      if (this.isActive === this.PRODUCT[0].images.length) {
         this.isActive = 0;
       }
     },
@@ -200,15 +197,15 @@ export default {
         this.isActive--;
       }
       if (this.isActive === -1) {
-        this.isActive = this.PRODUCT.images.length - 1;
+        this.isActive = this.PRODUCT[0].images.length - 1;
       }
     },
     clickImg(value) {
       this.isActive = value;
     },
     makeToast(variant = null, toaster, append = false) {
-      let $price = this.PRODUCT.price;
-      this.$bvToast.toast(this.PRODUCT.name, {
+      let $price = this.PRODUCT[0].price;
+      this.$bvToast.toast(this.PRODUCT[0].name, {
         title: `Товар добавлен, по цене ${$price} грн`,
         variant: variant,
         toaster: toaster,
@@ -227,8 +224,8 @@ export default {
     },
     //метод обновления корзины
     updateTocart(data){
-        this.lineItems = this.getToCart();  
- //существует продукт или нет в хранилище
+      this.lineItems = this.getToCart();  
+      //существует продукт или нет в хранилище
       const $index = this.lineItems.find(item =>
         item.product_id == data.id ? true : false
       );
@@ -267,24 +264,20 @@ export default {
         this.countProduct--;
       }
     },
-
   },
   mounted() {
     this.isActive = 0;
     let $wLoc = window.location.href;
-    $wLoc = $wLoc.split("-id-")[1];
-    //console.log($wLoc);
-    if ($wLoc) {
-      this.GET_PRODUCT_ID_TO_VUEX($wLoc);
-    } else {
-      //this.GET_PRODUCT_ID_TO_VUEX(3115);
-      this.$router.push({ path: "/shop/" });
-    }
-
+    let  $slug = $wLoc.split('?')[0].split('/product/')[1]
+      if ($slug) {
+        this.GET_PRODUCT_SLUG_TO_VUEX($slug);
+      } else {
+        this.$router.push({ path: "/shop/" });
+      }
     this.GET_PRODUCT_FROM_API().then(response => {
       if (response.data) {
         let vm = this;
-        this.PRODUCT.images.map(function(img) {
+        this.PRODUCT[0].images.map(function(img) {
           vm.images.push(img.src);
         });
       } else {
@@ -299,7 +292,7 @@ export default {
     PRODUCT: function() {
       let vm = this;
       this.images.splice(0);
-      this.PRODUCT.images.map(function(img) {
+      this.PRODUCT[0].images.map(function(img) {
           vm.images.push(img.src);
         });
     }
@@ -317,13 +310,10 @@ export default {
     height: 3px;
     background-color: #ececec;
   }
-
   ::-webkit-scrollbar-thumb {
     width: 3px;
     background-image: -webkit-linear-gradient(#F5F5F5, #8A8A8A);
   }
-  
-
   .left_slide {
     &__item{
       .active {
@@ -337,7 +327,6 @@ export default {
     }
   }
   .bottom_slide {
-    //overflow-x: auto;
     &__item{
       .active {
         border: black solid 1px;
@@ -379,7 +368,6 @@ export default {
             top: 5%;
             width: 15px;
             height: 15px;
-
           }
         }
       }

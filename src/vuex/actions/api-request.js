@@ -15,6 +15,7 @@ export default {
       orderby: state.sortingCatalog.orderby,
       order: state.sortingCatalog.order,
       stock_status: "instock",
+      //slug: "noski-zhenskie-grand-ukorochenye-sport-glad-r-36-40",
       category: state.categoryId,
       search: state.vModelValue,
       per_page: state.perpage,
@@ -193,7 +194,7 @@ export default {
         return error;
       });
   },
-  GET_PRODUCT_FROM_API({ commit, state }) {
+  GET_PRODUCT_FROM_API({ commit, state}) {
     const WooCommerce = new WooCommerceRestApi({
       url: SETTINGS.URL, // Your store URL
       consumerKey: SETTINGS.KEY, // Your consumer key
@@ -201,7 +202,11 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
-    return WooCommerce.get("products/" + state.product_id)
+    return WooCommerce.get("products", {
+      stock_status: "instock",
+      slug: state.product_slug,
+      per_page: 2
+    })
       .then((response) => {
         //вызываем мутацию для передачи даных
         commit("SET_PRODUCT_FROM_API", response.data);

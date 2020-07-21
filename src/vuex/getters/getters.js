@@ -11,8 +11,8 @@ export default {
   LSTOREG(state) {
     return state.lstoreg;
   },
-  PRODUCT_ID(state) {
-    return state.product_id
+  PRODUCT_SLUG(state) {
+    return state.product_slug
   },
   POP_PRODUCTS(state) {
     return state.popProduct;
