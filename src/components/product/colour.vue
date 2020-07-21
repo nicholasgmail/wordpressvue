@@ -62,7 +62,7 @@ export default {
           $wLoc = $wLoc.split('?')[0];
       let $newUrl = $wLoc + '?colour=' + value
       history.pushState(null, null, $newUrl);
-    }
+     }
   },
   mounted() {
     let $wLoc = window.location.href;

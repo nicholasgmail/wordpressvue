@@ -17,7 +17,7 @@
         <b-button class="btn_buy"
                   block variant="primary bd-highlight" 
                   @click="addToCart"
-                  v-if="!this.product_data.attributes[0]"
+                  v-if="!this.product_data.attributes.length"
         >Купить <svg-icon name="shopping-cart" style="width: 1.4em; height: 1.4em"></svg-icon>
         </b-button>
 
@@ -34,7 +34,6 @@
 
 <script>
 import { mapActions} from "vuex"
-
 export default {
   name: "v-catalog-item",
   props: {
@@ -74,13 +73,11 @@ export default {
       this.GET_PRODUCT_FROM_API().then(response => {
         if (response.data) {
           const slug = this.product_data.slug;
-          if (this.product_data.attributes[0].name === "цвет") {
+          if (this.product_data.attributes.length && this.product_data.attributes[0].name === "цвет") {
             const colour = this.product_data.attributes[0].options[0];
             this.$router.push({ name: 'product',  params: { product: slug }, query: { colour: colour } });
-          } 
-          if (this.product_data.attributes[0].name != "цвет") {
-            const colour = '';
-            this.$router.push({ name: 'product',  params: { product: slug }, query: { colour: colour } });
+          } else if ( !this.product_data.attributes.length || this.product_data.attributes[0].name != "цвет") {
+            this.$router.push({ name: 'product',  params: { product: slug }});
           }
         }
       });
