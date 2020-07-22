@@ -1,8 +1,6 @@
 <template>
-  <b-container fluid="lg" class="v-cart">
-    <b-row cols="1">
-      <p v-if="!cart_data.length">Корзина пуста...</p>
-
+  <b-row v-if="show" class="list-cart">
+    <b-col sm="12" lg="8">
       <v-cart-item
         v-for="(item, index) in cart_data"
         :key="index"
@@ -11,18 +9,9 @@
         @increment="increment(index)"
         @decrement="decrement(index)"
       ></v-cart-item>
-    </b-row>
-    <b-row cols="1" class="v-cart__total justify-content-center align-items-center">
-      <b-col col sm="2">
-        <p class="v-cart__name">Сумма</p>
-        <p>{{cartTotalCost}} грн.</p>
-      </b-col>
-      <b-col col sm="2">
-        <p class="v-cart__name" v-pre>Количество</p>
-        <p>{{cartQuantity}}</p>
-      </b-col>
-    </b-row>
-  </b-container>
+    </b-col>
+    <v-cart-info :cart_item_data="cart_data"></v-cart-info>
+  </b-row>
 </template>
 
 <script>
@@ -32,13 +21,28 @@ export default {
   name: "v-cart",
   //() =>import("./v-cart-item") - динамический импорт.
   //VCartItem - функция которая возвращат промис
-  components: { VCartItem: () => import("./v-cart-item") },
+  components: {
+    VCartItem: () => import("./v-cart-item"),
+    VCartInfo: () => import("./v-cart-info")
+  },
   props: {
     cart_data: {
       type: Array,
       default() {
         return [];
       }
+    }
+  },
+  data() {
+    return {
+      show: false
+    };
+  },
+  mounted() {
+    if (this.cart_data) {
+      this.$nextTick(() => {
+        this.show = true;
+      });
     }
   },
   computed: {
@@ -119,24 +123,11 @@ export default {
 
 <style lang="scss">
 .v-cart {
-  margin-bottom: 100px;
-
   &__total {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: $padding * 2 $padding * 3;
-    display: flex;
-    justify-content: center;
     background: #2a5446;
     color: #fff;
     font-size: 20px;
     font-weight: bold;
-  }
-
-  &__name {
-    margin-right: $margin * 2;
   }
 }
 </style>

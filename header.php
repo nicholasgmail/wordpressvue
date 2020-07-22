@@ -1,4 +1,7 @@
-<?php status_header(200); ?>
+<?php 
+if( !defined( 'ABSPATH') ) exit();
+status_header(200); 
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js no-svg">
 

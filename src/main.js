@@ -1,19 +1,19 @@
 import Vue from "vue";
 import SvgIcon from "vue-svgicon";
 
-import { loadProgressBar } from 'axios-progress-bar'
+import { loadProgressBar } from "axios-progress-bar";
 import "@babel/polyfill";
 import "mutationobserver-shim";
-import "@/plugins/bootstrap.js"
+import "@/plugins/bootstrap.js";
 
-import 'axios-progress-bar/dist/nprogress.css'
+import "axios-progress-bar/dist/nprogress.css";
 import "./assets/styles/styles.module.scss";
 
 import App from "@/App.vue";
 import store from "@/vuex/store";
 import router from "@/router/router";
-import VueAgile from 'vue-agile'
-import LightGallery from 'vue-light-gallery';
+import VueAgile from "vue-agile";
+import LightGallery from "vue-light-gallery";
 
 import "@/icons/components";
 
@@ -26,7 +26,6 @@ Vue.use(SvgIcon, {
 });
 Vue.use(VueAgile);
 Vue.use(LightGallery);
-
 Vue.config.productionTip = false;
 
 new Vue({
