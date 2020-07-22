@@ -5,6 +5,9 @@ export default {
   PRODUCTS(state) {
     return state.products;
   },
+  ZONES(state) {
+    return state.zones;
+  },
   PRODUCT(state) {
     return state.product;
   },
@@ -13,6 +16,9 @@ export default {
   },
   PRODUCT_SLUG(state) {
     return state.product_slug
+  },
+  PRODUCT_ID(state) {
+    return state.product_id;
   },
   POP_PRODUCTS(state) {
     return state.popProduct;
@@ -24,7 +30,7 @@ export default {
     return state.categories;
   },
   CATEGORY_ID(state) {
-    return state.categoryId
+    return state.categoryId;
   },
   CART(state) {
     return state.cart;
@@ -37,6 +43,9 @@ export default {
   },
   ORDERS(state) {
     return state.orders;
+  },
+  ORDER(state) {
+    return state.order;
   },
   CUSTOMERS(state) {
     return state.customers;

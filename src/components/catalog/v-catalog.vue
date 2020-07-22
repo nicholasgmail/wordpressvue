@@ -66,6 +66,7 @@
 <script>
 import VCatalogItem from "./v-catalog-item";
 import { mapActions, mapGetters } from "vuex";
+import md5 from "md5";
 import paginationMixin from "@/mixins/pagination.mixins";
 import sortingCatalogMixin from "@/mixins/sorting-catalog.mixins";
 import sortingCategoriesMixin from "@/mixins/sorting-categories.mixins";
@@ -78,7 +79,8 @@ export default {
   data() {
     return {
       lineItems: [],
-      currentPage: null
+      currentPage: null,
+      cart_hash: '',
     };
   },
   created() {},
@@ -99,7 +101,6 @@ export default {
       "GET_ID_CATEGORIES_TO_VUEX",
       "GET_SORTING_OPTIONS_TO_VUEX",
       "ADD_TO_CART",
-      "GET_ORDERS_FROM_API",
       "GET_CART_FROM_API"
     ]),
     //метод для получения даных из локального хранилища
@@ -125,6 +126,8 @@ export default {
         };
         this.lineItems.push($orders);
         let $parse = JSON.stringify(this.lineItems);
+        this.cart_hash = JSON.stringify(md5($parse));
+        localStorage.setItem('cart_hash', this.cart_hash);
         return localStorage.setItem(this.LSTOREG, $parse);
       }
       if ($index) {
@@ -133,6 +136,8 @@ export default {
           item.product_id == data.id ? ++item.quantity : ""
         );
         let $parse = JSON.stringify(this.lineItems);
+        this.cart_hash = JSON.stringify(md5($parse));
+        localStorage.setItem('cart_hash', this.cart_hash)  
         return localStorage.setItem(this.LSTOREG, $parse);
       }
     },

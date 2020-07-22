@@ -9,6 +9,9 @@ export default {
   SET_ORDERS_TO_STATE: (state, orders) => {
     state.orders = orders;
   },
+  SET_ORDER_TO_STATE: (state, payload) => {
+    state.order = payload.data;
+  },
   SET_INFO_TO_STATE: (state, info) => {
     state.info = info;
   },
@@ -46,7 +49,9 @@ export default {
   SET_CATEGORIES_TO_STATE: (state, categories) => {
     state.categories = categories;
   },
-
+  SET_ZONES_TO_STATE: (state, zones) => {
+    state.zones = zones;
+  },
   SET_CART: (state, product) => {
     if (state.cart.length) {
       let isProductExists = false;
@@ -54,13 +59,13 @@ export default {
       state.cart.map(function(item) {
         if (item.id === product.id) {
           isProductExists = true;
-          let $local= $itemLocal.find((elem) => {
+          let $local = $itemLocal.find((elem) => {
             if (elem.product_id == product.id) {
               return elem;
             }
             return "";
           });
-          item.quantity = $local.quantity
+          item.quantity = $local.quantity;
         }
       });
       if (!isProductExists) {

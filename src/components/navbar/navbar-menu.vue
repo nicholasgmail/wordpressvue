@@ -15,7 +15,7 @@
             link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
-<!-- Search -->        
+        <!-- Search -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form v-on:submit.prevent="search(vModelValue)">
             <b-form-input
@@ -78,22 +78,33 @@ export default {
     },
     search(value) {
       this.GET_SEARCH_VALUE_TO_VUEX(value);
-      if (!this.$route.query.page && this.$route.path != "/shop" && this.$route.path != "/shop/") {
+      if (
+        !this.$route.query.page &&
+        this.$route.path != "/shop" &&
+        this.$route.path != "/shop/"
+      ) {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
       } else {
-        this.$router.push({fullPath: "/shop"});
+        this.$router.push({ fullPath: "/shop" });
         this.GET_PRODUCTS_FROM_API();
       }
     },
-    clearing_values() {
+  /*   clearing_values() {
       if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
         this.GET_ID_CATEGORIES_TO_VUEX('');
         this.vModelValue = '';
         this.GET_SEARCH_VALUE_TO_VUEX('');
+      }
+    }, */
+    deleteCategoryID() {
+      if (this.$router.path != "/shop" || this.$router.path != "/shop/") {
+        this.GET_ID_CATEGORIES_TO_VUEX("");
+        this.vModelValue = "";
+        this.GET_SEARCH_VALUE_TO_VUEX("");
         this.GET_PRODUCTS_FROM_API();
       }
-    },
+    }
   },
   mounted() {
     this.GET_MENU_FROM_API().then(response => {});

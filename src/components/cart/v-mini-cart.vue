@@ -5,9 +5,13 @@
         <div class="d-flex flex-column justify-content-center">
           <router-link
             class="btn btn-outline-info mt-2"
-            :to="{name: 'cart', params: {cart_data : CART}}"
+            :to="{path: '/cart/list-cart'}"
           >Просмотреть корзину</router-link>
-          <b-button squared variant="success mt-2">Оформить заказ</b-button>
+          <router-link
+            squared
+            class="btn btn-success mt-2"
+            :to="{path: '/cart/order'}"
+          >Оформить заказ</router-link>
         </div>
       </b-col>
       <b-col class="pt-5">

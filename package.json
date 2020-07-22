@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
+    "md5": "^2.2.1",
     "vue": "^2.6.11",
     "vue-light-gallery": "^1.0.1",
     "vue-router": "^3.3.4",
