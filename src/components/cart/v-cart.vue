@@ -8,6 +8,7 @@
         @deleteFromCart="deleteFromCart(index)"
         @increment="increment(index)"
         @decrement="decrement(index)"
+        @change="change(index, item)"
       ></v-cart-item>
     </b-col>
     <v-cart-info :cart_item_data="cart_data"></v-cart-info>
@@ -23,19 +24,20 @@ export default {
   //VCartItem - функция которая возвращат промис
   components: {
     VCartItem: () => import("./v-cart-item"),
-    VCartInfo: () => import("./v-cart-info")
+    VCartInfo: () => import("./v-cart-info"),
   },
   props: {
     cart_data: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      show: false
+      show: false,
+      viewQuantity: null,
     };
   },
   mounted() {
@@ -54,7 +56,7 @@ export default {
         for (let item of this.cart_data) {
           result.push(item.price * item.quantity);
         }
-        result = result.reduce(function(sum, el) {
+        result = result.reduce(function (sum, el) {
           return sum + el;
         });
         return result;
@@ -68,21 +70,21 @@ export default {
         for (let item of this.cart_data) {
           quantity.push(item.quantity);
         }
-        quantity = quantity.reduce(function(sum, el) {
+        quantity = quantity.reduce(function (sum, el) {
           return sum + el;
         });
         return quantity;
       } else {
         return 0;
       }
-    }
+    },
   },
   methods: {
     ...mapActions([
       "DELETE_FROM_CART",
       "INCREMENT_CART_ITEM",
       "DECREMENT_CART_ITEM",
-      "GET_CART_FROM_API"
+      "GET_CART_FROM_API",
     ]),
     //метод для получения даных из локального хранилища
     getToCart() {
@@ -116,8 +118,14 @@ export default {
       this.cart.splice(index, 1);
       let $parse = JSON.stringify(this.cart);
       localStorage.setItem(this.LSTOREG, $parse);
-    }
-  }
+    },
+    change(index, item) {
+        this.cart = this.getToCart();
+      this.cart[index].quantity = +item.quantity;
+      let $parse = JSON.stringify(this.cart);
+      localStorage.setItem(this.LSTOREG, $parse);
+    },
+  },
 };
 </script>
 

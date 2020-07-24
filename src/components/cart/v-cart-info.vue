@@ -82,7 +82,7 @@ export default {
       let quantity = [];
       if (this.cart_item_data.length) {
         for (let item of this.cart_item_data) {
-          quantity.push(item.quantity);
+          quantity.push(+item.quantity);
         }
         quantity = quantity.reduce(function(sum, el) {
           return sum + el;
