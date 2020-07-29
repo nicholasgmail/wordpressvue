@@ -8,6 +8,9 @@ import NoPage from "@/views/no-page";
 import Cart from "@/views/cart";
 import Product from "@/components/product/product";
 import PaymentDelivery from "@/views/payment-delivery";
+import Order from "@/views/order";
+import ListCart from "@/views/list-cart";
+import ListOrderProducts from "@/views/list-order-products";
 
 Vue.use(VueRouter);
 
@@ -39,8 +42,25 @@ const routes = [
   {
     path: "/cart/",
     name: "cart",
+    redirect: { path: "/cart/list-cart/" },
     component: Cart,
-    props: true,
+    children: [
+      {
+        path: "list-cart/",
+        name: "list catr",
+        component: ListCart,
+      },
+      {
+        path: "order/",
+        name: "order",
+        component: Order,
+      },
+      {
+        path: "list-order-products/",
+        name: "list order products",
+        component: ListOrderProducts,
+      },
+    ],
   },
   {
     path: "/product/:product",
@@ -67,6 +87,5 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   }
 });
-
 
 export default router;
