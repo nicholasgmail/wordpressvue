@@ -25,7 +25,6 @@ export default {
   name: "cart",
   components: {
     Breadcrumb: ()=>import ('@/components/breadcrumb/breadcrumb'),
-    VCart: () => import("@/components/cart/v-cart")
   },
   props: {},
   data() {
