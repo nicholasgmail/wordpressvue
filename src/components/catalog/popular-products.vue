@@ -45,7 +45,7 @@ export default {
         return JSON.parse($itemProduct);
       }
       return [];
-    },    
+    },
     //метод обновления корзины
     updateTocart(data) {
       this.lineItems = this.getToCart();
@@ -75,10 +75,10 @@ export default {
     //метод добавления в хранилище
     addToCart(data) {
       this.updateTocart(data);
-      this.ADD_TO_CART(data);     
+      this.ADD_TO_CART(data);
     }
   },
-  mounted() {
+  async mounted() {
     this.GET_POP_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
         this.show = false;

@@ -4,7 +4,7 @@
 @import "./variables"; //настройки проэкта
 
 @import "./global"; //глобальные стили
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
 
-.btn {
-  border-radius: $radius;
-}
