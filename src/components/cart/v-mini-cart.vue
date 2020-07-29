@@ -1,38 +1,36 @@
 <template>
-  <b-card no-body class="overflow-hidden card-yellow" style="max-width: 540px;">
-    <b-row class="p-1 flex-column justify-content-center">
-      <b-col>
-        <div class="d-flex flex-column justify-content-center">
-          <router-link
-            class="btn btn-outline-info mt-2"
-            :to="{path: '/cart/list-cart'}"
-          >Просмотреть корзину</router-link>
-          <router-link
-            squared
-            class="btn btn-success mt-2"
-            :to="{path: '/cart/order'}"
-          >Оформить заказ</router-link>
-        </div>
-      </b-col>
-      <b-col class="pt-5">
-        <h6 class="m-0">
-          Подитог:
-          <span class="font-weight-bold">{{cartTotalCost}} грн.</span>
-        </h6>
-      </b-col>
-    </b-row>
-    <div class="px-2">
-      <hr />
-    </div>
+  <div class="v-mini-cart">
     <p v-if="!cart_data.length">Корзина пуста...</p>
-    <v-mini-cart-item
+    <div v-else class="v-mini-cart__item overflow-auto" style=" max-height: 390px;">
+      <v-mini-cart-item 
       v-for="(item, index) in cart_data"
       :key="index"
       :cart_item_data="item"
       @deleteFromCart="deleteFromCart(index)"
-    ></v-mini-cart-item>
-    <div class="py-2"></div>
-  </b-card>
+      ></v-mini-cart-item>
+    </div>
+
+
+    <b-row class="p-1 flex-column justify-content-center">
+      <b-col>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="w-50">
+            <h6 class="m-0 text-muted py-2">Подитог:</h6>
+            <span class="font-weight-bold">{{cartTotalCost}} грн.</span>
+          </div>
+
+          <router-link
+            class="btn btn-outline-info font-size-12  mt-2"
+            :to="{name: 'cart', params: {cart_data : CART}}"
+          >Просмотреть корзину</router-link>
+
+        </div>
+      </b-col>
+      <b-col class="pt-5">
+        <b-button squared variant="success mt-2 w-100">Оформить заказ</b-button>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
@@ -94,9 +92,19 @@ export default {
 </script>
 
 <style lang="scss">
-.navbar {
-  .card-yellow {
-    border-color: rgba($color: $red, $alpha: 1);
+.v-mini-cart {
+  width: 325px;
+  &__item::-webkit-scrollbar {
+    width: 3px;
+    background-color: #ececec;
+  }
+  ::-webkit-scrollbar-thumb {
+    width: 3px;
+    background-image: -webkit-linear-gradient(#F5F5F5, #8A8A8A);
+  }
+  @media (max-width: 576px){
+     width: 245px;
   }
 }
+
 </style>

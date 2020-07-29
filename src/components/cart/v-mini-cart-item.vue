@@ -1,16 +1,20 @@
 <template>
-  <b-row no-gutters class="p-1">
-    <b-col md="9">
-      <b-btn-close @click="deleteFromCart" class="mr-2" />
-      <h6 class="mb-0 font-weight-bold p-2">
+  <b-row no-gutters class="p-1" @mousemove="hover_item = true" @mouseleave="hover_item = false">
+    <b-col align-self="center" class="d-none col-1" :class="{'d-block': hover_item === true}">
+      <b-btn-close @click="deleteFromCart" class="p-2" />
+    </b-col>
+    <b-col md="3" class="col-2" align-self="center">
+      <b-card-img :src="cart_item_data.images[0].src" alt="Image" class="img-fluid d-block mx-auto w-75"></b-card-img>
+    </b-col>
+
+    <b-col align-self="center" class="col-8 p-2">
+      <p class="font-size-14 text-wrap mb-0">{{cart_item_data.name}}</p>
+      <h6 class="mb-0 font-weight-bold py-2">
         <span class="count">{{cart_item_data.quantity}}</span>
-        x{{cart_item_data.price}} грн.
+        x {{cart_item_data.price}} грн.
       </h6>
-      <b-card-text class="font-size-14">{{cart_item_data.name}}</b-card-text>
     </b-col>
-    <b-col md="3" align-self="center">
-      <b-card-img :src="cart_item_data.images[0].src" alt="Image" class="rounded-0"></b-card-img>
-    </b-col>
+    <hr class="col-12 my-1">
   </b-row>
 </template>
 
@@ -28,7 +32,8 @@ export default {
   },
   data() {
     return {
-      $elem: []
+      $elem: [],
+      hover_item: false
     };
   },
   computed: {

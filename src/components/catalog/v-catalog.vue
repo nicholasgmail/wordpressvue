@@ -1,9 +1,7 @@
 <template>
   <b-container fluid="lg" class="v-catalog">
-    <b-breadcrumb class="pl-0">
-      <b-breadcrumb-item to="/">Главная</b-breadcrumb-item>
-      <b-breadcrumb-item active>Носки купить</b-breadcrumb-item>
-    </b-breadcrumb>
+    <breadcrumb :name_breadcrumb="'Носки купить'"></breadcrumb>    
+    
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
       <b-form-select v-model="sortingCatalog" :options="sortingOptions" size="sm"></b-form-select>
@@ -42,15 +40,19 @@
       </div>
     </b-row>
 
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 pt-4">
-        <!--Передали даные с дочернему елементу с помощю v-bind -->
-        <v-catalog-item
-          v-for="product in PRODUCTS"
-          :key="product.id"
-          :product_data="product"
-          @addToCart="addToCart"
-        ></v-catalog-item>
-      </div>
+    <div v-if="show === false" class="w-100 text-center my-3 text-primary">
+      <b-spinner option="primary" label="Text Centered"></b-spinner>
+    </div>
+
+    <div v-if="this.show === true" class="row row-cols-2 row-cols-md-3 row-cols-lg-5 pt-4">
+      <!--Передали даные с дочернему елементу с помощю v-bind -->
+      <v-catalog-item
+        v-for="product in PRODUCTS"
+        :key="product.id"
+        :product_data="product"
+        @addToCart="addToCart"
+      ></v-catalog-item>
+    </div>
     <b-pagination-nav
       @change="nextPage"
       :link-gen="linkGen"
@@ -74,13 +76,17 @@ import sortingCategoriesMixin from "@/mixins/sorting-categories.mixins";
 export default {
   name: "v-catalog",
   mixins: [paginationMixin, sortingCatalogMixin, sortingCategoriesMixin],
-  components: { VCatalogItem },
+  components: { 
+    Breadcrumb: ()=>import ('@/components/breadcrumb/breadcrumb'),
+    VCatalogItem 
+  },
   props: {},
   data() {
     return {
       lineItems: [],
       currentPage: null,
       cart_hash: '',
+      show: false
     };
   },
   created() {},
@@ -147,10 +153,12 @@ export default {
       this.ADD_TO_CART(data);
     },
     nextPage() {
+      this.show = false;
       this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
         if (response.data) {
           if (this.$route.query.page) {
             this.currentPage = this.$route.query.page;
+            this.show = true;
           } else {
             this.currentPage = 1;
           }
@@ -166,6 +174,7 @@ export default {
       if (response.data) {
         if (this.$route.query.page) {
           this.currentPage = this.$route.query.page;
+          this.show = true;
         } else {
           this.currentPage = 1;
         }

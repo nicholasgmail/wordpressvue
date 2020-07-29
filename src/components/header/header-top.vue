@@ -5,7 +5,7 @@
       <b-navbar-brand :href="url" class="h1 text-uppercase mb-0">
         <img :src=" require('../../assets/logo.png') " alt="logo" height="50" />
       </b-navbar-brand>
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav class="text-center mx-auto mx-sm-0 ml-sm-auto">
         <b-nav-item :href="tophone" class="my-auto">
           <svg-icon class="mr-2" name="phone" width="1rem" height="1rem" />
           <span class="text-muted">{{phone}}</span>
@@ -15,15 +15,21 @@
           <span class="text-muted">{{email}}</span>
         </b-nav-item>
       </b-navbar-nav>
-      <div class="position-relative z-1">
-        <b-button v-b-toggle.collapse-cart class="btn-icon px-5" variant="outline-danger">
-          <svg-icon class="svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
-          <span v-if="cartQuantity" class="mr-2"> {{cartTotalCost}} грн.</span>
-          <span class="text-uppercase" v-pre>Корзина</span>
-        </b-button>
-        <b-collapse id="collapse-cart" class="mt-2 w-100 position-absolute">
-          <v-mini-cart v-if="CART.length" :cart_data="CART"></v-mini-cart>
-        </b-collapse>
+      <div @mousemove="openMinCart" @mouseleave="closeMinCart">
+        <b-dropdown id="dropdown-right" 
+                    right no-caret variant="outline-danger" 
+                    class="dropdown-cart ml-auto ml-sm-0">
+          <template v-slot:button-content>
+              <svg-icon class=" svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
+              <span v-if="cartQuantity" class="mr-2"> {{cartTotalCost}} грн.</span>
+              <span class="text-uppercase" v-pre>Корзина</span>
+          </template>
+          <b-dropdown-text :class="'test'">
+            <v-mini-cart  
+                          :cart_data="CART"
+            ></v-mini-cart>
+          </b-dropdown-text>
+        </b-dropdown>
       </div>
     </b-container>
   </b-navbar>
@@ -44,7 +50,8 @@ export default {
       toemail: null,
       tophone: null,
       url: null,
-      description: null
+      description: null,
+      show_minCart: false
     };
   },
   created() {
@@ -81,7 +88,7 @@ export default {
         return quantity;
       }
       return 0;
-    }
+    },
   },
   methods: {
     ...mapActions([
@@ -97,6 +104,26 @@ export default {
         return JSON.parse($itemProduct);
       }
       return [];
+    },
+    openMinCart() {
+      let el_1 = document.querySelector('.dropdown-menu'); 
+          el_1.classList.add('show');
+          el_1.classList.add("mt-0");
+      let el_2 = document.querySelector('.dropdown-toggle');
+          el_2.style.backgroundColor = '#f45a40';
+          el_2.style.color = '#fff';
+      let el_3 = document.querySelector('button > .svg-fill_red > path');
+          el_3.style.fill = '#fff';
+    },
+    closeMinCart () {
+      let el_1 = document.querySelector('.dropdown-menu');
+          el_1.classList.remove('show');
+          el_1.classList.remove("mt-0");
+      let el_2 = document.querySelector('.dropdown-toggle');
+          el_2.style.backgroundColor = '#fff';
+          el_2.style.color = '#f45a40';
+      let el_3 = document.querySelector('button > .svg-fill_red > path');
+          el_3.style.fill = '#f45a40';
     }
   },
   async mounted() {
@@ -115,7 +142,7 @@ export default {
         this.description = response.data.description;
       }
     });
-  },
+},
   watch: {}
 };
 </script>
@@ -135,15 +162,6 @@ export default {
     &_red {
       path {
         fill: $red;
-      }
-    }
-  }
-  .btn-icon {
-    &:hover {
-      .svg-fill_red {
-        path {
-          fill: #fff;
-        }
       }
     }
   }
