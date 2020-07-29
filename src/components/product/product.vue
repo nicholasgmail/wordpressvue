@@ -102,7 +102,9 @@
                   </option>
                 </select>
                 <select v-if="PRODUCT[0].attributes[1] && PRODUCT[0].attributes[1].name === 'Размер'"
-                        class="form-control form-control-md border-info mb-4">
+                        class="form-control form-control-md border-info mb-4"
+                        v-model="sizeProduct"
+                        >
                   <option>Размер</option>
                   <option
                     v-for="(size, index ) in PRODUCT[0].attributes[1].options"
@@ -172,7 +174,8 @@ export default {
       images: [],
       indexGallery: null,
       hover_cart: false,
-      hover_buy: false
+      hover_buy: false,
+      sizeProduct: 'Размер'
     };
   },
   computed: {
@@ -233,7 +236,8 @@ export default {
       if (!$index) {
         var $orders = {
           product_id: data.id,
-          quantity: this.countProduct
+          quantity: this.countProduct,
+          //size: this.sizeProduct
         };
         this.lineItems.push($orders);
         let $parse = JSON.stringify(this.lineItems);

@@ -1,5 +1,6 @@
 <template>
   <b-container fluid="lg" class="shop">
+    <breadcrumb :name_breadcrumb="title"></breadcrumb>
     <h2>{{title}}</h2>
     <b-row>
       <v-cart v-if="CART.length" :cart_data="CART"></v-cart>
@@ -12,6 +13,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: "shop",
   components: {
+    Breadcrumb: ()=>import ('@/components/breadcrumb/breadcrumb'),
     VCart: () => import("@/components/cart/v-cart")
   },
   props: {},

@@ -30,10 +30,15 @@ export default {
       if( this.$route.path === "/shop" || this.$route.path === "/shop/" ) {
         this.$router.push({path: "/shop"});
       }
+      this.show = false;
       this.$route.query.page = 1;
       this.currentPage = 1;
       this.GET_SORTING_OPTIONS_TO_VUEX(this.sortingCatalog);
-      this.GET_PRODUCTS_FROM_API(this.$route.query.page);
+      this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
+        if (response.data) {
+            this.show = true;
+        }
+      });
     },
   }
 };

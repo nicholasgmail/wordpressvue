@@ -63,13 +63,18 @@ export default {
       }
     }, 
     // отслеживание изменения id категории
-    CATEGORY_ID: function() {
+    CATEGORY_ID: function () {
+      this.show = false;
       if (this.$route.path === "/shop" || this.$route.path === "/shop/") {
         this.$router.push({ path: "/shop" });
       }
       this.$route.query.page = 1;
       this.currentPage = 1;
-      this.GET_PRODUCTS_FROM_API(this.$route.query.page);
+      this.GET_PRODUCTS_FROM_API(this.$route.query.page).then(response => {
+        if (response.data) {
+          this.show = true;
+        }
+      });
 
       if (this.CATEGORY_ID === 36) {
         this.sortingCategories = this.CATEGORY_ID;
