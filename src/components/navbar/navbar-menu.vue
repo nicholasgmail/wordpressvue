@@ -90,21 +90,14 @@ export default {
         this.GET_PRODUCTS_FROM_API();
       }
     },
-  /*   clearing_values() {
+     clearing_values() {
       if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
         this.GET_ID_CATEGORIES_TO_VUEX('');
         this.vModelValue = '';
         this.GET_SEARCH_VALUE_TO_VUEX('');
-      }
-    }, */
-    deleteCategoryID() {
-      if (this.$router.path != "/shop" || this.$router.path != "/shop/") {
-        this.GET_ID_CATEGORIES_TO_VUEX("");
-        this.vModelValue = "";
-        this.GET_SEARCH_VALUE_TO_VUEX("");
         this.GET_PRODUCTS_FROM_API();
       }
-    }
+    }, 
   },
   mounted() {
     this.GET_MENU_FROM_API().then(response => {});
