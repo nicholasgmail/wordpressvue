@@ -88,11 +88,11 @@
             <div class="row">
               <div class="col-12 d-flex flex-column mb-4 mx-auto">
                 <!-- Color -->
-                <colour v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'цвет'" 
+<!--                 <colour v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'цвет'" 
                         :colour="PRODUCT[0].attributes[0].options">
                 </colour>
-                <!-- Size -->
-                <select v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'Размер'"
+ -->                <!-- Size -->
+<!--                 <select v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'Размер'"
                         class="form-control form-control-md border-info mb-3">
                   <option>Размер</option>
                   <option
@@ -112,7 +112,7 @@
                     {{size}}
                   </option>
                 </select>
-                <!-- Count -->
+ -->                <!-- Count -->
                 <div class="col-12 col-sm-6 col-md-5 px-0 text-center text-sm-left">
                   <b-input-group size="md">
                     <b-input-group-prepend>
@@ -162,7 +162,7 @@ export default {
   components: {
     LightGallery,
     SimilarProducts: () => import("@/components/catalog/similar-products"),
-    Colour: () => import("./colour")
+    //Colour: () => import("./colour")
   },
   props: {},
   data() {
@@ -237,7 +237,6 @@ export default {
         var $orders = {
           product_id: data.id,
           quantity: this.countProduct,
-          //size: this.sizeProduct
         };
         this.lineItems.push($orders);
         let $parse = JSON.stringify(this.lineItems);

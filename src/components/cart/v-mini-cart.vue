@@ -20,14 +20,18 @@
           </div>
 
           <router-link
-            class="btn btn-outline-info font-size-12  mt-2"
-            :to="{name: 'cart', params: {cart_data : CART}}"
+            class="btn btn-outline-info mt-2 font-size-12"
+            :to="{path: '/cart/list-cart'}"
           >Просмотреть корзину</router-link>
-
         </div>
       </b-col>
+
       <b-col class="pt-5">
-        <b-button squared variant="success mt-2 w-100">Оформить заказ</b-button>
+          <router-link
+            squared
+            class="btn btn-success w-100 mt-2"
+            :to="{path: '/cart/order'}"
+          >Оформить заказ</router-link>
       </b-col>
     </b-row>
   </div>

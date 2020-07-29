@@ -23,13 +23,13 @@
           block
           variant="primary bd-highlight"
           @click="addToCart"
-          v-if="!this.product_data.attributes.length"
+          
         >
           Купить
           <!--  <svg-icon name="shopping-cart" style="width: 1.4em; height: 1.4em"></svg-icon> -->
         </b-button>
 
-        <b-button
+<!--         <b-button
           class="btn_look"
           block
           variant="success bd-highlight"
@@ -37,8 +37,9 @@
           v-else
         >
           Просмотреть
-          <!-- <svg-icon name="redo"></svg-icon> -->
-        </b-button>
+ -->          <!-- <svg-icon name="redo"></svg-icon> -->
+<!--         </b-button>
+ -->        
       </div>
     </div>
   </div>
