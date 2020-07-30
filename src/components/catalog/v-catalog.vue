@@ -4,34 +4,40 @@
     
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
-      <b-form-select v-model="sortingCatalog" :options="sortingOptions" size="sm"></b-form-select>
-      <div class="col-4 d-flex pr-0">
+
+      <b-form-select v-model="sortingCatalog" 
+                    :options="sortingOptions" 
+                    size="sm" 
+                    class="col-6 col-sm-4 col-md-3 col-lg-2">
+      </b-form-select>
+      
+      <div class="col-6 col-md-5 col-lg-4 d-flex flex-column flex-sm-row pr-0">
         <b-form-select
           v-model="sortingCategories"
           :options="optionsCategories"
           class="mr-2"
           size="sm"
         ></b-form-select>
-        <b-form-select
+        <b-form-select class="mt-2 mt-sm-0"
           v-if="sortingCategories === null"
           v-model="sortingSubCategories"
           :options="optionsSubCategories"
           size="sm"
         ></b-form-select>
 
-        <b-form-select
+        <b-form-select class="mt-2 mt-sm-0"
           v-if="sortingCategories === 36"
           v-model="maleSortingSubCategories"
           :options="maleOptionsSubCategories"
           size="sm"
         ></b-form-select>
-        <b-form-select
+        <b-form-select class="mt-2 mt-sm-0"
           v-if="sortingCategories === 33"
           v-model="femaleSortingSubCategories"
           :options="femaleOptionsSubCategories"
           size="sm"
         ></b-form-select>
-        <b-form-select
+        <b-form-select class="mt-2 mt-sm-0"
           v-if="sortingCategories === 39"
           v-model="babySortingSubCategories"
           :options="babyOptionsSubCategories"

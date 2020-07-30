@@ -2,7 +2,7 @@
 <template>
   <b-navbar toggleable="sm" type="light" variant="white" class="py-0">
     <b-container fluid="lg" class="my-2">
-      <b-navbar-brand :href="url" class="h1 text-uppercase mb-0">
+      <b-navbar-brand :href="url" class="mx-auto mx-sm-0 h1 text-uppercase mb-0">
         <img :src=" require('../../assets/logo.png') " alt="logo" height="50" />
       </b-navbar-brand>
       <b-navbar-nav class="text-center mx-auto mx-sm-0 ml-sm-auto">
@@ -15,10 +15,9 @@
           <span class="text-muted">{{email}}</span>
         </b-nav-item>
       </b-navbar-nav>
-      <div @mousemove="openMinCart" @mouseleave="closeMinCart">
+      <div class="navbar-cart mx-auto mx-sm-0" @mousemove="openMinCart" @mouseleave="closeMinCart">
         <b-dropdown id="dropdown-right" 
-                    right no-caret variant="outline-danger" 
-                    class="dropdown-cart ml-auto ml-sm-0">
+                    right no-caret variant="outline-danger">
           <template v-slot:button-content>
               <svg-icon class=" svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
               <span v-if="cartQuantity" class="mr-2"> {{cartTotalCost}} грн.</span>
@@ -155,14 +154,26 @@ export default {
       color: $orang;
     }
   }
-  .svg-fill {
-    path {
-      fill: $gray-600;
-    }
-    &_red {
-      path {
-        fill: $red;
+  .navbar-cart {
+    .dropdown {
+      width: 100%;
+      .svg-fill {
+        path {
+          fill: $gray-600;
+        }
+        &_red {
+          path {
+            fill: $red;
+          }
+        }
       }
+    }
+  }
+}
+@media (max-width: 414px) {
+  .navbar {
+    .navbar-cart {
+      width: 100%;
     }
   }
 }

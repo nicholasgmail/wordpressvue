@@ -2,10 +2,15 @@
 <template>
   <b-container fluid="lg" tag="header" class="border-top border-bottom">
     <b-navbar toggleable="lg" type="white" variant="white" class="px-0 pb-0 pt-0">
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="navbar-toggle-collapse" class="mx-auto">
+        <template v-slot:default="{ expanded }"><span class="text-muted"> Меню </span>
+        <b-icon-chevron-bar-up v-if="expanded" ></b-icon-chevron-bar-up>
+        <b-icon-chevron-bar-down v-else ></b-icon-chevron-bar-down>
+        </template>
+      </b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="pt-2">
+      <b-collapse id="navbar-toggle-collapse" is-nav>
+        <b-navbar-nav class="pt-2 pl-2 pl-lg-0">
           <b-nav-item
             v-for="(menu, index) in MENU"
             :key="index"
@@ -16,7 +21,7 @@
           >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
         <!-- Search -->
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav class=" ml-auto">
           <b-nav-form v-on:submit.prevent="search(vModelValue)">
             <b-form-input
               size="sm"
@@ -35,11 +40,12 @@
   </b-container>
 </template>
 <script>
+import { BIconChevronBarUp, BIconChevronBarDown } from 'bootstrap-vue';
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "header-menu",
-  components: {},
+  components: { BIconChevronBarUp, BIconChevronBarDown },
   props: {},
   data() {
     return {
@@ -120,6 +126,9 @@ export default {
 }
 header {
   .navbar-nav {
+    .form-inline {
+      flex-flow: row;
+    }
     .nav {
       &-link {
         color: $gray-600;
