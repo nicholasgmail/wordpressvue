@@ -84,11 +84,7 @@ export default {
     },
     search(value) {
       this.GET_SEARCH_VALUE_TO_VUEX(value);
-      if (
-        !this.$route.query.page &&
-        this.$route.path != "/shop" &&
-        this.$route.path != "/shop/"
-      ) {
+      if ( this.$route.path != "/shop" || this.$route.path != "/shop/" ) {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
       } else {

@@ -7,7 +7,8 @@ export default {
         { value: null, text: "Выбрать категорию" },
         { value: 36, text: "Мужские" },
         { value: 33, text: "Женские" },
-        { value: 39, text: "Детские" }
+        { value: 39, text: "Детские" },
+        { value: 53, text: "Колготы детские" }
       ],
       sortingSubCategories: null,
       optionsSubCategories: [{ value: null, text: "Сезон" }],
@@ -83,6 +84,9 @@ export default {
         this.sortingCategories = this.CATEGORY_ID;
       }
       if (this.CATEGORY_ID === 39) {
+        this.sortingCategories = this.CATEGORY_ID;
+      }
+      if (this.CATEGORY_ID === 53) {
         this.sortingCategories = this.CATEGORY_ID;
       }
       if(this.CATEGORY_ID === "") {

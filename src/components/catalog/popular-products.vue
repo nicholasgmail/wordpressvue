@@ -1,7 +1,7 @@
 <template>
   <div class="popular-products container py-3">
     <h1 class="text-center" v-pre>Популярные товары</h1>
-    <div class="row">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
       <div v-if="show" class="w-100 text-center my-3 text-primary">
         <b-spinner option="primary" label="Text Centered"></b-spinner>
       </div>

@@ -60,7 +60,7 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["CART", "LSTOREG"]),
+    ...mapGetters(["CART", "LSTOREG", "CUSTOMERS"]),
     //подсчет общей стоимости
     cartTotalCost() {
       var result = [];

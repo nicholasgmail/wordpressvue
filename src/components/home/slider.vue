@@ -4,22 +4,18 @@
       id="carousel-fade"
       style="text-shadow: 0px 0px 2px #000"
       fade
+      controls
       indicators
-      :interval="0"
-      img-width="1024"
-      img-height="480"
+      :interval="3000"
     >
       <b-carousel-slide
-        caption="First slide"
-        img-src="https://picsum.photos/1024/480/?image=10"
+        img-src="@/assets/images/slider/152417370-noski.png"
       ></b-carousel-slide>
       <b-carousel-slide
-        caption="Second Slide"
-        img-src="https://picsum.photos/1024/480/?image=12"
+        img-src="@/assets/images/slider/214838543-family-socks-02.jpg"
       ></b-carousel-slide>
       <b-carousel-slide
-        caption="Third Slide"
-        img-src="https://picsum.photos/1024/480/?image=22"
+        img-src="@/assets/images/slider/1435143843_228e5e.jpg"
       ></b-carousel-slide>
     </b-carousel>
 
@@ -41,4 +37,13 @@ export default {
 </script>
 
 <style lang="scss">
+.carousel{
+  .carousel-inner {
+    img {
+      min-height: 245px;
+      max-height: 480px;
+
+    }
+  }
+}
 </style>
