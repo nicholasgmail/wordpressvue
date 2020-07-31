@@ -49,7 +49,7 @@ export default {
         { value: 'gray', text: "Серый" },
         { value: 'pink', text: "Розовый" },
         { value: 'salad', text: "Салатовый" },
-        { value: 'orange', text: "Оранжевый" },//
+        { value: 'orange', text: "Оранжевый" },
         { value: 'turquoise', text: "Бирюзовый" },
       ],
     };
@@ -60,7 +60,7 @@ export default {
     addColour(value) {
       let $wLoc = window.location.href;
           $wLoc = $wLoc.split('?')[0];
-      let $newUrl = $wLoc + '?colour=' + value
+      let $newUrl = $wLoc + '?colour=' + value;
       history.pushState(null, null, $newUrl);
      }
   },

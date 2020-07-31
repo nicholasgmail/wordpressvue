@@ -5,6 +5,7 @@
     <keep-alive>
       <router-view />
     </keep-alive>
+    <footer-bottom></footer-bottom>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
   components: {
     headerTop: () => import("@/components/header/header-top"),
     navbarMenu: () => import("@/components/navbar/navbar-menu"),
+    footerBottom: () => import("@/components/footer/footer"),
   },
   computed: {},
   methods: {},

@@ -16,7 +16,7 @@ export default {
     state.info = info;
   },
   SET_CUSTOMERS_TO_STATE: (state, customers) => {
-    state.customers = customers.phone;
+    state.customers = customers;
   },
   SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
     state.vModelValue = value;

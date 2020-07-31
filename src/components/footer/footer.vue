@@ -1,0 +1,172 @@
+<template>
+<footer class="footer pt-4">
+  <div class="container-lg py-3">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-3">
+        <h5>Наш товар:</h5>
+        <hr class="mt-1">
+        <div v-if="data" class="font-size-12 pr-10" v-html="data.excerpt.rendered"></div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3 mb-3">
+        <h5>Категории товаров:</h5>
+        <hr class="mt-1">
+        <a  v-for="category in CATEGORIES"
+            :key="category.id"
+            @click="toProducts(category.id)"
+            href="#" class="d-block text-decoration-none text-secondary my-2">
+          <b-icon-folder class="mr-1"></b-icon-folder>
+          {{category.name}}
+        </a>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <h5>Контакты:</h5>
+        <hr class="mt-1">
+          <a v-if="this.adress != ''" href="#" class="d-block text-decoration-none text-secondary my-2">
+            <b-icon-house-door class="mr-2"></b-icon-house-door>
+            <span class="">{{this.adress.title.rendered}}</span>
+          </a>
+          <a v-if="this.CUSTOMERS != ''" :href="'tel:' + this.CUSTOMERS.billing.phone" class="d-block text-decoration-none text-secondary my-2">
+            <b-icon-telephone class="mr-2"></b-icon-telephone>
+            <span class="">{{this.CUSTOMERS.billing.phone}}</span>
+          </a>
+          <a v-if="this.CUSTOMERS != ''" :href="'mailto:' + this.CUSTOMERS.billing.email" class="d-block text-decoration-none text-secondary my-2">
+            <b-icon-envelope class="mr-2"></b-icon-envelope>
+            <span class="">{{this.CUSTOMERS.billing.email}}</span>
+          </a>
+
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <h5>Найди свой носок:</h5>
+        <hr class="mt-1">
+        <div class="social-network d-flex align-items-start flex-column bd-highlight h-100" >
+        <b-navbar-nav class="bd-highlight mb-auto">
+          <b-nav-form v-on:submit.prevent="search(vModelValue)">
+            <b-form-input
+              size="sm"
+              class="mr-sm-2"
+              v-model="vModelValue"
+              @change="search(vModelValue)"
+              placeholder="Search"
+            ></b-form-input>
+            <b-button size="sm" class="search_btn my-2 my-sm-0" @click="search(vModelValue)">
+              <svg-icon name="search"></svg-icon>
+            </b-button>
+          </b-nav-form>
+        </b-navbar-nav>
+        
+          <h6 class="bd-highlight text-center text-sm-left w-100 mb-3">Мы в социальных сетях:</h6>
+          <div class="d-flex justify-content-center justify-content-sm-start bd-highlight w-100 mb-10">
+            <a href="#" class="mr-3 d-none">
+              <img src="@/assets/images/footer/twitter.png" alt="twitter" width="30">
+            </a>
+            <a href="#" class="mr-3">
+              <img src="@/assets/images/footer/facebook.png" alt="facebook" width="30">
+            </a>
+            <a href="#" class="mr-3">
+              <img src="@/assets/images/footer/instagram.png" alt="instagram" width="30">
+            </a>
+            <a href="#" class="mr-3 d-none">
+              <img src="@/assets/images/footer/youtube.png" alt="youtube" width="30">
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-12 text-center mt-3">
+        <hr>
+        <p class="text-secondary">© "Полтава" 2020</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</template>
+
+<script>
+import { BIconFolder, BIconEnvelope, BIconTelephone, BIconHouseDoor } from 'bootstrap-vue'
+import { mapActions, mapGetters } from "vuex";
+import axios from 'axios';
+
+export default {
+  name: "footer-bottom",
+  components: { BIconFolder, BIconEnvelope, BIconTelephone, BIconHouseDoor }, 
+  props: {},
+  data() {
+    return {
+      vModelValue: "",
+      data: '',
+      adress: ''
+    };
+  },
+  computed: {
+    ...mapGetters(["CATEGORIES", "CUSTOMERS"])
+  },
+  methods: {
+    ...mapActions([
+      "GET_CATEGORIES_FROM_API", 
+      "GET_ID_CATEGORIES_TO_VUEX", 
+      "GET_PRODUCTS_FROM_API", 
+      "GET_SEARCH_VALUE_TO_VUEX"
+    ]),
+
+    toProducts(value) {
+      this.GET_ID_CATEGORIES_TO_VUEX(value);
+      this.GET_PRODUCTS_FROM_API().then(response => {
+        if (response.data) {
+          this.$router.push('/shop');
+        }
+      })
+    },
+    search(value) {
+      this.GET_SEARCH_VALUE_TO_VUEX(value);
+      if (
+        !this.$route.query.page &&
+        this.$route.path != "/shop" &&
+        this.$route.path != "/shop/"
+      ) {
+        this.$router.push("/shop");
+        this.GET_PRODUCTS_FROM_API().then(response => {
+          if (response.data) {
+            this.vModelValue = '';
+          }
+        });
+      } else {
+        this.$router.push({ fullPath: "/shop" });
+        this.GET_PRODUCTS_FROM_API().then(response => {
+          if (response.data) {
+            this.vModelValue = '';
+          }
+        });
+      }
+    },
+
+  },
+  async mounted() {
+    axios.get('https://rubizhnesocks.pl.ua/wp-json/wp/v2/pages/124')
+          .then(response => this.data = response.data)
+          .catch(error => console.log(error));
+
+    axios.get('https://rubizhnesocks.pl.ua/wp-json/wp/v2/posts/1')
+        .then(response => this.adress = response.data)
+        .catch(error => console.log(error));
+
+    if(this.$route.path != '/') {
+      this.GET_CATEGORIES_FROM_API();
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+.footer {
+  background: $gray-600;
+  color: white;
+  .navbar-nav {
+    .form-inline {
+      flex-flow: row;
+    }
+  }
+}
+</style>

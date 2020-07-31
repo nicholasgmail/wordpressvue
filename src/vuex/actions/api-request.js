@@ -181,11 +181,10 @@ export default {
       version: SETTINGS.VERSION_3, // WooCommerce WP REST API version
       axiosConfig: SETTINGS.AXIOS,
     });
-    return WooCommerce.get("products/categories?include=33,36,39") // ?include=33,36,39
+    return WooCommerce.get("products/categories?include=33,36,39,53") // ?include=33,36,39
       .then((categories) => {
         //вызываем мутацию для передачи даных
         commit("SET_CATEGORIES_TO_STATE", categories.data);
-        //console.log(categories.data);
         return categories;
       })
       .catch((error) => {

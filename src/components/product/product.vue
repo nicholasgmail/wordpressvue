@@ -88,11 +88,11 @@
             <div class="row">
               <div class="col-12 d-flex flex-column mb-4 mx-auto">
                 <!-- Color -->
-                <colour v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'цвет'" 
+<!--                 <colour v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'цвет'" 
                         :colour="PRODUCT[0].attributes[0].options">
                 </colour>
-                <!-- Size -->
-                <select v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'Размер'"
+ -->                <!-- Size -->
+<!--                 <select v-if="PRODUCT[0].attributes[0] && PRODUCT[0].attributes[0].name === 'Размер'"
                         class="form-control form-control-md border-info mb-3">
                   <option>Размер</option>
                   <option
@@ -102,7 +102,9 @@
                   </option>
                 </select>
                 <select v-if="PRODUCT[0].attributes[1] && PRODUCT[0].attributes[1].name === 'Размер'"
-                        class="form-control form-control-md border-info mb-4">
+                        class="form-control form-control-md border-info mb-4"
+                        v-model="sizeProduct"
+                        >
                   <option>Размер</option>
                   <option
                     v-for="(size, index ) in PRODUCT[0].attributes[1].options"
@@ -110,7 +112,7 @@
                     {{size}}
                   </option>
                 </select>
-                <!-- Count -->
+ -->                <!-- Count -->
                 <div class="col-12 col-sm-6 col-md-5 px-0 text-center text-sm-left">
                   <b-input-group size="md">
                     <b-input-group-prepend>
@@ -160,7 +162,7 @@ export default {
   components: {
     LightGallery,
     SimilarProducts: () => import("@/components/catalog/similar-products"),
-    Colour: () => import("./colour")
+    //Colour: () => import("./colour")
   },
   props: {},
   data() {
@@ -172,7 +174,8 @@ export default {
       images: [],
       indexGallery: null,
       hover_cart: false,
-      hover_buy: false
+      hover_buy: false,
+      sizeProduct: 'Размер'
     };
   },
   computed: {
@@ -233,7 +236,7 @@ export default {
       if (!$index) {
         var $orders = {
           product_id: data.id,
-          quantity: this.countProduct
+          quantity: this.countProduct,
         };
         this.lineItems.push($orders);
         let $parse = JSON.stringify(this.lineItems);

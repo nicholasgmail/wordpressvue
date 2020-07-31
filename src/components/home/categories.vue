@@ -9,7 +9,7 @@
       <div
         v-for="category in CATEGORIES"
         :key="category.id"
-        class="card-body col-12 col-md-4"
+        class="card-body col-12 col-sm-6 col-md-3 py-1"
         @click="toProducts(category.id)"
       >
         <div class="card border-0">
@@ -19,6 +19,7 @@
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -63,7 +64,17 @@ export default {
 <style lang="scss">
 .categories {
   .card-body {
-    cursor: pointer;
+    
+    &:hover {
+      cursor: pointer;
+      img {
+        transition: all 0.1s ease-out;
+        transform: scale(1.02);
+        //border: red solid 3px;
+      }
+      
+    }
+
     .card {
       img {
         height: 278px;
