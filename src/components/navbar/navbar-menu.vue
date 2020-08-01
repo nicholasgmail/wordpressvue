@@ -11,6 +11,10 @@
             :key="index"
             :to="menuURLPath(menu.url)"
             @click="clearing_values()"
+            :menuName="menuURLPath(menu.url)"
+            :active=isActive
+            :exact=true
+            exact-active-class="router-link-exact-active"
             class="pr-2 mr-2"
             link-classes="text-uppercase position-relative px-0 font-size-14"
           >{{menu.title}}</b-nav-item>
@@ -44,6 +48,9 @@ export default {
   data() {
     return {
       vModelValue: "",
+      menuName: "",
+      isActive: false,
+      exact: false
     };
   },
   computed: {
@@ -97,6 +104,14 @@ export default {
   },
   mounted() {
     this.GET_MENU_FROM_API().then((response) => {});
+    console.log(this.$route.path)
+    console.log(this.menuName)
+    if(this.$route.path == this.menuName){
+      this.isActive = false;
+      this.$nextTick(()=>{
+        this.isActive = true;
+      })      
+    }
   },
   watch: {},
 };
@@ -133,7 +148,7 @@ header {
         }
       }
     }
-    .router-link-active {
+    .router-link-exact-active  {
       color: $white;
       &::before {
         content: "";
