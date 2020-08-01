@@ -11,7 +11,6 @@
             :key="index"
             :to="menuURLPath(menu.url)"
             @click="clearing_values()"
-            :menuName="menuURLPath(menu.url)"
             :active=isActive
             :exact=true
             exact-active-class="router-link-exact-active"
@@ -104,8 +103,7 @@ export default {
   },
   mounted() {
     this.GET_MENU_FROM_API().then((response) => {});
-    console.log(this.$route.path)
-    console.log(this.menuName)
+    console.log( this.menuName)
     if(this.$route.path == this.menuName){
       this.isActive = false;
       this.$nextTick(()=>{
@@ -149,7 +147,8 @@ header {
       }
     }
     .router-link-exact-active  {
-      color: $white;
+      color: #fff;
+      font-weight: bold;
       &::before {
         content: "";
         border-bottom: 3px solid $red;
