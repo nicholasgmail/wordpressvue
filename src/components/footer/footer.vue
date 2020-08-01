@@ -2,13 +2,13 @@
   <footer class="footer bg-dark">
     <div class="container-lg py-10">
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
           <h5>Наш товар:</h5>
           <hr class="mt-1 bg-white" />
           <div v-if="data" class="font-size-14 text-muted" v-html="data.excerpt.rendered"></div>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-3 mb-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
           <h5>Категории товаров:</h5>
           <hr class="mt-1 bg-white" />
           <a
@@ -23,7 +23,7 @@
           </a>
         </div>
 
-        <div class="col-md-3 mb-3">
+        <div class=" col-md-4 col-lg-3 mb-3">
           <h5>Контакты:</h5>
           <hr class="mt-1 bg-white" />
           <a
@@ -52,22 +52,31 @@
           </a>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
           <h5>Найди свои носоки:</h5>
           <hr class="mt-1 bg-white" />
           <div class="social-network d-flex align-items-start flex-column bd-highlight">
             <b-navbar-nav class="bd-highlight mb-auto">
               <b-nav-form v-on:submit.prevent="search(vModelValue)">
-                <b-form-input
-                  size="sm"
-                  class="mr-sm-2"
-                  v-model="vModelValue"
-                  @change="search(vModelValue)"
-                  placeholder="Search"
-                ></b-form-input>
-                <b-button size="sm" class="search_btn my-2 my-sm-0" @click="search(vModelValue)">
-                  <svg-icon name="search"></svg-icon>
-                </b-button>
+                <b-input-group class="mt-3">
+                  <b-form-input
+                    size="sm"
+                    class="mr-sm-2"
+                    v-model="vModelValue"
+                    @change="search(vModelValue)"
+                    placeholder="Search"
+                  ></b-form-input>
+                  <b-input-group-append>
+                    <b-button
+                      size="sm"
+                      class="btn-search"
+                      @click="search(vModelValue)"
+                      variant="info"
+                    >
+                      <svg-icon name="search"></svg-icon>
+                    </b-button>
+                  </b-input-group-append>
+                </b-input-group>
               </b-nav-form>
             </b-navbar-nav>
 
@@ -186,6 +195,11 @@ export default {
   .navbar-nav {
     .form-inline {
       flex-flow: row;
+    }
+    .btn-search{
+      svg{
+        fill: white;
+      }
     }
   }
 }

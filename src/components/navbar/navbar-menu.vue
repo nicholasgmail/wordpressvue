@@ -1,8 +1,7 @@
 
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="dark" class="px-0 pb-0 pt-0">  
-
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+  <b-navbar toggleable="lg" type="dark" variant="dark" class="px-0 pb-0 pt-0">
+    <b-navbar-toggle target="nav-collapse" class="border-0"></b-navbar-toggle>
     <b-container>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="pl-2 pl-lg-0">
@@ -11,11 +10,11 @@
             :key="index"
             :to="menuURLPath(menu.url)"
             @click="clearing_values()"
-            :active=isActive
-            :exact=true
+            :active="isActive"
+            :exact="true"
             exact-active-class="router-link-exact-active"
-            class="pr-2 mr-2"
-            link-classes="text-uppercase position-relative px-0 font-size-14"
+            class="py-2 pr-2 mr-2"
+            link-classes="navbar-link__hover text-uppercase position-relative px-0 font-size-14 text-center text-md-left"
           >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
         <!-- Search -->
@@ -49,7 +48,7 @@ export default {
       vModelValue: "",
       menuName: "",
       isActive: false,
-      exact: false
+      exact: false,
     };
   },
   computed: {
@@ -103,12 +102,12 @@ export default {
   },
   mounted() {
     this.GET_MENU_FROM_API().then((response) => {});
-    console.log( this.menuName)
-    if(this.$route.path == this.menuName){
+    console.log(this.menuName);
+    if (this.$route.path == this.menuName) {
       this.isActive = false;
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.isActive = true;
-      })      
+      });
     }
   },
   watch: {},
@@ -127,12 +126,17 @@ export default {
   }
 }
 header {
+  .navbar-toggler {
+    &:focus{
+      outline: none;
+    }
+  }
   .navbar-nav {
     .form-inline {
       flex-flow: row;
     }
-    .nav {
-      &-link {
+    .nav-link {
+      &__hover {
         color: $white;
         &:hover {
           color: $red;
@@ -146,7 +150,7 @@ header {
         }
       }
     }
-    .router-link-exact-active  {
+    .router-link-exact-active {
       color: #fff;
       font-weight: bold;
       &::before {
@@ -156,6 +160,23 @@ header {
         position: absolute;
         top: 95%;
       }
+    }
+  }
+}
+@include media-breakpoint-down(md) {
+  header {
+    .navbar-collapse {
+      position: absolute;
+      background: $dark;
+      top: 100%;
+      width: 100%;
+      z-index: 900;
+      .navbar-nav{
+        align-items: center;
+      }
+    }
+    .nav-link{
+      display: inline;
     }
   }
 }

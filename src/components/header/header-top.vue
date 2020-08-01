@@ -5,28 +5,27 @@
       <b-navbar-brand :href="url" class="mx-auto mx-sm-0 h1 text-uppercase mb-0">
         <img :src=" require('../../assets/logo.png') " alt="logo" height="50" />
       </b-navbar-brand>
-      <b-navbar-nav class="text-center mx-auto mx-sm-0 ml-sm-auto">
-        <b-nav-item :href="tophone" class="my-auto">
-          <svg-icon class="mr-2" name="phone" width="1rem" height="1rem" />
-          <span class="text-muted">{{phone}}</span>
+      <b-navbar-nav class="flex-row text-center mx-auto mx-sm-0 ml-sm-auto">
+        <b-nav-item :href="tophone" class="my-auto ml-3">
+          <svg-icon class="mr-2" name="phone" width="1rem" height="1.5rem" />
+          <span class="text-muted"></span>
+          <span class="d-none d-lg-inline-block">{{phone}}</span>
         </b-nav-item>
-        <b-nav-item :href="toemail" class="my-auto">
-          <svg-icon class="mr-2" name="email" width="1rem" height="1rem" />
-          <span class="text-muted">{{email}}</span>
+        <b-nav-item :href="toemail" class="my-auto ml-3">
+          <svg-icon class="mr-2" name="email" width="1rem" height="1.5rem" />
+          <span class="text-muted"></span>
+          <span class="d-none d-lg-inline-block">{{email}}</span>
         </b-nav-item>
       </b-navbar-nav>
       <div class="navbar-cart mx-auto mx-sm-0" @mousemove="openMinCart" @mouseleave="closeMinCart">
-        <b-dropdown id="dropdown-right" 
-                    right no-caret variant="outline-danger">
+        <b-dropdown id="dropdown-right" right no-caret variant="outline-danger">
           <template v-slot:button-content>
-              <svg-icon class=" svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
-              <span v-if="cartQuantity" class="mr-2"> {{cartTotalCost}} грн.</span>
-              <span class="text-uppercase" v-pre>Корзина</span>
+            <svg-icon class="svg-fill_red mr-2" name="cart" width="1.5rem" height="1.5rem" />
+            <span v-if="cartQuantity" class="mr-2">{{cartTotalCost}} грн.</span>
+            <span class="text-uppercase" v-pre>Корзина</span>
           </template>
           <b-dropdown-text :class="'test'">
-            <v-mini-cart  
-                          :cart_data="CART"
-            ></v-mini-cart>
+            <v-mini-cart :cart_data="CART"></v-mini-cart>
           </b-dropdown-text>
         </b-dropdown>
       </div>
@@ -38,7 +37,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "header-top",
   components: {
-    VMiniCart: () => import("@/components/cart/v-mini-cart")
+    VMiniCart: () => import("@/components/cart/v-mini-cart"),
   },
   props: {},
   data() {
@@ -50,12 +49,12 @@ export default {
       tophone: null,
       url: null,
       description: null,
-      show_minCart: false
+      show_minCart: false,
     };
   },
   created() {
     this.cart = this.getToCart();
-    this.cart.map(el => {
+    this.cart.map((el) => {
       this.GET_CART_FROM_API(el.product_id);
     });
   },
@@ -65,10 +64,10 @@ export default {
     cartTotalCost() {
       var result = [];
       if (this.CART.length) {
-        this.CART.map(elem => {
+        this.CART.map((elem) => {
           result.push(elem.price * elem.quantity);
         });
-        var $summ = result.reduce(function(sum, el) {
+        var $summ = result.reduce(function (sum, el) {
           return sum + el;
         });
         return $summ;
@@ -81,7 +80,7 @@ export default {
         for (let item of this.CART) {
           quantity.push(item.quantity);
         }
-        quantity = quantity.reduce(function(sum, el) {
+        quantity = quantity.reduce(function (sum, el) {
           return sum + el;
         });
         return quantity;
@@ -93,7 +92,7 @@ export default {
     ...mapActions([
       "GET_CUSTOMERS_FROM_API",
       "GET_INFO_FROM_API",
-      "GET_CART_FROM_API"
+      "GET_CART_FROM_API",
     ]),
 
     //метод для получения даных из локального хранилища
@@ -105,28 +104,28 @@ export default {
       return [];
     },
     openMinCart() {
-      let el_1 = document.querySelector('.dropdown-menu'); 
-          el_1.classList.add('show');
-          el_1.classList.add("mt-0");
-      let el_2 = document.querySelector('.dropdown-toggle');
-          el_2.style.backgroundColor = '#f45a40';
-          el_2.style.color = '#fff';
-      let el_3 = document.querySelector('button > .svg-fill_red > path');
-          el_3.style.fill = '#fff';
+      let el_1 = document.querySelector(".dropdown-menu");
+      el_1.classList.add("show");
+      el_1.classList.add("mt-0");
+      let el_2 = document.querySelector(".dropdown-toggle");
+      el_2.style.backgroundColor = "#f45a40";
+      el_2.style.color = "#fff";
+      let el_3 = document.querySelector("button > .svg-fill_red > path");
+      el_3.style.fill = "#fff";
     },
-    closeMinCart () {
-      let el_1 = document.querySelector('.dropdown-menu');
-          el_1.classList.remove('show');
-          el_1.classList.remove("mt-0");
-      let el_2 = document.querySelector('.dropdown-toggle');
-          el_2.style.backgroundColor = '#fff';
-          el_2.style.color = '#f45a40';
-      let el_3 = document.querySelector('button > .svg-fill_red > path');
-          el_3.style.fill = '#f45a40';
-    }
+    closeMinCart() {
+      let el_1 = document.querySelector(".dropdown-menu");
+      el_1.classList.remove("show");
+      el_1.classList.remove("mt-0");
+      let el_2 = document.querySelector(".dropdown-toggle");
+      el_2.style.backgroundColor = "#fff";
+      el_2.style.color = "#f45a40";
+      let el_3 = document.querySelector("button > .svg-fill_red > path");
+      el_3.style.fill = "#f45a40";
+    },
   },
   async mounted() {
-    this.GET_CUSTOMERS_FROM_API().then(response => {
+    this.GET_CUSTOMERS_FROM_API().then((response) => {
       if (response.data) {
         //console.log(response.data);
         this.phone = response.data.billing.phone;
@@ -135,14 +134,14 @@ export default {
         this.tophone = "tel:" + response.data.billing.phone;
       }
     });
-    this.GET_INFO_FROM_API().then(response => {
+    this.GET_INFO_FROM_API().then((response) => {
       if (response.data) {
         this.url = response.data.url;
         this.description = response.data.description;
       }
     });
-},
-  watch: {}
+  },
+  watch: {},
 };
 </script>
 
