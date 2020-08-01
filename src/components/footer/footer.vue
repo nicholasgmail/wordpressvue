@@ -55,8 +55,8 @@
         <div class="col-12 col-sm-6 col-md-3">
           <h5>Найди свои носоки:</h5>
           <hr class="mt-1 bg-white" />
-          <div class="social-network d-flex align-items-start flex-column bd-highlight">
-            <b-navbar-nav class="bd-highlight mb-auto">
+          <div class="social-network d-flex align-items-start flex-column">
+            <b-navbar-nav>
               <b-nav-form v-on:submit.prevent="search(vModelValue)">
                 <b-form-input
                   size="sm"
@@ -71,10 +71,8 @@
               </b-nav-form>
             </b-navbar-nav>
 
-            <h6 class="bd-highlight text-center text-sm-left mt-5">Мы в социальных сетях:</h6>
-            <div
-              class="d-flex justify-content-center justify-content-sm-start bd-highlight w-100 mb-10"
-            >
+            <h6 class="text-center text-sm-left mt-5">Мы в социальных сетях:</h6>
+            <div class="d-flex justify-content-center justify-content-sm-start  w-100 mb-10">
               <a href="#" class="mr-3 d-none">
                 <img src="@/assets/images/footer/twitter.png" alt="twitter" width="30" />
               </a>
@@ -88,6 +86,7 @@
                 <img src="@/assets/images/footer/youtube.png" alt="youtube" width="30" />
               </a>
             </div>
+            <iframe class="mx-auto" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2586.717012116844!2d34.5448150157003!3d49.58422677936526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d82f5bf7eaa52f%3A0xd1ab8aa1c6a12242!2z0YPQuy4g0KjQtdCy0YfQtdC90LrQviwgNDgsINCf0L7Qu9GC0LDQstCwLCDQn9C-0LvRgtCw0LLRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgMzYwMDA!5e0!3m2!1sru!2sua!4v1596277487479!5m2!1sru!2sua"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </div>
         </div>
       </div>
