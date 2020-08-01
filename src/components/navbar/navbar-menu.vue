@@ -1,16 +1,11 @@
 
 <template>
-  <b-container fluid="lg" tag="header" class="border-top border-bottom">
-    <b-navbar toggleable="lg" type="white" variant="white" class="px-0 pb-0 pt-0">
-      <b-navbar-toggle target="navbar-toggle-collapse" class="mx-auto">
-        <template v-slot:default="{ expanded }"><span class="text-muted"> Меню </span>
-        <b-icon-chevron-bar-up v-if="expanded" ></b-icon-chevron-bar-up>
-        <b-icon-chevron-bar-down v-else ></b-icon-chevron-bar-down>
-        </template>
-      </b-navbar-toggle>
+  <b-navbar toggleable="lg" type="dark" variant="dark" class="px-0 pb-0 pt-0">  
 
-      <b-collapse id="navbar-toggle-collapse" is-nav>
-        <b-navbar-nav class="pt-2 pl-2 pl-lg-0">
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-container>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="pl-2 pl-lg-0">
           <b-nav-item
             v-for="(menu, index) in MENU"
             :key="index"
@@ -21,7 +16,7 @@
           >{{menu.title}}</b-nav-item>
         </b-navbar-nav>
         <!-- Search -->
-        <b-navbar-nav class=" ml-auto">
+        <b-navbar-nav class="ml-auto">
           <b-nav-form v-on:submit.prevent="search(vModelValue)">
             <b-form-input
               size="sm"
@@ -36,31 +31,30 @@
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
-    </b-navbar>
-  </b-container>
+    </b-container>
+  </b-navbar>
 </template>
 <script>
-import { BIconChevronBarUp, BIconChevronBarDown } from 'bootstrap-vue';
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "header-menu",
-  components: { BIconChevronBarUp, BIconChevronBarDown },
+  components: {},
   props: {},
   data() {
     return {
-      vModelValue: ""
+      vModelValue: "",
     };
   },
   computed: {
-    ...mapGetters(["MENU", "SEARCH_VALUE", "CATEGORY_ID"])
+    ...mapGetters(["MENU", "SEARCH_VALUE", "CATEGORY_ID"]),
   },
   methods: {
     ...mapActions([
       "GET_MENU_FROM_API",
       "GET_PRODUCTS_FROM_API",
       "GET_SEARCH_VALUE_TO_VUEX",
-      "GET_ID_CATEGORIES_TO_VUEX"
+      "GET_ID_CATEGORIES_TO_VUEX",
     ]),
     menuURLPath(url) {
       /* eslint-disable */
@@ -78,13 +72,13 @@ export default {
           protocol: m[2] || "", // http:
           search: m[9] || "", // ?asd=asd
           username: m[4] || "", // username
-          password: m[5] || "" // password
+          password: m[5] || "", // password
         };
       return r.pathname;
     },
     search(value) {
       this.GET_SEARCH_VALUE_TO_VUEX(value);
-      if ( this.$route.path != "/shop" || this.$route.path != "/shop/" ) {
+      if (this.$route.path != "/shop" || this.$route.path != "/shop/") {
         this.$router.push("/shop");
         this.GET_PRODUCTS_FROM_API();
       } else {
@@ -92,19 +86,19 @@ export default {
         this.GET_PRODUCTS_FROM_API();
       }
     },
-     clearing_values() {
-      if(this.$router.path != "/shop" || this.$router.path != "/shop/") {
-        this.GET_ID_CATEGORIES_TO_VUEX('');
-        this.vModelValue = '';
-        this.GET_SEARCH_VALUE_TO_VUEX('');
+    clearing_values() {
+      if (this.$router.path != "/shop" || this.$router.path != "/shop/") {
+        this.GET_ID_CATEGORIES_TO_VUEX("");
+        this.vModelValue = "";
+        this.GET_SEARCH_VALUE_TO_VUEX("");
         this.GET_PRODUCTS_FROM_API();
       }
-    }, 
+    },
   },
   mounted() {
-    this.GET_MENU_FROM_API().then(response => {});
+    this.GET_MENU_FROM_API().then((response) => {});
   },
-  watch: {}
+  watch: {},
 };
 </script>
 
@@ -114,7 +108,6 @@ export default {
     svg {
       fill: white;
     }
-      
   }
   svg {
     fill: #7e7f84;
@@ -127,7 +120,7 @@ header {
     }
     .nav {
       &-link {
-        color: $gray-600;
+        color: $white;
         &:hover {
           color: $red;
           &::before {
@@ -140,8 +133,8 @@ header {
         }
       }
     }
-    .router-link-exact-active {
-      color: $red;
+    .router-link-active {
+      color: $white;
       &::before {
         content: "";
         border-bottom: 3px solid $red;

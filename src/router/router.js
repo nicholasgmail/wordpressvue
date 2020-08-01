@@ -18,21 +18,25 @@ const routes = [
   {
     path: "/",
     post_name: "home",
+    name: "Главная страница",
     component: Home,
   },
   {
     path: "/shop/",
     post_name: "shop",
+    name: "Каталог",
     component: Shop,
   },
   {
     path: "/blog/",
     post_name: "about-us",
+    name: 'О фабрике',
     component: AboutUs,
   },
   {
     path: "/404/",
     post_name: "404",
+    name:'404',
     component: NoPage,
   },
   {
@@ -41,23 +45,27 @@ const routes = [
   },
   {
     path: "/cart/",
-    name: "cart",
+    post_name: "cart",    
+    name:"Корзина",
     redirect: { path: "/cart/list-cart/" },
     component: Cart,
     children: [
       {
         path: "list-cart/",
-        name: "list catr",
+        post_name: "list catr",
+        name: 'Список товаров',
         component: ListCart,
       },
       {
         path: "order/",
-        name: "order",
+        post_name: "order",
+        name: "Оформление заказа",
         component: Order,
       },
       {
         path: "list-order-products/",
-        name: "list order products",
+        post_name: "list order products",
+        name: "Спасибо за покупку",
         component: ListOrderProducts,
       },
     ],
@@ -71,6 +79,7 @@ const routes = [
   {
     path: "/oplata-i-dostavka/",
     post_name: "payment-delivery",
+    name: "Оплата и доставка",
     component: PaymentDelivery,
   },
 
@@ -81,7 +90,6 @@ const router = new VueRouter({
   mode: "history",
   base: __dirname /* process.env.BASE_URL, */,
   routes,
-
   scrollBehavior(to, from, savedPosition) {
     to, from, savedPosition;
     return { x: 0, y: 0 }

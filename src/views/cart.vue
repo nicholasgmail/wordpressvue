@@ -1,6 +1,5 @@
 <template>
   <b-container fluid="lg" class="cart">
-    <breadcrumb :name_breadcrumb="title"></breadcrumb> 
     <h1 class="font-weight-bold text-center py-5 my-5">{{title}}</h1>
     <!--   <p v-if="!cart_data.length">Корзина пуста...</p> -->
     <b-nav v-if="show" class="cart__nav mb-6" tabs align="center">
@@ -23,9 +22,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "cart",
-  components: {
-    Breadcrumb: ()=>import ('@/components/breadcrumb/breadcrumb'),
-  },
+  components: {},
   props: {},
   data() {
     return {

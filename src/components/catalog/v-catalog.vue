@@ -1,7 +1,5 @@
 <template>
-  <b-container fluid="lg" class="v-catalog">
-    <breadcrumb :name_breadcrumb="'Носки купить'"></breadcrumb>    
-    
+  <b-container fluid="lg" class="v-catalog">    
     <h1 class="text-center">Носки купить</h1>
     <b-row cols="6" class="justify-content-between px-1 px-md-3 mb-2">
 
@@ -83,7 +81,6 @@ export default {
   name: "v-catalog",
   mixins: [paginationMixin, sortingCatalogMixin, sortingCategoriesMixin],
   components: { 
-    Breadcrumb: ()=>import ('@/components/breadcrumb/breadcrumb'),
     VCatalogItem 
   },
   props: {},

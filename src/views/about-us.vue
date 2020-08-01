@@ -1,6 +1,5 @@
 <template>
   <div class="about-us container-lg" v-if="data.title">
-    <breadcrumb :name_breadcrumb="data.title.rendered"></breadcrumb>
 
     <h1 class="my-3">{{data.title.rendered}}</h1>
 
@@ -12,10 +11,7 @@
 import axios from 'axios'
 export default {
   name: "about-us",
-  components: {
-    Breadcrumb: ()=>import ('@/components/breadcrumb/breadcrumb'),
-
-  },
+  components: {},
   props: {},
   data() {
     return {

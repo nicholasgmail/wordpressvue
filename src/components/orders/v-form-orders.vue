@@ -313,7 +313,7 @@ export default {
       });
     }
   },
-  directives: {
+  directives: {    
     phone: {
       bind(el) {
         el.oninput = function(e) {
