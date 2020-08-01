@@ -95,7 +95,7 @@
                 <img src="@/assets/images/footer/youtube.png" alt="youtube" width="30" />
               </a>
             </div>
-            <iframe class="mx-auto" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2586.717012116844!2d34.5448150157003!3d49.58422677936526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d82f5bf7eaa52f%3A0xd1ab8aa1c6a12242!2z0YPQuy4g0KjQtdCy0YfQtdC90LrQviwgNDgsINCf0L7Qu9GC0LDQstCwLCDQn9C-0LvRgtCw0LLRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgMzYwMDA!5e0!3m2!1sru!2sua!4v1596277487479!5m2!1sru!2sua"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            <iframe class="d-block img-fluid mx-auto" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2586.717012116844!2d34.5448150157003!3d49.58422677936526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d82f5bf7eaa52f%3A0xd1ab8aa1c6a12242!2z0YPQuy4g0KjQtdCy0YfQtdC90LrQviwgNDgsINCf0L7Qu9GC0LDQstCwLCDQn9C-0LvRgtCw0LLRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgMzYwMDA!5e0!3m2!1sru!2sua!4v1596277487479!5m2!1sru!2sua"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </div>
         </div>
       </div>
