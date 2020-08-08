@@ -9,7 +9,7 @@
       :interval="3000"
     >
       <b-carousel-slide
-        img-src="@/assets/images/slider/152417370-noski.png"
+        img-src="@/assets/images/slider/461362-PFLYDY-276.jpg"
       ></b-carousel-slide>
       <b-carousel-slide
         img-src="@/assets/images/slider/214838543-family-socks-02.jpg"
