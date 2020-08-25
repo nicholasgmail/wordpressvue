@@ -1,7 +1,7 @@
 <template>
   <b-row class="order pt-5">
     <b-col sm="12" lg="8">
-      <b-form v-if="show" @submit="onSubmit" @reset="onReset">
+      <b-form v-if="show" @submit="onSubmit" @reset="onReset" class="my-5">
         <div class="form-row">
           <b-form-group class="col d-none" id="input-group-notext" label-for="input-notext">
             <b-form-input
@@ -136,7 +136,6 @@
 
         <b-button type="submit" variant="primary" class="mr-1">Заказать</b-button>
         <b-button type="reset" variant="danger" class="mr-1">Очистить форму</b-button>
-        <b-button @click="onClick" variant="danger" class="mr-1">HASH</b-button>
       </b-form>
     </b-col>
     <v-cart-info :cart_item_data="cart_data"></v-cart-info>
@@ -183,6 +182,7 @@ export default {
       shipping_lines: [],
       status: "processing",
       line_items: [],
+      cart_hash:'',
       toString() {
         return {
           status: "processing",
@@ -192,7 +192,8 @@ export default {
           billing: this.billing,
           shipping: this.billing,
           line_items: this.line_items,
-          shipping_lines: this.shipping_lines
+          shipping_lines: this.shipping_lines,
+          cart_hash: this.cart_hash
         };
       }
     };
@@ -202,6 +203,10 @@ export default {
     const $itemProduct = JSON.parse(localStorage.getItem(this.LSTOREG));
     if ($itemProduct) {
       this.line_items = $itemProduct;
+    }
+    const $cartHash = JSON.parse(localStorage.getItem("cart_hash"));
+    if ($cartHash) {
+      this.cart_hash = $cartHash;
     }
     this.GET_ZONES_FROM_API().then(() => {
       if (this.ZONES) {

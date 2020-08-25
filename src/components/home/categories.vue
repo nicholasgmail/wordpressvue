@@ -1,6 +1,6 @@
 <template>
   <div class="categories container-lg py-3">
-    <h1 class="my-3 text-center">Категории товаровии</h1>
+    <h1 class="my-3 text-center">Категории товаров</h1>
     <div class="row">
       <div v-if="show" class="w-100 text-center my-3 text-primary">
         <b-spinner option="primary" label="Text Centered"></b-spinner>

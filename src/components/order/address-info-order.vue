@@ -7,6 +7,7 @@
       text-variant="white"
       title="Доставка:"
     >
+    <hr class="bg-secondary">
       <p v-if="order_data.billing.last_name">
         <b>Кому:</b>
         {{order_data.billing.last_name}} {{order_data.billing.first_name}}
@@ -33,6 +34,7 @@
       </p>
       <template v-slot:footer>
         <h5>Контакты:</h5>
+        <hr class="bg-secondary">
         <p v-if="order_data.billing.phone">
           <b>Телефон:</b>
           {{order_data.billing.phone}}
@@ -61,8 +63,11 @@ export default {
     return {};
   },
   created() {},
-  async mounted() {},
-  computed: {},
+  async mounted() {
+  },
+  computed: {
+   
+  },
   methods: {},
   watch: {}
 };

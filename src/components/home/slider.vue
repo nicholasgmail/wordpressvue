@@ -19,6 +19,7 @@
       ></b-carousel-slide>
     </b-carousel>
 
+
   </div>
 </template>
 

@@ -138,7 +138,7 @@
               </b-button>
               <b-button @mouseenter="hover_buy = true"
                         @mouseleave="hover_buy = false" 
-                        variant="outline-info btn_one_click w-100">Купить в один клик
+                        variant="outline-info btn_one_click w-100" class="d-none">Купить в один клик
                 <svg-icon name="click" 
                           style="width: 1.4em; height: 1.4em"
                           :class="{ hover_svg: hover_buy === true }"></svg-icon>

@@ -1,6 +1,6 @@
 <template>
   <b-row v-if="show" class="list-cart">
-    <b-col sm="12" lg="8">
+    <b-col sm="12" lg="8" class="list-md mb-5">
       <v-cart-item
         v-for="(item, index) in cart_data"
         :key="index"
@@ -136,6 +136,15 @@ export default {
     color: #fff;
     font-size: 20px;
     font-weight: bold;
+  }
+}
+.list-md{
+    overflow: hidden;
+    max-height: 390px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+    width: 3px;
+    background-color: #ececec;
   }
 }
 </style>

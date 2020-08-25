@@ -1,5 +1,6 @@
 <template>
-  <b-row no-gutters class="p-1" @mousemove="hover_item = true" @mouseleave="hover_item = false">
+  <b-row no-gutters class="p-1" @mousemove="hover_item = true" 
+  @mouseleave="hover_item = false">
     <b-col align-self="center" class="d-none col-1" :class="{'d-block': hover_item === true}">
       <b-btn-close @click="deleteFromCart" class="p-2" />
     </b-col>

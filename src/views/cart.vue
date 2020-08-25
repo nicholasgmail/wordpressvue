@@ -1,8 +1,8 @@
 <template>
-  <b-container fluid="lg" class="cart">
-    <h1 class="font-weight-bold text-center py-5 my-5">{{title}}</h1>
-    <!--   <p v-if="!cart_data.length">Корзина пуста...</p> -->
-    <b-nav v-if="show" class="cart__nav mb-6" tabs align="center">
+  <b-container fluid="lg" class="cart py-5">
+    <h1 class="font-weight-bold text-center mb-md-10">{{title}}</h1>
+    <p v-if="!CART.length">Корзина пуста...</p> 
+    <b-nav v-if="CART.length" class="cart__nav mb-6" tabs align="center">
       <b-nav-item
         v-for="(link, index) in links"
         :key="index"
@@ -47,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["ORDER"])
+    ...mapGetters(["ORDER", "CART"])
   },
   methods: {},
   watch: {}
